@@ -640,6 +640,34 @@ def test_what_was_requested_is_not_published_when_something_else_was_granted(tmp
     assert granted.output.needs_review is False
 
 
+def test_two_differing_candidates_under_the_same_kind_of_label_give_no_value(tmp_path):
+    # Each value below is real, quoted and readable. The document simply says two things.
+    amounts = run_base(
+        tmp_path,
+        (AMOUNT_LINE, AMOUNT_LINE + "Total change order amount: $12,950.00\n"),
+    )
+    assert amounts.output.amount.value is None
+    assert codes(amounts, "amount") == {"two_figures_are_labelled_as_the_change"}
+
+    dates = run_base(tmp_path, (DATE_LINE, DATE_LINE + "Date issued: 22 January 2026\n"))
+    assert dates.output.date.value is None
+    assert codes(dates, "date") == {"two_dates_are_labelled_as_the_documents_own"}
+
+    durations = run_base(
+        tmp_path, (TIME_LINE, TIME_LINE + "Time extension for this change: 9 calendar days\n")
+    )
+    assert durations.output.schedule_impact_days.value is None
+    assert codes(durations, "schedule_impact_days") == {"two_durations_are_given_for_the_schedule"}
+
+    # The same value stated twice is not a conflict.
+    repeated = run_base(
+        tmp_path,
+        (AMOUNT_LINE, AMOUNT_LINE + "Total change order amount: $12,450.00\n"),
+        (DATE_LINE, DATE_LINE + "Date issued: 15 January 2026\n"),
+    )
+    assert repeated.findings == ()
+
+
 @pytest.mark.parametrize(
     ("line", "written"),
     [

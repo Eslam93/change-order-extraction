@@ -215,6 +215,20 @@ def _sign(direction: str, written_negative: bool, cues: set[str]) -> tuple[int |
     return None, "wording_gives_both_directions"
 
 
+def _rivalry(label: str, rivals: list[str]) -> str | None:
+    """What stands against a value whose label makes it the answer, when other values in the
+    document carry such a label too and differ from it.
+
+    What was requested and what was granted are not rivals: the granted one stands, and the
+    requested one is refused when a granted one exists. Any other pair is a document that
+    gives two answers, and neither is taken.
+    """
+    if is_requested(label) and any(is_granted(rival) for rival in rivals):
+        return "granted_elsewhere"
+    unexplained = [rival for rival in rivals if not (is_granted(label) and is_requested(rival))]
+    return "second_candidate" if unexplained else None
+
+
 def _no_change(
     context: _Context,
     decision: Decision,
@@ -324,6 +338,13 @@ def _date(context: _Context, candidate: Candidate) -> Decision:
     value, problem, by_convention = token.resolve(context.date_convention)
     if value is None:
         return _unresolved(decision, problem or "date_not_readable")
+    if context.label_checks and any(
+        other.resolve(context.date_convention)[0] not in (None, value)
+        and date_label(context.text, other.start) == "own"
+        for other in context.dates
+    ):
+        # Two dates, each labelled as the document's own, and they differ.
+        return _unresolved(decision, "two_dates_are_labelled_as_the_documents_own")
     if by_convention:
         decision.caveats.append("day_month_order_from_other_dates")
     if token.two_digit_year:
@@ -453,13 +474,18 @@ def _amount(context: _Context, extraction: Extraction) -> Decision:
             for money in context.money
             if money.value not in (None, size) and written_like_money(money.raw)
         ]
-        if kind is None and any(kind_of(money) == "change" for money in others):
-            return _unresolved(decision, "another_figure_is_labelled_as_the_change")
-        if is_requested(nearest_label(context.text, token.start)) and any(
-            kind_of(money) == "change" and is_granted(nearest_label(context.text, money.start))
+        rivals = [
+            nearest_label(context.text, money.start)
             for money in others
-        ):
+            if kind_of(money) == "change"
+        ]
+        if kind is None and rivals:
+            return _unresolved(decision, "another_figure_is_labelled_as_the_change")
+        rivalry = _rivalry(nearest_label(context.text, token.start), rivals)
+        if rivalry == "granted_elsewhere":
             return _unresolved(decision, "a_different_figure_was_approved")
+        if rivalry == "second_candidate":
+            return _unresolved(decision, "two_figures_are_labelled_as_the_change")
     return _accept(context, decision, sign * size, (token.start, token.end))
 
 
@@ -506,11 +532,19 @@ def _schedule(context: _Context, candidate: SignedCandidate) -> Decision:
         line = _line(context, token.start)
         if not is_schedule_label(f"{label_before(context.text, token.start)} {line}"):
             return _unresolved(decision, "duration_is_not_about_the_schedule")
-        if is_requested(nearest_label(context.text, token.start)) and any(
-            days.value not in (None, size) and is_granted(nearest_label(context.text, days.start))
+        rivals = [
+            nearest_label(context.text, days.start)
             for days in context.days
-        ):
+            if days.value not in (None, size)
+            and is_schedule_label(
+                f"{label_before(context.text, days.start)} {_line(context, days.start)}"
+            )
+        ]
+        rivalry = _rivalry(nearest_label(context.text, token.start), rivals)
+        if rivalry == "granted_elsewhere":
             return _unresolved(decision, "a_different_duration_was_granted")
+        if rivalry == "second_candidate":
+            return _unresolved(decision, "two_durations_are_given_for_the_schedule")
 
     wording = _wording(context, decision, token.start, token.end)
     sign, problem = _sign(candidate.direction, token.negative, schedule_cues(wording))

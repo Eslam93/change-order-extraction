@@ -161,7 +161,8 @@ difference is the policy:
 |---|---|---|
 | Sign against the figure, the wording or the contract sums | `direction_contradicts_figure`, `direction_contradicts_wording`, `sign_contradicts_contract_sums`, `decrease_not_shown_by_document`, `wording_gives_both_directions` | conflict |
 | Amount is a contract total, a part, a ceiling, a quantity or a rate | `figure_is_a_contract_total`, `figure_is_a_part_of_the_change`, `figure_is_a_ceiling_or_an_estimate`, `figure_is_a_quantity_or_a_rate` | conflict |
-| Another figure is labelled as the change; a requested figure when another was approved | `another_figure_is_labelled_as_the_change`, `a_different_figure_was_approved` | conflict |
+| Another figure is labelled as the change; a requested figure or duration when another was granted | `another_figure_is_labelled_as_the_change`, `a_different_figure_was_approved`, `a_different_duration_was_granted` | conflict |
+| Two differing values under the same kind of label: two change amounts, two dates of the document's own, two schedule durations | `two_figures_are_labelled_as_the_change`, `two_dates_are_labelled_as_the_documents_own`, `two_durations_are_given_for_the_schedule` | conflict |
 | Amount against the contract sums before and after | `figure_contradicts_contract_sums` | conflict |
 | Two change order numbers; a number that differs from the labelled one | `conflicting_change_order_numbers`, `number_differs_from_labelled_change_order_number` | conflict |
 | Approval stated two ways (an APPROVED stamp and a rejection) | `conflicting_approval_evidence` | conflict |

@@ -152,7 +152,7 @@ write-up says what they do and do not show.
 ```text
 src/changeorder/     the pipeline (start with pipeline.py, then fields.py)
   vendor/            three cores lifted from the Toolkit, with a README
-tests/               468 tests of this code, 255 that travel with the lifted cores
+tests/               469 tests of this code, 255 that travel with the lifted cores
 samples/             six documents, their labels, the delivered outputs, the recorded runs
 eval/                28 labelled edge cases, their outputs, REPORT.md
 docs/WRITEUP.md      design, decisions, limits, what production would change
