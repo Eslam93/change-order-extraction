@@ -17,7 +17,7 @@ help:
 	@echo "make samples               rebuild the sample PDFs from samples/build_samples.py"
 	@echo "make samples-run           run the six samples against the live model (needs LLM_*)"
 	@echo "make eval                  run the labelled evaluation set live (needs LLM_*)"
-	@echo "make eval-replay           rebuild the evaluation report from recorded replies"
+	@echo "make eval-replay           rebuild every committed output from its recorded replies and compare"
 
 setup:
 	uv sync
@@ -56,4 +56,5 @@ eval:
 	uv run python -m changeorder.evaluation run eval
 
 eval-replay:
+	uv run python -m changeorder.evaluation replay samples
 	uv run python -m changeorder.evaluation replay eval

@@ -35,9 +35,6 @@ packages = ["src/changeorder"]
 testpaths = ["tests"]
 pythonpath = ["tests"]  # tests/helpers.py
 addopts = ["--strict-markers", "-ra", "--import-mode=importlib"]
-markers = [
-    "live: calls a real model; needs LLM_API_KEY and is never part of the default run",
-]
 
 [tool.ruff]
 line-length = 100
