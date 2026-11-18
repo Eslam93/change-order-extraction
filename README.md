@@ -156,6 +156,14 @@ single-field mistakes injected into the recorded replies. One is published (a ba
 taken from running text as the project name, in a document already flagged). With the label
 checks switched off, 126 are.
 
+That test is the author's own list of mistakes, and an independent review found others. Two
+rounds of it are described in the write-up. What the first round found is fixed. From the
+second, one reading error that needed no mistake from the model ("$1.2 mil" read as 1.2) is
+fixed, and the rest is open: [`tests/test_known_gaps.py`](tests/test_known_gaps.py) pins 91
+cases where a wrong value can still be published, nearly all of them only when the model's
+reply is wrong first, and 35 where a correct reply is refused. The checks make a mistaken
+reply unlikely to pass, not impossible.
+
 These numbers describe synthetic documents written by the pipeline's author and used to
 develop it. They are not a held-out test, and the confidence values are not calibrated. The
 write-up says what they do and do not show.
@@ -171,7 +179,7 @@ for is tested and what was not tested. In short:
 | Replay (`make eval-replay`) | Are the 34 committed outputs exactly what the current code produces from the recorded model replies? An output edited by hand fails the build |
 | Scoring against hand labels | The table above |
 | Stress test | What the checks do when the model is wrong: the 770 mistakes above |
-| Independent review | A second reader attacked the checks with documents and replies of its own. The first round got wrong values published; each case was fixed and is pinned in [`tests/test_false_accepts.py`](tests/test_false_accepts.py) and [`tests/test_hostile_input.py`](tests/test_hostile_input.py) |
+| Independent review | A second reader attacked the checks with documents and replies of its own, twice. What the first round found, and the one class from the second that needed no model mistake, is fixed and pinned in [`tests/test_false_accepts.py`](tests/test_false_accepts.py) and [`tests/test_hostile_input.py`](tests/test_hostile_input.py). The rest of the second round is open, and pinned as expected failures in [`tests/test_known_gaps.py`](tests/test_known_gaps.py) |
 | Live runs | The six samples and the 28 edge cases against a real model through `make`, recorded in `samples/diagnostics/` and `eval/diagnostics/` |
 
 ## Repository
@@ -202,8 +210,12 @@ docs/TESTING.md      how it was tested, and how to repeat it
   every confidence one band and forces review; what is on it is not read.
 - **English only.** The label and approval lexicons are English, and deliberately narrow: an
   unfamiliar phrasing is refused, not guessed. That costs recall (see the abstentions above).
-- **Refused, not read:** amounts written only in words or scaled by a word ("$1.2 million"),
-  three-decimal currencies, a range of days ("10-14 days"), and tables without a header row.
+- **The checks are not complete.** [`tests/test_known_gaps.py`](tests/test_known_gaps.py)
+  lists 126 known cases: wrong values a mistaken model reply can still get published, and
+  correct readings that are refused.
+- **Refused, not read:** amounts written only in words, scaled by a word ("$1.2 million") or
+  by a note ("all amounts in thousands"), three-decimal currencies, a range of days ("10-14
+  days"), and tables without a header row.
 - **One record per document.** A file holding several change orders is not split.
 - **Evaluated on synthetic documents only.** The checks were tightened against the cases the
   author's stress test and an independent review found; they have not met a real change order.

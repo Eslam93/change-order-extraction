@@ -10,6 +10,7 @@ import pytest
 from changeorder.normalize import (
     amount_cues,
     amount_label,
+    amounts_are_scaled,
     date_convention,
     date_label,
     decimal_mark_of,
@@ -428,6 +429,14 @@ def test_what_a_passage_shows_about_approval(text, cues):
         ("USD 2.75 MM", "figure_is_scaled_by_a_word"),
         ("$40 K", "figure_is_scaled_by_a_word"),
         ("$7 bn", "figure_is_scaled_by_a_word"),
+        # The same word shortened, in the plural, after a wider gap, or on the next line.
+        ("$1.2 mil", "figure_is_scaled_by_a_word"),
+        ("$1.2 millions", "figure_is_scaled_by_a_word"),
+        ("$1.2 Mio.", "figure_is_scaled_by_a_word"),
+        ("$350 thou.", "figure_is_scaled_by_a_word"),
+        ("$350 K.", "figure_is_scaled_by_a_word"),
+        ("$1.2  million", "figure_is_scaled_by_a_word"),
+        ("$1.2\nmillion", "figure_is_scaled_by_a_word"),
         # A point before exactly three digits, and no other figure to say what a point means.
         ("1.500", "point_before_three_digits_is_ambiguous"),
         ("KWD 950.250", "point_before_three_digits_is_ambiguous"),
@@ -445,13 +454,31 @@ def test_a_figure_that_is_not_the_whole_amount_is_refused(text, problem):
         ("1.500", ",", "1500"),  # the document writes a decimal comma, so the point groups
         ("$4,250.00\nK. Alvarez", None, "4250.00"),  # an initial on the next line is not a scale
         ("$4,500 M&E works", None, "4500"),  # nor is the M of "M&E"
-        ("$4,250.00 m. to follow", None, "4250.00"),
+        ("$4,250.00  K. Alvarez", None, "4250.00"),  # nor an initial in the next column
+        ("$4,250.00 monthly", None, "4250.00"),
     ],
 )
 def test_a_figure_beside_something_that_only_looks_like_a_scale_is_read(text, mark, value):
     money = find_money(text, mark)[0]
 
     assert money.value == Decimal(value) and money.problem is None
+
+
+@pytest.mark.parametrize(
+    ("note", "scaled"),
+    [
+        ("(All amounts in thousands of dollars)", True),
+        ("Figures in $000", True),
+        ("Amounts are shown in millions", True),
+        ("USD '000", True),
+        ("(in thousands)", True),
+        ("Amount of this change order: $12,450.00", False),
+        ("Amount: $000.00", False),  # a figure, not a note
+        ("Costs in the thousands of dollars were avoided.", False),
+    ],
+)
+def test_a_note_that_scales_every_figure_is_noticed(note, scaled):
+    assert amounts_are_scaled(note) is scaled
 
 
 @pytest.mark.parametrize(

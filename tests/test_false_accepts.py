@@ -211,6 +211,14 @@ def test_a_zero_in_a_table_is_read_under_its_own_column(tmp_path):
         ("$350 thousand", "figure_is_scaled_by_a_word"),
         ("USD 2.75 MM", "figure_is_scaled_by_a_word"),
         ("$40 K", "figure_is_scaled_by_a_word"),
+        # Found by the second review: the same word shortened, in the plural, after a wider gap.
+        # These need no mistake from the model: it points at the right figure.
+        ("$1.2 mil", "figure_is_scaled_by_a_word"),
+        ("$1.2 millions", "figure_is_scaled_by_a_word"),
+        ("$1.2 Mio.", "figure_is_scaled_by_a_word"),
+        ("$350 thou.", "figure_is_scaled_by_a_word"),
+        ("$350 K.", "figure_is_scaled_by_a_word"),
+        ("$1.2  million", "figure_is_scaled_by_a_word"),
         # 950,250, or 950.25 in a currency of three decimals: nothing in the document says.
         ("KWD 950.250", "point_before_three_digits_is_ambiguous"),
     ],
@@ -222,6 +230,30 @@ def test_a_figure_that_is_not_the_whole_amount_is_not_read_as_one(tmp_path, figu
     )
 
     refused(result, "amount", f"figure_not_readable:{problem}")
+
+
+def test_a_scale_word_on_the_next_line_still_scales_the_figure(tmp_path):
+    # The sentence wraps after the figure, and the model quotes only the first line.
+    line = "Amount of this change order (add): $1.2"
+    result = run_base(
+        tmp_path,
+        (AMOUNT_LINE, line + "\nmillion\n"),
+        amount=stated("$1.2", line, direction="increase"),
+    )
+
+    refused(result, "amount", "value_not_in_quoted_text")
+
+
+def test_a_document_that_states_its_amounts_in_thousands_gives_no_amount(tmp_path):
+    # "$350" under this note is 350,000. The pipeline does not multiply; it refuses.
+    line = "Amount of this change order (add): $350"
+    result = run_base(
+        tmp_path,
+        (AMOUNT_LINE, "(All amounts in thousands of dollars)\n" + line + "\n"),
+        amount=stated("$350", line, direction="increase"),
+    )
+
+    refused(result, "amount", "amounts_are_stated_in_thousands_or_millions")
 
 
 def test_a_model_cannot_scale_the_figure_itself(tmp_path):
