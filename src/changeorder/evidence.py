@@ -30,8 +30,6 @@ RULES: tuple[Rule, ...] = (
     PatternRule("line_end_hyphen", re.compile(r"(?<=\w)-[ \t]*\n[ \t]*(?=\w)"), "-", stage=MARKUP),
 )
 QUOTE_FUZZY = FuzzyPolicy(coverage=0.85, density=0.75)
-# A value whose words sit on one line with another column's text between them.
-SPLIT_VALUE = FuzzyPolicy(coverage=1.0, density=0.5)
 PASSAGE_FUZZY = FuzzyPolicy(coverage=0.9, density=0.8)
 # The fuzzy tier's cost grows with the quote's length, and the quote comes from a model.
 MAX_FUZZY_CHARS = 600
@@ -77,23 +75,20 @@ def windows_of(document: SourceDocument, evidence: list[Evidence]) -> list[tuple
 
 def locate_text(
     document: SourceDocument, value: str, windows: list[tuple[int, int]]
-) -> tuple[tuple[int, int], bool] | None:
-    """Where `value` is inside the quoted lines, and whether it stands there in one piece.
+) -> tuple[int, int] | None:
+    """Where `value` stands inside the quoted lines, or None when they do not hold it.
 
-    One piece: the value is the document's own characters, and the caller slices them out. Not
-    one piece: every word of it is there in order with other text between (a name that a second
-    column interrupts), which is weaker and is marked. None: the quoted lines do not hold it.
+    It has to stand there in one piece, character for character or after folding case, dashes
+    and white space. The caller slices those characters out of the document, so what is
+    published is never the model's copy. Words found in order with other text between them are
+    not a match: the pieces would have to be joined by the model's wording.
     """
     wanted = value.strip()
     if not wanted or not windows:
         return None
     found = align(document.text, wanted, windows=windows, rules=RULES)
     if found.kind in ("exact", "normalized") and found.span is not None:
-        return found.span, True
-    if len(wanted) <= MAX_FUZZY_CHARS:
-        found = align(document.text, wanted, windows=windows, fuzzy=SPLIT_VALUE, rules=RULES)
-        if found.kind == "fuzzy" and found.span is not None:
-            return found.span, False
+        return found.span
     return None
 
 

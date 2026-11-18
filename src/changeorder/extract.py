@@ -90,7 +90,8 @@ def first_json_object(text: str) -> dict[str, Any] | None:
     while start >= 0:
         try:
             found, _ = decoder.raw_decode(text, start)
-        except json.JSONDecodeError:
+        except (json.JSONDecodeError, RecursionError):
+            # RecursionError: brackets nested thousands deep. Not JSON anyone asked for.
             start = text.find("{", start + 1)
             continue
         if isinstance(found, dict):

@@ -13,18 +13,27 @@ from changeorder.normalize import (
     date_convention,
     date_label,
     decimal_mark_of,
+    duration_label,
     find_dates,
     find_days,
     find_money,
+    has_blank_signing_line,
+    header_above,
+    headings_above,
     is_granted,
+    is_hedged,
     is_requested,
     is_schedule_label,
     label_before,
     label_says_otherwise,
     nearest_label,
     no_change_cue,
+    reserves_rights,
     schedule_cues,
     status_cues,
+    sum_role,
+    ticked_statuses,
+    title_cues,
 )
 
 
@@ -38,9 +47,9 @@ from changeorder.normalize import (
         ("1.234,56 EUR", "1234.56", False),  # a point groups, a comma is the decimal mark
         ("1 234,56", "1234.56", False),  # spaces group when a decimal comma follows
         ("12,50", "12.50", False),
-        # One mark before exactly three digits groups thousands in money, which has two places...
+        # A comma before exactly three digits groups thousands in money, which has two places.
+        # (A point there is refused unless the document shows what its points mean: see below.)
         ("1,500", "1500", False),
-        ("1.500", "1500", False),
         ("($110,983.75)", "110983.75", True),  # parentheses: an accountant's minus
         ("(5,000.00)", "5000.00", True),
         ("-$5,000.00", "5000.00", True),
@@ -59,8 +68,8 @@ def test_one_figure_is_read_with_its_size_and_whether_it_is_written_negative(tex
 @pytest.mark.parametrize(
     ("text", "mark"),
     [
-        # ...unless the document's own figures prove that it writes a decimal point. Then
-        # "1.500" is neither 1500 nor a way anyone writes one and a half: it is refused.
+        # Where the document's own figures prove that it writes a decimal point, "1.500" is
+        # neither 1500 nor a way anyone writes one and a half: it is refused.
         ("1.500", "."),
         ("12.505", "."),
         ("1,500", ","),
@@ -382,7 +391,8 @@ def test_a_label_can_say_a_value_belongs_to_another_field(field, label, otherwis
         ("STATUS: APPROVED - fully executed by all parties.", {"approved": "explicit"}),
         ("[X] Approved as noted   [ ] Rejected   [ ] Resubmit", {"approved": "explicit"}),
         ("[ ] Approved   [X] Rejected", {"rejected": "explicit"}),
-        ("Accepted:", {"approved": "explicit"}),
+        # A heading over a signature block shows nothing by itself: the block may be unsigned.
+        ("Accepted:", {}),
         ("Approved by: Helen Tran", {"approved": "explicit"}),
         ("Signed: /s/ R. Calloway   Date: 15-Jan-2026", {"approved": "signature"}),
         ("STATUS: Pending Owner approval", {"pending": "explicit"}),
@@ -402,3 +412,266 @@ def test_a_label_can_say_a_value_belongs_to_another_field(field, label, otherwis
 )
 def test_what_a_passage_shows_about_approval(text, cues):
     assert status_cues(text) == cues
+
+
+# ---- Rules tightened after an independent review ------------------------------------------------
+#
+# Each case below is a reading the first version got wrong, or one that must not be lost by
+# refusing its neighbour. `tests/test_false_accepts.py` runs the same cases through the pipeline.
+
+
+@pytest.mark.parametrize(
+    ("text", "problem"),
+    [
+        ("$1.2 million", "figure_is_scaled_by_a_word"),
+        ("$350 thousand", "figure_is_scaled_by_a_word"),
+        ("USD 2.75 MM", "figure_is_scaled_by_a_word"),
+        ("$40 K", "figure_is_scaled_by_a_word"),
+        ("$7 bn", "figure_is_scaled_by_a_word"),
+        # A point before exactly three digits, and no other figure to say what a point means.
+        ("1.500", "point_before_three_digits_is_ambiguous"),
+        ("KWD 950.250", "point_before_three_digits_is_ambiguous"),
+    ],
+)
+def test_a_figure_that_is_not_the_whole_amount_is_refused(text, problem):
+    (money,) = find_money(text)
+
+    assert money.value is None and money.problem == problem
+
+
+@pytest.mark.parametrize(
+    ("text", "mark", "value"),
+    [
+        ("1.500", ",", "1500"),  # the document writes a decimal comma, so the point groups
+        ("$4,250.00\nK. Alvarez", None, "4250.00"),  # an initial on the next line is not a scale
+        ("$4,500 M&E works", None, "4500"),  # nor is the M of "M&E"
+        ("$4,250.00 m. to follow", None, "4250.00"),
+    ],
+)
+def test_a_figure_beside_something_that_only_looks_like_a_scale_is_read(text, mark, value):
+    money = find_money(text, mark)[0]
+
+    assert money.value == Decimal(value) and money.problem is None
+
+
+@pytest.mark.parametrize(
+    ("text", "negative"),
+    [
+        # Parentheses after an amount in words restate it. They are not an accountant's minus.
+        ("Twelve Thousand Four Hundred Fifty Dollars ($12,450.00)", False),
+        ("Twelve Thousand Four Hundred Fifty and 00/100 ($12,450.00)", False),
+        ("Credit ($12,450.00)", True),
+        # A dash set against the figure is a minus sign; a dash between words is punctuation.
+        ("Credit \u2013$12,450.00", True),
+        ("Net change \u2013 $12,450.00", False),
+        ("Items 2,000\u20133,000", False),
+    ],
+)
+def test_whether_a_figure_is_written_as_negative(text, negative):
+    assert find_money(text)[-1].negative is negative
+
+
+@pytest.mark.parametrize(
+    ("text", "value", "problem"),
+    [
+        ("10-14 days", None, "duration_is_a_range"),
+        ("10 to 14 days", None, "duration_is_a_range"),
+        ("3 or 4 days", None, "duration_is_a_range"),
+        ("(14) calendar days", 14, None),
+        ("( -5 ) days", 5, None),
+        ("one hundred twenty (120) days", 120, None),  # the figure is read; the words are its tail
+        ("one hundred twenty days", None, "number_in_words_not_read"),
+        ("twenty (120) days", None, "words_and_figures_disagree"),
+    ],
+)
+def test_a_duration_is_one_number_of_days(text, value, problem):
+    (days,) = find_days(text)
+
+    assert (days.value, days.problem) == (value, problem)
+    assert days.words_agree is False
+
+
+def test_a_numeric_date_needs_a_four_digit_year():
+    # A cost code, a section number and a year-first date all look like "26-05-19".
+    assert find_dates("Cost code: 26-05-19   Section 03.30.00   Ref 12/11/25") == []
+    assert date_convention(find_dates("Date: 03/04/2026\nCost code: 26-05-19")) is None
+    # With a month's name there is nothing to mistake.
+    (token,) = find_dates("5 Mar 26")
+    assert (token.first, token.second, token.year, token.two_digit_year) == (5, 3, 2026, True)
+
+
+@pytest.mark.parametrize(
+    ("line", "cues", "ticked"),
+    [
+        # Boxes after their options.
+        ("Approved [ ]   Rejected [X]", {"rejected": "explicit"}, {"rejected"}),
+        ("Approved: [X]   Rejected: [ ]", {"approved": "explicit"}, {"approved"}),
+        ("Approved [ ] Rejected [X]", {"rejected": "explicit"}, {"rejected"}),
+        ("Status:  Approved  [ ]  Rejected  [X]", {"rejected": "explicit"}, {"rejected"}),
+        # Boxes before their options, with one space or a column gap between.
+        ("Status:  [X] Approved   [ ] Rejected", {"approved": "explicit"}, {"approved"}),
+        ("[ ]  Approved  [X]  Rejected", {"rejected": "explicit"}, {"rejected"}),
+        ("\u2610 Approved \u2612 Rejected", {"rejected": "explicit"}, {"rejected"}),
+        # A label and nothing to show for it.
+        ("Approved by Owner:", {}, set()),
+        ("Approved by Owner: -----", {}, set()),
+        ("Approved by Owner: . . . . .", {}, set()),
+        ("Approved by ______________", {}, set()),
+        ("Accepted by:   Date:", {}, set()),
+        # A name after the label is an approval, stated.
+        ("Approved by Owner: R. Haddad", {"approved": "explicit"}, set()),
+    ],
+)
+def test_a_tick_box_or_a_blank_decides_what_a_status_word_shows(line, cues, ticked):
+    assert status_cues(line) == cues
+    assert ticked_statuses(line) == ticked
+
+
+@pytest.mark.parametrize(
+    ("text", "blank"),
+    [
+        ("Contractor: /s/ J. Smith\nOwner: ______________", True),
+        ("Approved by Owner: ______   Date: ____", True),
+        ("By:\n\nTitle: Director", True),
+        ("Authorized by:   Date:", True),
+        # A heading over signed lines, and labels with something after them.
+        ("Accepted:\nOwner: /s/ R. Haddad\nContractor: /s/ J. Smith", False),
+        ("Approved by: R. Haddad", False),
+        ("Requested by:\nBuilding Management", False),
+        ("Owner: Cedar Ridge School District", False),
+    ],
+)
+def test_whether_a_signature_block_has_an_unsigned_line(text, blank):
+    assert has_blank_signing_line(text) is blank
+
+
+@pytest.mark.parametrize(
+    ("line", "kind"),
+    [
+        ("Date: 15 January 2026", "own"),
+        ("Change Order Date: 15 January 2026", "own"),
+        ("Date Prepared: 15 January 2026", "own"),
+        ("Date of Issue: 15 January 2026", "own"),
+        ("Date of this Change Order: 15 January 2026", "own"),
+        ("Original date: 15 January 2026", "own"),
+        # Any other word before "date" makes it the date of something else.
+        ("Invoice Date: 15 January 2026", "other"),
+        ("Start Date: 15 January 2026", "other"),
+        ("Meeting Date: 15 January 2026", "other"),
+        ("Owner's Date: 15 January 2026", "other"),
+        ("Project: Gym Date: 15 January 2026", "other"),  # where the name ends cannot be told
+    ],
+)
+def test_only_the_documents_own_date_label_makes_a_date_its_own(line, kind):
+    assert date_label(line, line.index("15")) == kind
+
+
+def test_a_date_anywhere_under_a_signature_is_the_signatures():
+    block = "OWNER\nBy: R. Haddad\nName: R. Haddad\nTitle: Director\nDate: 21 January 2026"
+    assert date_label(block, block.index("21")) == "other"
+
+    letter = "/s/ R. Haddad\n\n21 January 2026"
+    assert date_label(letter, letter.index("21")) == "other"
+
+    # A header's "Requested by:" is not a signature.
+    header = "Change Order No.: 7\nRequested by: Owner\nContract No.: C-1\nDate: 21 January 2026"
+    assert date_label(header, header.index("21")) == "own"
+
+
+@pytest.mark.parametrize(
+    ("before", "after", "kind"),
+    [
+        ("Contract Time: extended by ", ".", "change"),
+        ("Add ", " to the schedule.", "change"),
+        ("Days", "", "change"),  # a column headed "Days"
+        ("Revised Contract Time: ", "", "total"),
+        ("The Contract Time prior to this Change Order was ", ".", "total"),
+        ("The Contract Time will be (increased) (decreased) by ", ".", "change"),  # a blank form
+        ("Net change by previous Change Orders: ", "", "total"),
+        ("Contract Time: extended by up to ", ".", "limit"),
+        ("Contract Time: extended by ", ", to be confirmed.", "limit"),
+        ("Estimated schedule impact: ", "", "limit"),
+        ("Payment is due within ", " of substantial completion.", "other"),
+        ("This proposal is valid for ", ".", "other"),
+        ("Lead time: ", "", "other"),
+        ("Crane - ", "", None),
+        # Only the duration's own sentence counts.
+        ("No change to the Contract Time. Mobilization ", ".", None),
+        ("Crane rental: ", ". Schedule impact: none", None),
+    ],
+)
+def test_what_the_words_around_a_duration_make_it(before, after, kind):
+    assert duration_label(before, after) == kind
+
+
+@pytest.mark.parametrize(
+    ("label", "role"),
+    [
+        ("The original Contract Sum was", "original"),
+        ("Original Contract Sum:", "original"),
+        ("Contract Sum prior to this Change Order:", "before"),
+        ("The Contract Sum prior to this Change Order was", "before"),
+        ("Previous Contract Sum:", "before"),
+        ("New Contract Sum including this Change Order:", "after"),
+        ("Revised Contract Sum", "after"),
+        ("Net change by previous Change Orders:", "earlier_changes"),
+        # A label that does not say which sum, or names no contract sum at all.
+        ("Current Contract Sum:", None),
+        ("Subtotal:", None),
+        ("Total:", None),
+        ("Amount of this change order:", None),
+    ],
+)
+def test_a_contract_sum_plays_the_role_its_own_label_gives_it(label, role):
+    assert sum_role(label) == role
+
+
+def test_a_ceiling_said_after_the_figure_is_still_a_ceiling():
+    assert amount_label("Amount of this change order: ", " (not to exceed)") == "limit"
+    assert amount_label("Amount of this change order: ", " NTE") == "limit"
+    assert amount_label("Amount of this change order: ", " estimated") == "limit"
+    assert amount_label("Amount of this change order: ", " (add)") == "change"
+    # The blank form's "(increased) (decreased)" does not make the sentence a contract total.
+    blank = (
+        "The Contract Sum will be (increased) (decreased) by this Change Order in the amount of: "
+    )
+    assert amount_label(blank) == "change"
+
+
+def test_headings_are_read_for_a_row_whose_own_column_cannot_be_told():
+    table = "Item  Description  Add  Deduct\n1  Delete canopy  $12,450.00"
+    figure = table.index("$")
+
+    assert header_above(table, figure) is None  # three cells under four headings
+    assert amount_cues(headings_above(table, figure)) == {"increase", "decrease"}
+
+    aligned = "Item  Description  Deduct\n1  Delete canopy  $12,450.00"
+    assert header_above(aligned, aligned.index("$")) == "Deduct"
+    assert headings_above(aligned, aligned.index("$")) == ""  # the column is known
+
+
+def test_a_title_gives_the_direction_and_a_hedge_takes_a_statement_back():
+    assert title_cues("DEDUCTIVE CHANGE ORDER\nProject: X") == {"decrease"}
+    assert title_cues("CHANGE ORDER\nThis supersedes the earlier credit.") == set()
+    assert is_hedged("No time extension is requested at this time.")
+    assert is_hedged("Time: no change, subject to review")
+    assert not is_hedged("No change to the Contract Time.")
+    assert reserves_rights("Contractor reserves the right to claim additional time.")
+    assert not reserves_rights("No change to the Contract Time.")
+
+
+@pytest.mark.parametrize(
+    ("field", "label", "otherwise"),
+    [
+        ("contract_number", "Contract Sum:", True),
+        ("contract_number", "Contract Date:", True),
+        ("contract_number", "Contract Time:", True),
+        ("change_order_number", "Change Order Date:", True),
+        ("change_order_number", "Change Order Amount:", True),
+        ("change_order_number", "Date:", True),
+        ("contract_number", "Contract No.:", False),
+        ("change_order_number", "Change Order No.:", False),
+    ],
+)
+def test_a_label_for_a_date_or_a_sum_does_not_label_an_identifier(field, label, otherwise):
+    assert label_says_otherwise(field, label) is otherwise

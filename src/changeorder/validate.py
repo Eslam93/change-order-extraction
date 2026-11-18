@@ -21,7 +21,9 @@ import re
 from .document import SourceDocument
 from .models import Decision, Finding
 from .normalize import (
+    after_on_line,
     amount_label,
+    before_on_line,
     date_convention,
     date_label,
     decimal_mark_of,
@@ -32,6 +34,7 @@ from .normalize import (
     label_before,
     line_of,
     status_cues,
+    ticked_statuses,
 )
 from .prompt import Extraction
 from .vendor.injection_sanitizer import sanitize
@@ -66,18 +69,18 @@ _REFERENCE = re.compile(
     r"|(?:supersed|replac|revis|amend)\w+(?:\s+by)?)\s*$",
     re.IGNORECASE,
 )
+# Every pattern here is bounded and none lets a run of punctuation span lines: they read text
+# someone else wrote.
 _STATUS_LINE = re.compile(
-    r"^\W*(?:status|disposition|action\s+taken)\s*[:\-\u2013]\s*(?P<rest>.+)$",
+    r"^[^\w\n]{0,20}(?:status|disposition|action\s+taken)\s{0,3}[:\-\u2013]\s{0,3}"
+    r"(?P<rest>.+)$",
     re.IGNORECASE | re.MULTILINE,
-)
-_TICKED = re.compile(
-    r"(?:\[\s*[xX\u2713\u2714]\s*\]|\(\s*[xX]\s*\)|[\u2611\u2612])\s*(?P<rest>[A-Za-z][^\[\]()\n]{2,40})"
 )
 # A line that is about the contract time, said narrowly enough that "at this time" is not one.
 _ADDRESSES_SCHEDULE = re.compile(
     r"\bcontract\s+time\b|\bschedule\s+(?:impact|effect)\b|\btime\s+(?:impact|extension|change)\b"
     r"|\bcompletion\s+(?:date|deadline)\b|\bextension\s+of\s+(?:time|the\s+completion)\b"
-    r"|\bdays\s+(?:added|deducted)\b|^\W*(?:time|schedule)\s*:",
+    r"|\bdays\s+(?:added|deducted)\b|^[^\w\n]{0,20}(?:time|schedule)\s{0,3}:",
     re.IGNORECASE | re.MULTILINE,
 )
 _CONTRACT_DATE_LABEL = re.compile(
@@ -163,13 +166,12 @@ def stated_statuses(text: str) -> set[str]:
     """The approval states the document states outright: a status line, a ticked box, or a stamp
     (a short line in capitals). Signature blocks and running prose are not counted here."""
     passages = [match["rest"] for match in _STATUS_LINE.finditer(text)]
-    passages += [match["rest"] for match in _TICKED.finditer(text)]
     passages += [
         line
         for line in text.splitlines()
         if len(line) <= 60 and any(char.isalpha() for char in line) and line == line.upper()
     ]
-    found: set[str] = set()
+    found = ticked_statuses(text)
     for passage in passages:
         found.update(status for status, kind in status_cues(passage).items() if kind == "explicit")
     return found
@@ -245,14 +247,14 @@ def _possibly_missed(decisions: dict[str, Decision], document: SourceDocument) -
 
     if decisions["amount"].state == "absent":
         for money in find_money(text, decimal_mark_of(text)):
-            end = line_of(text, money.start)[1]
-            kind = amount_label(label_before(text, money.start), text[money.end : end])
+            kind = amount_label(label_before(text, money.start), after_on_line(text, money.end))
             if money.value and kind == "change":
                 seen["amount"] = f"a figure is labelled as the change: {money.raw}"
                 break
     if decisions["schedule_impact_days"].state == "absent":
         for days in find_days(text):
-            if is_schedule_label(text[slice(*line_of(text, days.start))]):
+            beside = f"{before_on_line(text, days.start)} {after_on_line(text, days.end)}"
+            if is_schedule_label(beside):
                 seen["schedule_impact_days"] = (
                     f"a duration stands beside schedule wording: {days.raw}"
                 )
@@ -262,8 +264,9 @@ def _possibly_missed(decisions: dict[str, Decision], document: SourceDocument) -
             # "No change to the completion date", "Days added: 8".
             addressed = _ADDRESSES_SCHEDULE.search(text)
             if addressed:
-                line = text[slice(*line_of(text, addressed.start()))]
-                seen["schedule_impact_days"] = f"the document speaks of the schedule: {line[:80]}"
+                begin = line_of(text, addressed.start())[0]
+                line = text[begin : begin + 80].split(chr(10))[0]
+                seen["schedule_impact_days"] = f"the document speaks of the schedule: {line}"
     if decisions["change_order_number"].state == "absent":
         labelled = labelled_change_order_numbers(text)
         if labelled:

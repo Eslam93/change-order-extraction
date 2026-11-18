@@ -112,7 +112,7 @@ def test_a_failed_model_call_fails_with_status_4_and_prints_nothing(
     tmp_path, capsys, monkeypatch, replies
 ):
     document, _ = recorded(tmp_path)
-    monkeypatch.setattr(cli, "_model", lambda replay: ScriptedModel(replies))
+    monkeypatch.setattr(cli, "_model", lambda *args: ScriptedModel(replies))
 
     status = cli.main([str(document)])
 
@@ -187,3 +187,93 @@ def test_as_a_program_it_writes_utf8_json_to_stdout_and_logs_to_stderr(tmp_path)
     )
     assert failed.returncode == 3 and failed.stdout == b""
     assert b"could not be read" in failed.stderr
+
+
+def test_a_file_that_cannot_be_opened_fails_with_status_3(tmp_path, capsys, monkeypatch):
+    document, _ = recorded(tmp_path)
+
+    def locked(self: Path) -> bytes:
+        raise PermissionError(13, "Permission denied")
+
+    monkeypatch.setattr(Path, "read_bytes", locked)
+    status = cli.main([str(document)])
+
+    out, err = capsys.readouterr()
+    assert status == 3 and out == ""
+    assert "ERROR the document could not be read (not_readable)" in err
+    assert "Traceback" not in err
+
+
+def test_a_recording_made_with_another_prompt_is_not_replayed(tmp_path, capsys):
+    document, diagnostics = recorded(tmp_path)
+    data = json.loads(diagnostics.read_text(encoding="utf-8"))
+    data["run"]["prompt_fingerprint"] = "0" * 64
+    diagnostics.write_text(json.dumps(data), encoding="utf-8")
+
+    status = cli.main([str(document), "--replay", str(diagnostics)])
+
+    out, err = capsys.readouterr()
+    assert status == 4 and out == ""
+    assert "was recorded with another prompt" in err
+
+
+def test_replaying_a_recording_against_a_changed_document_says_so(tmp_path, capsys):
+    document, diagnostics = recorded(tmp_path)
+    document.write_text(BASE.replace("$12,450.00", "$99,999.00"), encoding="utf-8")
+
+    status = cli.main([str(document), "--replay", str(diagnostics)])
+
+    out, err = capsys.readouterr()
+    assert status == 0
+    assert "were recorded for another document" in err
+    # The recorded reply still points at $12,450.00, which this document does not hold.
+    assert json.loads(out)["amount"] == {"value": None, "confidence": 0.0}
+    assert json.loads(out)["needs_review"] is True
+
+
+def test_a_diagnostics_path_that_cannot_be_written_fails_before_anything_is_read(
+    tmp_path, capsys, monkeypatch
+):
+    document, diagnostics = recorded(tmp_path)
+    read: list[Path] = []
+    monkeypatch.setattr(cli, "read_document", read.append)
+
+    status = cli.main([str(document), "--replay", str(diagnostics), "--diagnostics", str(tmp_path)])
+
+    out, err = capsys.readouterr()
+    assert status == cli.EXIT_USAGE == 2 and out == ""
+    assert "--diagnostics" in err and "is a directory" in err
+    assert read == []  # found out before the document was read or a model was called
+
+
+def test_checking_the_diagnostics_path_leaves_nothing_behind_when_the_run_fails(tmp_path):
+    target = tmp_path / "out" / "diagnostics.json"
+
+    assert cli.main([str(tmp_path / "missing.pdf"), "--diagnostics", str(target)]) == 3
+    assert not target.exists()
+
+
+def test_a_bug_is_reported_as_a_bug_and_prints_nothing(tmp_path, capsys, monkeypatch):
+    document, diagnostics = recorded(tmp_path)
+
+    def broken(*args: object, **kwargs: object) -> None:
+        raise RuntimeError("something nothing expected")
+
+    monkeypatch.setattr(cli, "process_document", broken)
+    status = cli.main([str(document), "--replay", str(diagnostics)])
+
+    out, err = capsys.readouterr()
+    assert status == cli.EXIT_INTERNAL == 5 and out == ""
+    assert "internal error" in err and "RuntimeError: something nothing expected" in err
+
+
+def test_a_file_name_that_looks_like_an_option_is_still_a_file_name(capsys):
+    # `make extract FILE=--help` must not print the help text and exit 0.
+    makefile = (Path(__file__).resolve().parents[1] / "Makefile").read_text(encoding="utf-8")
+    assert makefile.count('-- "$(FILE)"') == 2  # extract and explain both end the options first
+
+    status = cli.main(["--", "--help"])
+
+    out, err = capsys.readouterr()
+    assert status == 3 and out == ""
+    assert "not_found" in err

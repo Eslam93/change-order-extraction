@@ -856,19 +856,40 @@ def test_an_absence_the_document_contradicts_is_not_taken_on_the_models_word(tmp
 
 
 def test_two_caveats_put_a_value_under_the_review_threshold(tmp_path):
+    # The day/month order comes from another date in the document, and the model dropped a
+    # word from the line it quoted. Either alone leaves the value at 0.75.
     result = run_base(
         tmp_path,
-        (DATE_LINE, "Date: 03/04/26\nReceived: 25/03/26\n"),
-        date=stated("03/04/26", "Date: 03/04/26"),
+        (DATE_LINE, "Date of issue: 03/04/2026\nReceived: 25/03/2026\n"),
+        date=stated("03/04/2026", "Date issue: 03/04/2026"),
     )
 
     assert result.output.to_dict()["date"] == {"value": "2026-04-03", "confidence": 0.5}
     assert set(result.decisions["date"].caveats) == {
         "day_month_order_from_other_dates",
-        "two_digit_year",
+        "quote_found_approximately",
     }
     assert codes(result) == {"low_confidence"}
     assert result.output.needs_review is True
+
+
+def test_a_two_digit_year_is_one_caveat(tmp_path):
+    result = run_base(
+        tmp_path, (DATE_LINE, "Date: 15 Jan 26\n"), date=stated("15 Jan 26", "Date: 15 Jan 26")
+    )
+
+    assert result.output.to_dict()["date"] == {"value": "2026-01-15", "confidence": 0.75}
+    assert result.decisions["date"].caveats == ["two_digit_year"]
+
+
+def test_a_numeric_date_with_a_two_digit_year_is_not_read_as_a_date(tmp_path):
+    # "03/04/26" could be a date in three orders, or a code. It is not guessed.
+    result = run_base(
+        tmp_path, (DATE_LINE, "Date: 03/04/26\n"), date=stated("03/04/26", "Date: 03/04/26")
+    )
+
+    assert result.output.to_dict()["date"] == {"value": None, "confidence": 0.0}
+    assert codes(result, "date") == {"date_not_readable"}
 
 
 def test_a_quote_found_only_approximately_lowers_the_band(tmp_path):

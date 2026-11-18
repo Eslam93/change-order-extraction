@@ -12,7 +12,9 @@ carries a reason that ends up in the diagnostics.
 
 from __future__ import annotations
 
+import bisect
 import datetime
+import functools
 import re
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -24,39 +26,104 @@ __all__ = [
     "DateToken",
     "Days",
     "Money",
+    "after_on_line",
     "amount_cues",
     "amount_label",
+    "before_on_line",
     "date_convention",
     "date_label",
     "decimal_mark_of",
+    "duration_label",
     "find_dates",
     "find_days",
     "find_money",
+    "has_blank_signing_line",
     "header_above",
+    "headings_above",
     "is_granted",
+    "is_hedged",
     "is_requested",
     "is_schedule_label",
     "label_before",
     "label_says_otherwise",
+    "line_above",
     "line_of",
+    "lines_above",
     "nearest_label",
     "no_change_cue",
+    "reserves_rights",
     "says_price",
     "schedule_cues",
+    "speaks_of_price",
     "status_cues",
+    "sum_role",
+    "ticked_statuses",
+    "title_cues",
     "written_like_money",
 ]
 
 # ---- Lines and labels -----------------------------------------------------------------------
 
+# How far along its line a label is looked for, and the longest line read as a table row. A
+# label sits beside its value. A line of many thousands of characters is a paragraph or an
+# attack, and must not cost its whole length for every value on it.
+_REACH = 240
+_LONGEST_ROW = 1000
+
+
+@functools.lru_cache(maxsize=8)
+def _line_breaks(text: str) -> list[int]:
+    """Where the text's line breaks are. Found once per text: a line can be as long as the
+    whole document, and looking for its ends again for every value on it adds up."""
+    breaks: list[int] = []
+    position = text.find("\n")
+    while position != -1:
+        breaks.append(position)
+        position = text.find("\n", position + 1)
+    return breaks
+
 
 def line_of(text: str, position: int) -> tuple[int, int]:
     """The start and end of the line that holds `position`."""
-    start = text.rfind("\n", 0, position) + 1
-    end = text.find("\n", position)
-    return start, len(text) if end == -1 else end
+    breaks = _line_breaks(text)
+    index = bisect.bisect_left(breaks, position)
+    start = breaks[index - 1] + 1 if index else 0
+    return start, breaks[index] if index < len(breaks) else len(text)
 
 
+def before_on_line(text: str, start: int) -> str:
+    """The text before `start` on its line, or the last `_REACH` characters of it."""
+    return text[max(line_of(text, start)[0], start - _REACH) : start]
+
+
+def after_on_line(text: str, end: int) -> str:
+    """The text after `end` on its line, or the first `_REACH` characters of it."""
+    return text[end : min(line_of(text, end)[1], end + _REACH)]
+
+
+def line_above(text: str, start: int) -> str:
+    """The nearest line above the one that holds `start` that is not empty."""
+    end = line_of(text, start)[0]
+    while end > 0 and text[end - 1] == "\n":
+        end -= 1
+    return text[max(text.rfind("\n", 0, end) + 1, end - _REACH) : end]
+
+
+def lines_above(text: str, start: int, most: int) -> str:
+    """The lines directly above the one that holds `start`: at most `most` of them, and none
+    beyond an empty line. They are the rest of the block the line belongs to."""
+    end = line_of(text, start)[0] - 1  # the line break that ends the line above
+    found: list[str] = []
+    while end > 0 and len(found) < most:
+        begin = text.rfind("\n", 0, end) + 1
+        if begin >= end:
+            break
+        found.append(text[max(begin, end - _REACH) : end])
+        end = begin - 1
+    return "\n".join(reversed(found))
+
+
+_THREE_LETTERS = re.compile(r"[^\W\d_][^\n]*?[^\W\d_][^\n]*?[^\W\d_]")
 # A figure standing on its own: not the digits of a code such as "COR-031" or "RFI-112".
 _FIGURE = re.compile(r"(?<![\w.,/-])\d[\d,.:/]*(?![\w-])")
 
@@ -72,48 +139,60 @@ def label_before(text: str, start: int) -> str:
     """
 
     def has_words(piece: str) -> bool:
-        return sum(char.isalpha() for char in piece) >= 3
+        return _THREE_LETTERS.search(piece) is not None
 
     heading = header_above(text, start)
     if heading is not None:  # a table row: the label is the column's heading, not a neighbour
         return heading
-    line_start, _ = line_of(text, start)
-    before = text[line_start:start]
+    before = before_on_line(text, start)
     figures = list(_FIGURE.finditer(before))
     nearest = before[figures[-1].end() :] if figures else before
     if has_words(nearest):
         return nearest
     if has_words(before):
         return before
-    above = text[:line_start].rstrip("\n")
-    return f"{above[above.rfind(chr(10)) + 1 :]} {before}"
+    return f"{line_above(text, start)} {before}"
 
 
 # ---- Money ----------------------------------------------------------------------------------
+#
+# Every quantifier below is bounded. These patterns run over text someone else wrote, and an
+# unbounded one invites a line of twenty thousand hyphens to cost a minute.
 
 _NUMBER = r"""(?:
-      \d{1,3}(?:,\d{3})+(?:\.\d+)?                      # 1,234,567.89
-    | \d{1,3}(?:\.\d{3})+(?:,\d+)?                      # 1.234.567,89
-    | \d{1,3}(?:[\u00a0\u202f]\d{3})+(?:[.,]\d+)?       # 1 234 567,89 with no-break spaces
-    | \d{1,3}(?:\ \d{3})+,\d{2}(?!\d)                   # 1 234 567,89 with plain spaces
-    | \d+(?:[.,]\d+)?                                   # 1234.56 and 12,50
+      \d{1,3}(?:,\d{3}){1,6}(?:\.\d{1,6})?                  # 1,234,567.89
+    | \d{1,3}(?:\.\d{3}){1,6}(?:,\d{1,6})?                  # 1.234.567,89
+    | \d{1,3}(?:[\u00a0\u202f]\d{3}){1,6}(?:[.,]\d{1,6})?   # 1 234 567,89 with no-break spaces
+    | \d{1,3}(?:\ \d{3}){1,6},\d{2}(?!\d)                   # 1 234 567,89 with plain spaces
+    | \d{1,15}(?:[.,]\d{1,6})?                              # 1234.56 and 12,50
 )"""
 _CURRENCY = r"(?:US\$|C\$|A\$|\$|\u20ac|\u00a3|USD|CAD|AUD|EUR|GBP|AED|SAR)"
 _MONEY = re.compile(
     rf"""
     (?<![\w.,/-])                                # not the tail of a code, a date or a number
-    (?P<open>\(\s*)?
-    (?P<minus>(?<![\w)])[-\u2212])?              # a minus sign touching the figure, not a dash
-    (?P<currency>{_CURRENCY}\s*)?
+    (?P<open>\(\s?)?
+    (?P<minus>(?<![\w)])[-\u2212\u2013])?        # a minus sign touching the figure, not a dash
+    (?P<currency>{_CURRENCY}\s{{0,3}})?
     (?P<minus2>[-\u2212])?
     (?P<number>{_NUMBER})
     (?![\w%/]|[.,]\d)                            # not a percentage, a code, a date or a rate's head
     (?P<currency2>\s?(?:USD|CAD|AUD|EUR|GBP|AED|SAR)\b)?
-    (?P<close>\s*\))?
+    (?P<close>\s?\))?
     (?P<credit>\s?CR\b)?
     """,
     re.VERBOSE,
 )
+# "$1.2 million", "350 thousand", "2.75 MM", "40 k": the figure is not the amount. A single
+# letter counts only as a word of its own, not as the initial of "K. Alvarez" or the M of "M&E".
+_SCALE_AFTER = re.compile(
+    r"[ \t]?(?:(?:million|billion|thousand|mm|bn|mn)\b|[km]\b(?![.&/'-]))", re.IGNORECASE
+)
+# "Twelve Thousand Four Hundred Fifty Dollars ($12,450.00)": the parentheses restate the words.
+_IN_WORDS_BEFORE = re.compile(
+    r"\b(?:dollars?|euros?|pounds?|cents?|hundred|thousand|million|only|\d{1,2}/100)\W{0,3}$",
+    re.IGNORECASE,
+)
+_POINT_AND_THREE = re.compile(r"\d{1,3}\.\d{3}")
 
 
 @dataclass(frozen=True)
@@ -133,23 +212,31 @@ def find_money(text: str, decimal_mark: str | None = None) -> list[Money]:
     """Every figure in the text that is written like an amount of money."""
     found: list[Money] = []
     for match in _MONEY.finditer(text):
-        read = read_number(match["number"], max_places=2, decimal_mark=decimal_mark)
+        number = match["number"]
+        read = read_number(number, max_places=2, decimal_mark=decimal_mark)
         value: Decimal | None = read.value
         problem: str | None = read.reason
         if value is not None and value.as_tuple().exponent < -2:  # type: ignore[operator]
             # "1.500" where the document writes "4,120.50": by the rule it is one and a half,
             # which no one writes that way. Refused, not read as 1.50 and not as 1500.
             value, problem = None, "more_than_two_decimal_places"
+        elif value is not None and decimal_mark is None and _POINT_AND_THREE.fullmatch(number):
+            # "950.250" with nothing else to go by: 950,250, or 950.25 in a currency of three
+            # decimals. A comma before three digits is the usual thousands mark; a point is not.
+            value, problem = None, "point_before_three_digits_is_ambiguous"
+        elif value is not None and _SCALE_AFTER.match(text, match.end()):
+            value, problem = None, "figure_is_scaled_by_a_word"
+        enclosed = bool(match["open"] and match["close"])
+        restated = enclosed and bool(
+            _IN_WORDS_BEFORE.search(text[max(0, match.start() - 40) : match.start()])
+        )
         negative = bool(
-            (match["open"] and match["close"])
-            or match["minus"]
-            or match["minus2"]
-            or match["credit"]
+            (enclosed and not restated) or match["minus"] or match["minus2"] or match["credit"]
         )
         # A lone parenthesis belongs to the sentence, not to the figure.
-        start = match.start() if match["open"] and match["close"] else match.start("number")
-        end = match.end() if match["open"] and match["close"] else match.end("number")
-        if not (match["open"] and match["close"]):
+        start = match.start() if enclosed else match.start("number")
+        end = match.end() if enclosed else match.end("number")
+        if not enclosed:
             for group in ("minus", "currency"):
                 if match[group]:
                     start = min(start, match.start(group))
@@ -180,19 +267,28 @@ _WORD_NUMBER = (
     rf"(?:(?:{'|'.join(_TENS)})(?:[-\s](?:one|two|three|four|five|six|seven|eight|nine))?"
     rf"|{'|'.join(sorted(_UNITS, key=len, reverse=True))})"
 )
+_FIGURE_OF_DAYS = r"\d{1,5}(?:[.,]\d{1,3})?"
 _DAYS = re.compile(
     rf"""
     (?<![\w.,/])
-    (?:(?P<words>{_WORD_NUMBER})\s*)?
-    (?:\(\s*)?
-    (?P<minus>[-\u2212])?(?P<plus>\+)?
-    (?P<number>\d+(?:[.,]\d+)?)?
-    (?:\s*\))?
-    [\s-]*(?:(?:calendar|working|business|work|consecutive)[\s-]+)?
+    (?:
+        (?P<words>{_WORD_NUMBER})
+        (?:\s?\(\s?(?P<restated>{_FIGURE_OF_DAYS})\s?\))?    # "fourteen (14)"
+      |
+        (?P<open>\(\s?)?                                     # "(14) days", "( -5 ) days"
+        (?P<minus>[-\u2212])?\+?
+        (?P<number>{_FIGURE_OF_DAYS})
+        (?(open)\s?\))
+    )
+    [\s-]{{0,3}}(?:(?:calendar|working|business|work|consecutive)[\s-]{{1,3}})?
     (?P<unit>days?|weeks?|months?)\b
     """,
     re.VERBOSE | re.IGNORECASE,
 )
+# "10-14 days", "10 to 14 days": a range is not a number of days.
+_RANGE_BEFORE = re.compile(r"\d\s?(?:-|\u2013|to|or)\s?$", re.IGNORECASE)
+# "one hundred twenty (120) days": the words this reader knows are only the number's tail.
+_LONGER_NUMBER_BEFORE = re.compile(r"\b(?:hundred|thousand)(?:\s+and)?[\s-]{1,3}$", re.IGNORECASE)
 
 
 def _words_value(words: str) -> int:
@@ -218,11 +314,15 @@ def find_days(text: str) -> list[Days]:
     """Every length of time in the text: "fourteen (14) calendar days", "4 working days"."""
     found: list[Days] = []
     for match in _DAYS.finditer(text):
-        words, number = match["words"], match["number"]
-        if not words and not number:
-            continue
+        words = match["words"]
+        number = match["restated"] if words else match["number"]
         unit = match["unit"].lower()
         from_words = _words_value(words) if words else None
+        tail_only = bool(words) and bool(
+            _LONGER_NUMBER_BEFORE.search(text[max(0, match.start() - 16) : match.start()])
+        )
+        if tail_only:
+            from_words = None
         value: int | None = None
         problem: str | None = None
         if number is not None:
@@ -232,10 +332,14 @@ def find_days(text: str) -> list[Days]:
                 problem = "words_and_figures_disagree"
             else:
                 value = int(number)
+        elif tail_only:
+            problem = "number_in_words_not_read"
         else:
             value = from_words
         if unit.startswith("month"):
             value, problem = None, "months_have_no_fixed_length"
+        elif _RANGE_BEFORE.search(text[max(0, match.start() - 6) : match.start()]):
+            value, problem = None, "duration_is_a_range"
         in_weeks = unit.startswith("week")
         if value is not None and in_weeks:
             value *= 7
@@ -247,7 +351,7 @@ def find_days(text: str) -> list[Days]:
                 end=match.end(),
                 negative=bool(match["minus"]),
                 in_weeks=in_weeks,
-                words_agree=bool(words and number and problem is None),
+                words_agree=bool(words and number and problem is None and not tail_only),
                 problem=problem,
             )
         )
@@ -274,7 +378,7 @@ _DATE_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "day_month_name",
         re.compile(
-            rf"(?<![\d/.-])(?P<d>\d{{1,2}})(?:st|nd|rd|th)?[\s./-]*{_MONTH}\.?[\s.,/-]*"
+            rf"(?<![\d/.-])(?P<d>\d{{1,2}})(?:st|nd|rd|th)?[\s./-]{{0,3}}{_MONTH}\.?[\s.,/-]{{0,3}}"
             r"(?P<y>\d{4}|\d{2})(?![\d/-])",
             re.IGNORECASE,
         ),
@@ -282,14 +386,17 @@ _DATE_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "month_name_day",
         re.compile(
-            rf"\b{_MONTH}\.?\s+(?P<d>\d{{1,2}})(?:st|nd|rd|th)?,?\s+(?P<y>\d{{4}})(?![\d/-])",
+            rf"\b{_MONTH}\.?\s{{1,3}}(?P<d>\d{{1,2}})(?:st|nd|rd|th)?,?\s{{1,3}}(?P<y>\d{{4}})"
+            r"(?![\d/-])",
             re.IGNORECASE,
         ),
     ),
     (
+        # A numeric date needs a four-digit year. "26-05-19" is as likely a cost code, a section
+        # number or a year-first date, and must not be read as a date or prove anything.
         "numeric",
         re.compile(
-            r"(?<![\d/.-])(?P<a>\d{1,2})(?P<s>[/.-])(?P<b>\d{1,2})(?P=s)(?P<y>\d{4}|\d{2})(?![\d/-])"
+            r"(?<![\d/.-])(?P<a>\d{1,2})(?P<s>[/.-])(?P<b>\d{1,2})(?P=s)(?P<y>\d{4})(?![\d/-])"
         ),
     ),
 )
@@ -351,19 +458,30 @@ class DateToken:
 def find_dates(text: str) -> list[DateToken]:
     """Every date in the text that names a day, a month and a year."""
     found: list[DateToken] = []
-    taken: list[tuple[int, int]] = []
+    taken: list[tuple[int, int]] = []  # the spans already read as dates, in order
+
+    def is_taken(start: int, end: int) -> bool:
+        index = bisect.bisect_left(taken, (start, start))
+        return (index < len(taken) and taken[index][0] < end) or (
+            index > 0 and taken[index - 1][1] > start
+        )
+
     for kind, pattern in _DATE_PATTERNS:
         for match in pattern.finditer(text):
-            if any(match.start() < end and start < match.end() for start, end in taken):
+            if is_taken(match.start(), match.end()):
                 continue
-            taken.append(match.span())
             year_text = match["y"]
             if kind == "numeric":
                 first, second, name = int(match["a"]), int(match["b"]), "numeric"
+            elif kind == "iso":
+                first, second, name = int(match["d"]), int(match["m"]), "iso"
             else:
-                month = int(match["m"]) if kind == "iso" else _MONTHS[match["month"][:3].lower()]
-                first, second = int(match["d"]), month
-                name = "iso" if kind == "iso" else "month_name"
+                # casefold, not lower: the pattern is case-insensitive, and a long s matches "s".
+                month = _MONTHS.get(match["month"].casefold()[:3])
+                if month is None:
+                    continue
+                first, second, name = int(match["d"]), month, "month_name"
+            bisect.insort(taken, match.span())
             found.append(
                 DateToken(
                     raw=match.group(0),
@@ -408,6 +526,25 @@ _NO_CHANGE = re.compile(
     re.IGNORECASE,
 )
 _NOT_APPLICABLE = re.compile(r"\bn\s?/\s?a\b|\bnot\s+applicable\b", re.IGNORECASE)
+# A title that gives the direction of the whole document: "DEDUCTIVE CHANGE ORDER".
+_TITLE_DIRECTION = re.compile(
+    r"^[^\w\n]{0,3}(?:(?P<down>deductive|deduct|credit)|(?P<up>additive|add))\s+"
+    r"(?:change\s+order|c\.?o\.?\b|modification|variation)",
+    re.IGNORECASE | re.MULTILINE,
+)
+# Words that leave a statement open: "No time extension is requested at this time" does not
+# say the time is unchanged, and neither does one made while reserving the right to claim.
+_HEDGED = re.compile(
+    r"\bat\s+(?:this|the\s+present)\s+time\b|\bat\s+present\b|\bfor\s+now\b"
+    r"|\bto\s+be\s+(?:determined|confirmed|advised|agreed|assessed|evaluated|negotiated|submitted)\b"
+    r"|\bt\.?b\.?[dca]\b|\bpending\b|\bsubject\s+to\b|\bnot\s+yet\b|\bunknown\b|\bunder\s+review\b"
+    r"|\bcannot\s+(?:yet\s+)?be\s+determined\b|\bunless\b|\bprovided\s+that\b|\bexcept\b",
+    re.IGNORECASE,
+)
+_RESERVATION = re.compile(
+    r"\breserv\w+\s+(?:the\s+|its\s+|their\s+|all\s+)?rights?\b|\bwithout\s+prejudice\b",
+    re.IGNORECASE,
+)
 
 
 def _cues(text: str, up: re.Pattern[str], down: re.Pattern[str]) -> set[str]:
@@ -430,11 +567,29 @@ def schedule_cues(text: str) -> set[str]:
     return _cues(text, _TIME_UP, _TIME_DOWN)
 
 
+def title_cues(text: str) -> set[str]:
+    """The directions the document's own title lines give the change."""
+    found = set()
+    for match in _TITLE_DIRECTION.finditer(text):
+        found.add("decrease" if match["down"] else "increase")
+    return found
+
+
 def no_change_cue(text: str) -> str | None:
     """ "explicit" when the text says nothing changes, "not_applicable" for N/A, else None."""
     if _NO_CHANGE.search(text):
         return "explicit"
     return "not_applicable" if _NOT_APPLICABLE.search(text) else None
+
+
+def is_hedged(text: str) -> bool:
+    """Whether a statement leaves its subject open ("at this time", "to be confirmed")."""
+    return bool(_HEDGED.search(text))
+
+
+def reserves_rights(text: str) -> bool:
+    """Whether the text reserves a right to claim later."""
+    return bool(_RESERVATION.search(text))
 
 
 # ---- What the words beside a value make it -----------------------------------------------------
@@ -447,25 +602,49 @@ def no_change_cue(text: str) -> str | None:
 _COLUMN_GAP = re.compile(r"\s{2,}")
 
 
-def header_above(text: str, start: int) -> str | None:
-    """The column heading over the value at `start`, when its line is a row under a header row.
-
-    A header row is the line above when it has the same number of columns as this one (three
-    or more) and holds no figures and no colons, as a row of headings does and a row of
-    "Label: value" pairs does not. None for any other line.
-    """
+def _row_above(text: str, start: int) -> tuple[list[str], str, int] | None:
+    """The headings of the line above when it reads as a header row, with this line and the
+    position of `start` on it. A header row has three or more columns and holds no figures and
+    no colons, as a row of headings does and a row of "Label: value" pairs does not."""
     line_start, line_end = line_of(text, start)
-    if line_start == 0:
+    if line_start == 0 or line_end - line_start > _LONGEST_ROW:
         return None
-    header = text[slice(*line_of(text, line_start - 1))].strip()
+    header_start, header_end = line_of(text, line_start - 1)
+    if header_end - header_start > _LONGEST_ROW:
+        return None
+    header = text[header_start:header_end].strip()
     if not header or ":" in header or any(char.isdigit() for char in header):
         return None
     headings = _COLUMN_GAP.split(header)
-    row = text[line_start:line_end]
-    if len(headings) < 3 or len(headings) != len(_COLUMN_GAP.split(row.strip())):
+    if len(headings) < 3:
         return None
-    column = len(_COLUMN_GAP.findall(row[: start - line_start].lstrip()))
+    return headings, text[line_start:line_end], start - line_start
+
+
+def header_above(text: str, start: int) -> str | None:
+    """The column heading over the value at `start`, when its line is a row under a header row
+    with the same number of columns. None for any other line."""
+    found = _row_above(text, start)
+    if found is None:
+        return None
+    headings, row, position = found
+    if len(headings) != len(_COLUMN_GAP.split(row.strip())):
+        return None
+    column = len(_COLUMN_GAP.findall(row[:position].lstrip()))
     return headings[column] if column < len(headings) else None
+
+
+def headings_above(text: str, start: int) -> str:
+    """Every heading of the header row over the value at `start`, when its own column cannot be
+    told: a row with fewer cells than the header has headings, as under "Add" and "Deduct"
+    columns of which one is empty. Empty when the line above is no header row, or when the
+    value's column is known."""
+    found = _row_above(text, start)
+    if found is None:
+        return ""
+    headings, row, _ = found
+    cells = len(_COLUMN_GAP.split(row.strip()))
+    return "  ".join(headings) if 2 <= cells < len(headings) else ""
 
 
 def nearest_label(text: str, start: int) -> str:
@@ -475,8 +654,7 @@ def nearest_label(text: str, start: int) -> str:
     heading = header_above(text, start)
     if heading is not None:
         return heading
-    line_start, _ = line_of(text, start)
-    before = text[line_start:start]
+    before = before_on_line(text, start)
     figures = list(_FIGURE.finditer(before))
     if figures:
         before = before[figures[-1].end() :]
@@ -488,7 +666,7 @@ _CONTRACT = r"(?:sub)?(?:contract|agreement)\s+(?:sum|amount|price|value|total)"
 _TOTAL_LABEL = re.compile(
     rf"\b(?:original|revised|new|current|adjusted|previous|prior|updated|final|total)\s+{_CONTRACT}"
     rf"|\b{_CONTRACT}\s+(?:prior\s+to|before|after|including|to\s+date|as\s+of|was\b|remains\b"
-    r"|will\s+be(?!\s+(?:increased|decreased|changed|reduced|adjusted|unchanged)))"
+    r"|will\s+be(?!\W{1,3}(?:increased|decreased|changed|reduced|adjusted|unchanged)))"
     r"|\bnet\s+change\s+by\s+(?:previous|previously|prior)"
     r"|\bprevious(?:ly)?\s+(?:authori[sz]ed\s+|approved\s+)?change\s+orders",
     re.IGNORECASE,
@@ -499,8 +677,15 @@ _LIMIT_LABEL = re.compile(
     r"|\bapprox\w*|\bup\s+to\b|\bmaximum\b",
     re.IGNORECASE,
 )
+# The same said after the figure: "$22,000.00 (not to exceed)", "$5,000 estimated".
+_LIMIT_AFTER = re.compile(
+    r"^[\s,(\-\u2013]{0,3}(?:not\s+to\s+exceed|n\.?t\.?e\b|max(?:imum)?\b|est(?:imated?)?\b|approx\w*"
+    r"|budget\w*|allowance\b|ceiling\b|or\s+less\b|t\.?b\.?[dc]\b"
+    r"|to\s+be\s+(?:confirmed|determined|agreed))",
+    re.IGNORECASE,
+)
 _CHANGE_LABEL = re.compile(
-    r"\b(?:increased|decreased|changed|reduced|adjusted)\s+by\b"
+    r"\b(?:increased|decreased|changed|reduced|adjusted)\)?\s+by\b"
     rf"|\b(?:increas|decreas|reduc)\w*\s+(?:the\s+)?{_CONTRACT}\s+by\b"
     rf"|\b(?:change|increase|decrease|addition|add|adjustment|credit|deduct\w*)\s+(?:in|to|of|from)"
     rf"\s+(?:the\s+)?{_CONTRACT}"
@@ -512,7 +697,7 @@ _CHANGE_LABEL = re.compile(
     r"|\b(?:amount|total)\s+(?:approved|requested|proposed)\b"
     r"|\b(?:approved|requested|proposed)\s+(?:amount|total)\b"
     # "ADD:", "Net change - DEDUCT": the word right beside the figure, not a verb in a sentence.
-    r"|\b(?:add|deduct|credit)\b[\s:)\-]*$",
+    r"|\b(?:add|deduct|credit)\b[\s:)\-]{0,6}$",
     re.IGNORECASE,
 )
 _PART_LABEL = re.compile(
@@ -521,14 +706,14 @@ _PART_LABEL = re.compile(
     re.IGNORECASE,
 )
 # A plain "TOTAL" at the head of its label, when nothing more specific was said.
-_PLAIN_TOTAL = re.compile(r"^\W*total\b", re.IGNORECASE)
+_PLAIN_TOTAL = re.compile(r"^\W{0,6}total\b", re.IGNORECASE)
 # A figure followed by a unit is a quantity; one after "@" or before "/unit" is a rate.
 _MEASURE_AFTER = re.compile(
     r"^\s?(?:sq\.?\s?ft|sf|lf|cy|sy|tons?|feet|foot|ft|hrs?|hours?|ea|each|m2|m3|lbs?|kg"
     r"|gal(?:lons?)?|inch(?:es)?|%)\b|^\s?/\s?[A-Za-z]",
     re.IGNORECASE,
 )
-_RATE_BEFORE = re.compile(r"(?:@|\bat|\bx)\s*$", re.IGNORECASE)
+_RATE_BEFORE = re.compile(r"(?:@|\bat|\bx)\s{0,3}$", re.IGNORECASE)
 _REQUESTED = re.compile(r"\b(?:request|propos|claim|submit)\w*", re.IGNORECASE)
 _GRANTED = re.compile(r"\b(?:approv|grant|authori[sz]|accept|agree)\w*", re.IGNORECASE)
 
@@ -544,7 +729,7 @@ def amount_label(before: str, after: str = "") -> str | None:
         return "measure"
     if _TOTAL_LABEL.search(before):
         return "total"
-    if _LIMIT_LABEL.search(before):
+    if _LIMIT_LABEL.search(before) or _LIMIT_AFTER.match(after):
         return "limit"
     if _CHANGE_LABEL.search(before) or _CHANGE_LABEL.search(after):
         return "change"
@@ -553,11 +738,45 @@ def amount_label(before: str, after: str = "") -> str | None:
     return "change" if _PLAIN_TOTAL.search(before) else None
 
 
+_SUM_AFTER = re.compile(
+    r"\b(?:revised|new|adjusted|updated)\b|\bafter\b|\bincluding\b|\bwill\s+be\b|\bis\s+now\b",
+    re.IGNORECASE,
+)
+_SUM_BEFORE = re.compile(
+    r"\bprior\s+to\b|\bbefore\b|\bwas\b|\b(?:previous|present|existing)\s", re.IGNORECASE
+)
+_SUM_ORIGINAL = re.compile(r"\b(?:original|initial|base)\b", re.IGNORECASE)
+_SUM_EARLIER_CHANGES = re.compile(
+    r"\bnet\s+change\s+by\s+(?:previous|previously|prior)"
+    r"|\b(?:previous|prior)(?:ly)?\s+(?:authori[sz]ed\s+|approved\s+)?change\s+orders",
+    re.IGNORECASE,
+)
+
+
+def sum_role(label: str) -> str | None:
+    """Which contract sum a label names: "original", "before" (just before this change order),
+    "after", or "earlier_changes" (the total of earlier change orders). None when the label
+    names no contract sum, or does not say which one ("Current Contract Sum")."""
+    if not _TOTAL_LABEL.search(label):
+        return None
+    if _SUM_EARLIER_CHANGES.search(label):
+        return "earlier_changes"
+    after = bool(_SUM_AFTER.search(label))
+    if _SUM_ORIGINAL.search(label):
+        return None if after else "original"
+    if _SUM_BEFORE.search(label):
+        return None if after else "before"
+    return "after" if after else None
+
+
 _HAS_CURRENCY = re.compile(_CURRENCY)
 _MONEY_SHAPED = re.compile(rf"{_CURRENCY}|[.,]\d")
 _PRICE_WORDS = re.compile(
     r"\b(?:amount|price|cost|sum|total|value|charge|credit|deduct\w*|add|increase|decrease)\b",
     re.IGNORECASE,
+)
+_PRICE_SUBJECT = re.compile(
+    r"\b(?:price|costs?|amount|sum|charges?|compensation|fee|value)\b", re.IGNORECASE
 )
 
 
@@ -571,6 +790,11 @@ def says_price(raw: str, label: str) -> bool:
     """Whether anything marks a figure as a price at all: a currency on the figure, or a word
     for money in its label. "Below elevation 412.0" has neither."""
     return bool(_HAS_CURRENCY.search(raw) or _PRICE_WORDS.search(label))
+
+
+def speaks_of_price(text: str) -> bool:
+    """Whether a statement is about the price: "no change to the Contract Sum", "no cost"."""
+    return bool(_PRICE_SUBJECT.search(text))
 
 
 def is_requested(label: str) -> bool:
@@ -587,12 +811,79 @@ _SCHEDULE_LABEL = re.compile(
     r"|days?\s+(?:added|deducted|granted))\b",
     re.IGNORECASE,
 )
+# A column headed "Days" and nothing else.
+_DAYS_HEADING = re.compile(
+    r"^\W{0,3}(?:(?:calendar|working|business)\s+)?days\W{0,3}$", re.IGNORECASE
+)
+# The contract time itself, or the days of earlier change orders: a total, not this change.
+_TIME_TOTAL = re.compile(
+    r"\b(?:original|revised|new|current|adjusted|previous|prior|updated)\s+(?:contract\s+)?"
+    r"(?:time|duration|period)\b(?!\s+(?:extension|impact|change|adjustment))"
+    r"|\btotal\s+contract\s+(?:time|duration|period)\b"
+    r"|\bcontract\s+(?:time|duration|period)\s+(?:prior\s+to|before|after|including|to\s+date"
+    r"|as\s+of|was\b|is\s+now\b|remains\b"
+    r"|will\s+be(?!\W{1,3}(?:increased|decreased|changed|reduced|adjusted|unchanged|extended"
+    r"|shortened)))"
+    r"|\bnet\s+change\s+by\s+(?:previous|previously|prior)"
+    r"|\b(?:previous|prior)(?:ly)?\s+(?:authori[sz]ed\s+|approved\s+)?change\s+orders",
+    re.IGNORECASE,
+)
+# A guess, a ceiling or a floor, said before the duration or after it.
+_UNSURE_BEFORE = re.compile(
+    r"\b(?:up\s+to|approx\w*|estimat\w*|not\s+to\s+exceed|maximum|max|at\s+least|minimum"
+    r"|no\s+more\s+than|no\s+less\s+than|possibl[ey]|potential\w*|anticipat\w*|may\s+be|could\s+be"
+    r"|might\s+be|between)\b[^.;\n]{0,30}$",
+    re.IGNORECASE,
+)
+_UNSURE_AFTER = re.compile(
+    r"^[\s,;:(\-\u2013]{0,4}(?:to\s+be\s+(?:confirmed|determined|agreed|advised|verified)"
+    r"|t\.?b\.?[dc]\b|approx\w*|est(?:imated?)?\b|or\s+more\b|or\s+less\b|more\s+or\s+less\b"
+    r"|max(?:imum)?\b|min(?:imum)?\b|pending\b|subject\s+to\b|tentative\w*|if\b)",
+    re.IGNORECASE,
+)
+# A term for something else: a payment, a period of validity, a lead time, a deadline to act.
+_OTHER_TERM = re.compile(
+    r"\b(?:within|valid\s+for|good\s+for|open\s+for|net|every|per|each|after|first|last|next"
+    r"|past|lead[\s-]?time)\W{0,3}$"
+    r"|\b(?:payment|pay|paid|invoic\w+|warranty|guarantee|retainage|validity)\b[^.;\n]{0,40}$",
+    re.IGNORECASE,
+)
+_SENTENCE_START = re.compile(r"[.;!?]\s+(?=[A-Z(\[])")
+_SENTENCE_END = re.compile(r"[.;!?](?:\s|$)|\s{2,}")
 
 
 def is_schedule_label(label: str) -> bool:
-    """Whether the words before a duration are about the contract time. "Valid for 15 days" and
-    "Crane - 1 day" are durations too, and neither is the schedule impact."""
-    return bool(_SCHEDULE_LABEL.search(label))
+    """Whether words are about the contract time. "Valid for 15 days" and "Crane - 1 day" are
+    durations too, and neither is the schedule impact."""
+    return bool(_SCHEDULE_LABEL.search(label) or _DAYS_HEADING.match(label))
+
+
+def duration_label(before: str, after: str = "") -> str | None:
+    """What the words around a length of time make it.
+
+    "total": the contract time itself, or the days of earlier change orders. "limit": a
+    ceiling, a floor, an estimate, or a number still to be confirmed. "other": a term for
+    something else (a payment, a period of validity, a lead time). "change": the words are
+    about the contract time. None when they do not say.
+
+    Only the duration's own sentence is read: what a neighbouring sentence or the next column
+    says about time is not said about this number.
+    """
+    starts = [match.end() for match in _SENTENCE_START.finditer(before)]
+    if starts:
+        before = before[starts[-1] :]
+    end = _SENTENCE_END.search(after)
+    if end:
+        after = after[: end.start()]
+    if _TIME_TOTAL.search(before):
+        return "total"
+    if _UNSURE_BEFORE.search(before) or _UNSURE_AFTER.match(after):
+        return "limit"
+    if _OTHER_TERM.search(before):
+        return "other"
+    if is_schedule_label(before) or _SCHEDULE_LABEL.search(after):
+        return "change"
+    return None
 
 
 _OTHER_EVENT = re.compile(
@@ -603,58 +894,125 @@ _OTHER_EVENT = re.compile(
     r"|approved|accepted|executed|authori[sz]ed|rejected|void(?:ed)?|answered|action|revised"
     r"|(?:memo|letter|email|drawing|sketch|report|proposal|quote|quotation|survey|discharge"
     r"|invoice|meeting|walk)\s+(?:dated|of|on))\b"
-    r"|\bby\s*:",
+    r"|\bby\s{0,3}:",
     re.IGNORECASE,
 )
 _OWN_DATE = re.compile(
-    r"\b(?:date|dated|issued|issue|prepared|sent)\W*"
-    r"(?:(?:mon|tues|wednes|thurs|fri|satur|sun)day\W*)?$",
+    r"\b(?:date|dated|issued|issue|issuance|prepared|submitted|written|initiated|created|sent"
+    r"|date\s+of\s+(?:this\s+|the\s+)?(?:change\s+order|request|document|proposal))"
+    r"\W{0,12}(?:(?:mon|tues|wednes|thurs|fri|satur|sun)day\W{0,6})?$",
     re.IGNORECASE,
 )
-_SIGNATURE_CONTEXT = re.compile(r"\bby\s*:|/s/|\bsigned\b|\bsignature\b", re.IGNORECASE)
+# The words that may stand before "date" in the label of the document's own date. Any other
+# word makes it the date of something else: "Invoice Date", "Start Date", "Meeting Date".
+_OWN_DATE_WORDS = frozenset(
+    [
+        "change",
+        "order",
+        "co",
+        "cor",
+        "pco",
+        "cco",
+        "ccd",
+        "document",
+        "doc",
+        "this",
+        "request",
+        "proposal",
+        "variation",
+        "modification",
+        "amendment",
+        "directive",
+        "form",
+        "no",
+        "number",
+        "of",
+        "the",
+        "on",
+        "date",
+        "dated",
+        "issue",
+        "issued",
+        "issuance",
+        "prepared",
+        "submitted",
+        "submission",
+        "written",
+        "initiated",
+        "created",
+        "creation",
+        "sent",
+        "original",
+        "today",
+        "s",
+    ]
+)
+_WORD = re.compile(r"[a-z]+")
+_SIGNATURE_CONTEXT = re.compile(r"\bby\s{0,3}:|/s/|\bsigned\b|\bsignature\b", re.IGNORECASE)
+# A line of a signature block, wherever it stands in the block above a date.
+_SIGNING = re.compile(
+    r"^[^\w\n]{0,3}by\s{0,3}:|\s{2}by\s{0,3}:"
+    r"|\b(?:approved|accepted|authori[sz]ed|agreed|recommended|reviewed|signed|executed"
+    r"|witnessed)\s+by\b|/s/|\bsignatures?\b|\bsigned\b",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _labels_the_documents_date(label: str) -> bool:
+    match = _OWN_DATE.search(label)
+    if match is None:
+        return False
+    lead = label[: match.start()]
+    lead = lead[lead.rfind(":") + 1 :]  # what follows an earlier label's colon
+    return all(word in _OWN_DATE_WORDS for word in _WORD.findall(lead.lower()))
 
 
 def date_label(text: str, start: int) -> str:
     """What the words beside the date at `start` make it.
 
-    "own": labelled as the document's date ("Date:", "Issued:", "Date Prepared:"), or standing
-    alone at the head of its line as a letter's date does. "other": the date of something else
-    (the contract, a signature, a completion, an approval, a referenced letter), or a date in
-    a signature block. "unlabelled": in running text with no label that says either.
+    "own": labelled as the document's date ("Date:", "Issued:", "Change Order Date:", "Date
+    Prepared:"), or standing alone at the head of its line as a letter's date does. "other": the
+    date of something else (the contract, an invoice, a completion, an approval, a referenced
+    letter), or a date in a signature block. "unlabelled": in running text with no label that
+    says either.
     """
-    line_start, _ = line_of(text, start)
-    before = text[line_start:start]
-    above = text[:line_start].rstrip("\n")
-    previous = above[above.rfind("\n") + 1 :]
+    before = before_on_line(text, start)
     label = nearest_label(text, start)
     if _OTHER_EVENT.search(label) or _SIGNATURE_CONTEXT.search(before):
         return "other"
-    if _OWN_DATE.search(label):
-        # "Date:" under a line of "By:" entries is the date of a signature.
-        return "other" if _SIGNATURE_CONTEXT.search(previous) else "own"
-    if not any(char.isalpha() for char in label):
-        return "own" if not before.strip() else "unlabelled"
+    alone = not any(char.isalpha() for char in label)
+    if _OWN_DATE.search(label) or (alone and not before.strip()):
+        # "Date:" under a line of "By:" entries, or further down a signature block, is the
+        # date of a signature.
+        if _SIGNATURE_CONTEXT.search(line_above(text, start)) or _SIGNING.search(
+            lines_above(text, start, 6)
+        ):
+            return "other"
+        return "own" if alone or _labels_the_documents_date(label) else "other"
     return "unlabelled"
 
 
 # The right kind of text under the wrong label: for each field, the labels that say the value
 # is something else, and the labels that say it is this field after all. The one nearer the
 # value wins: "AMENDMENT TO CONTRACT (CHANGE ORDER NO. 2" labels a change order number.
+_NOT_AN_IDENTIFIER = (
+    r"|\b(?:date|dated|amount|total|sum|price|value|time|days|page|sheet|phone|tel|fax)\b"
+)
 _LABELS: dict[str, tuple[re.Pattern[str], re.Pattern[str]]] = {
     "project_name": (
         re.compile(
             r"\b(?:requested|initiated|instructed|directed|prepared|submitted|approved|accepted"
             r"|signed|recommended)\s+by\b"
             r"|\b(?:owner|contractor|subcontractor|architect|engineer|client|employer|from|to"
-            r"|attn|cc)\s*:"
-            r"|\b(?:contract|agreement|change\s+order|job|project)\s*(?:no\.?|number|#|ref)",
+            r"|attn|cc)\s{0,3}:"
+            r"|\b(?:contract|agreement|change\s+order|job|project)\s{0,3}(?:no\.?|number|#|ref)",
             re.IGNORECASE,
         ),
-        re.compile(r"\bproject(?:\s+name)?\s*:|\bjob\s*(?:name)?\s*:", re.IGNORECASE),
+        re.compile(r"\bproject(?:\s+name)?\s{0,3}:|\bjob\s{0,3}(?:name)?\s{0,3}:", re.IGNORECASE),
     ),
     "requested_by": (
         re.compile(
-            r"\b(?:project|job|contract|agreement|subject)\s*(?:name|no\.?|number|#)?\s*:"
+            r"\b(?:project|job|contract|agreement|subject)\s{0,3}(?:name|no\.?|number|#)?\s{0,3}:"
             r"|\b(?:approved|accepted|signed|prepared|recommended)\s+by\b",
             re.IGNORECASE,
         ),
@@ -662,8 +1020,9 @@ _LABELS: dict[str, tuple[re.Pattern[str], re.Pattern[str]]] = {
     ),
     "contract_number": (
         re.compile(
-            r"\bchange\s+order\b|\bC\.?O\.?R?\s*(?:no\.?|number|#)"
-            r"|\b(?:job|project|rfi|asi|invoice|bulletin|p\.?o\.?|purchase\s+order|permit)\b",
+            r"\bchange\s+order\b|\bC\.?O\.?R?\s{0,3}(?:no\.?|number|#)"
+            r"|\b(?:job|project|rfi|asi|invoice|bulletin|p\.?o\.?|purchase\s+order|permit)\b"
+            + _NOT_AN_IDENTIFIER,
             re.IGNORECASE,
         ),
         re.compile(r"\b(?:sub)?contract\b|\bagreement\b", re.IGNORECASE),
@@ -672,7 +1031,7 @@ _LABELS: dict[str, tuple[re.Pattern[str], re.Pattern[str]]] = {
         re.compile(
             r"\b(?:sub)?contract\b|\bagreement\b"
             r"|\b(?:job|project|rfi|asi|invoice|bulletin|p\.?o\.?|purchase\s+order|permit"
-            r"|drawing|sketch)\b",
+            r"|drawing|sketch)\b" + _NOT_AN_IDENTIFIER,
             re.IGNORECASE,
         ),
         re.compile(
@@ -730,8 +1089,13 @@ _STATUS_WORDS: tuple[tuple[str, re.Pattern[str]], ...] = (
 )
 # A signature mark, or the word "signed" used as a fact: "K. Alvarez (signed)", "Signed for the
 # Employer: R. Haddad". "Unsigned" is another word, and "sign here" is not "signed".
-_SIGNATURE = re.compile(r"(?P<mark>/s/\s*\S)|\bsigned\b", re.IGNORECASE)
-_EMPTY_BOX = re.compile(r"(?:\[\s*\]|\(\s*\)|\u2610)\s*$")
+_SIGNATURE = re.compile(r"(?P<mark>/s/\s{0,3}\S)|\bsigned\b", re.IGNORECASE)
+_BOX = re.compile(
+    r"(?P<ticked>\[\s?[xX\u2713\u2714]\s?\]|\(\s?[xX\u2713\u2714]\s?\)|[\u2611\u2612])"
+    r"|(?P<empty>\[[\s_]{0,3}\]|\(\s{0,3}\)|\u2610)"
+)
+# How much of a line is read on either side of a word. The patterns below reach no further.
+_NEAR = 96
 # A negation earlier in the same clause: "has not been approved", "No change to the Contract is
 # authorized", "Not issued for signature".
 _NEGATION = re.compile(r"\b(?:not|never|no|without|neither|nor)\b[^.;:\n]{0,45}$", re.IGNORECASE)
@@ -741,46 +1105,136 @@ _CONDITION = re.compile(
     r"|will|to\s+be|prior\s+to|valid)\b[^.;:\n]{0,60}$",
     re.IGNORECASE,
 )
-# "Approved by (Owner): ______" or "Approved by:" with nothing after: a label, not a signature.
+_FILL = r"[_.\-\u2013\u2014]"
+# What stands where a name or a mark would: nothing, a run of fill characters ("____", "- - -",
+# ". . . ."), or the next label of a signature block.
+_NOTHING = rf"(?:$|{_FILL}{{2,}}|(?:{_FILL}\s){{2,}}|\s{{0,6}}(?:date|name|title)\b)"
+# "Approved by (Owner): ______", "Approved by ______", or "Approved by:" with nothing after: a
+# label, not a signature.
 _BLANK_LABEL = re.compile(
-    r"^\s*by\b[^\w\n]*(?:\([^)\n]*\))?[\s:]*(?:[_.\-]{3,}.*)?$", re.IGNORECASE
+    r"^\s{0,3}by\b(?:[^\w\n]|_){0,40}(?:\([^)\n]{0,60}\))?(?:[^\w\n]|_){0,200}$", re.IGNORECASE
 )
 # The same with a party named: "Approved by Utility Director: ______", "Accepted for the
-# Conservancy: ______". What follows the label's colon is a blank, not a name.
-_BLANK_AFTER = re.compile(r"^[^:\n]{0,50}:?\s*[_.]{3,}")
+# Conservancy:". What follows the label's colon is a blank, not a name.
+_BLANK_AFTER = re.compile(rf"^[^:\n]{{0,50}}?(?::\s{{0,3}}{_NOTHING}|\s?[_.]{{3,}})", re.IGNORECASE)
+# A line of a signature block that nobody has signed. A label with nothing after it counts
+# only when nothing stands under it either: "Accepted:" over two signed lines is a heading.
+_UNSIGNED = (
+    rf"(?:$(?=\n[ \t]*\n|\n?\Z)|{_FILL}{{2,}}|(?:{_FILL}\s){{2,}}|\s{{0,6}}(?:date|name|title)\b)"
+)
+_BLANK_SIGNING_LINE = re.compile(
+    r"(?:\b(?:approved|accepted|authori[sz]ed|agreed)\b[^:\n]{0,40}|\bsignature"
+    r"|(?<!requested )(?<!prepared )(?<!initiated )(?<!submitted )\bby)"
+    rf"\s?:\s{{0,3}}{_UNSIGNED}"
+    r"|\b(?:owner|architect|engineer|contractor|client|employer)\b[^:\n]{0,30}"
+    rf":\s{{0,3}}(?:{_FILL}{{2,}}|(?:{_FILL}\s){{2,}})"
+    rf"|\b(?:approved|accepted|authori[sz]ed)\s+by\s?{_FILL}{{3,}}",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _boxes_lead(line: str, boxes: list[re.Match[str]]) -> bool:
+    """Whether the tick boxes on a line stand before their options ("[X] Approved  [ ] Rejected")
+    or after them ("Approved [ ]  Rejected [X]")."""
+    first = len(line) - len(line.lstrip())
+    last = len(line.rstrip())
+    lead = follow = 0
+    for box in boxes[:50]:
+        before = line[max(0, box.start() - 4) : box.start()]
+        after = line[box.end() : box.end() + 4]
+        opens = (
+            box.start() == first
+            or before.endswith("  ")
+            or before.rstrip().endswith((":", ";", ",", "|", "/"))
+        )
+        closes = (
+            box.end() == last
+            or after.startswith("  ")
+            or after.lstrip().startswith((";", ",", "|", "/"))
+        )
+        if opens and re.match(r"\s{0,3}[A-Za-z]", after):
+            lead += 1
+        elif closes and re.search(r"[A-Za-z][:.]?\s{0,3}$", before):
+            follow += 1
+    if lead != follow:
+        return lead > follow
+    word = re.search(r"[A-Za-z]", line)
+    return word is None or boxes[0].start() < word.start()
+
+
+def _marks(line: str) -> list[tuple[str, str]]:
+    """Each approval state a line gives evidence of, and how: "ticked" (its own box is ticked),
+    "explicit" (stated), or "signature" (a completed signature and nothing more)."""
+    found: list[tuple[str, str]] = []
+    boxes = list(_BOX.finditer(line))
+    starts = [box.start() for box in boxes]
+    leading = _boxes_lead(line, boxes) if boxes else True
+
+    def own_box(start: int, end: int) -> str | None:
+        # The nearest box on the side where this line puts its boxes, if it is close by.
+        if not boxes:
+            return None
+        if leading:
+            index = bisect.bisect_right(starts, start) - 1
+            if index < 0 or start - boxes[index].end() > 60:
+                return None
+        else:
+            index = bisect.bisect_left(starts, end)
+            if index >= len(boxes) or boxes[index].start() - end > 60:
+                return None
+        return "ticked" if boxes[index]["ticked"] else "empty"
+
+    for status, pattern in _STATUS_WORDS:
+        for match in pattern.finditer(line):
+            before = line[max(0, match.start() - _NEAR) : match.start()]
+            after = line[match.end() : match.end() + _NEAR]
+            box = own_box(match.start(), match.end())
+            if box == "empty" or _BLANK_AFTER.match(after):
+                continue
+            if status == "approved" and (
+                _NEGATION.search(before) or _CONDITION.search(before) or _BLANK_LABEL.match(after)
+            ):
+                continue
+            if status in ("pending", "draft", "void") and _NEGATION.search(before):
+                continue
+            found.append((status, "ticked" if box == "ticked" else "explicit"))
+    for match in _SIGNATURE.finditer(line):
+        before = line[max(0, match.start() - _NEAR) : match.start()]
+        after = line[match.end() : match.end() + _NEAR]
+        if match["mark"] or not (
+            _NEGATION.search(before)
+            or _CONDITION.search(before)
+            or _BLANK_LABEL.match(after)
+            or _BLANK_AFTER.match(after)
+        ):
+            found.append(("approved", "signature"))
+    return found
 
 
 def status_cues(text: str) -> dict[str, str]:
     """The approval states a passage gives evidence of, each "explicit" (a statement, a stamp, a
     ticked box) or "signature" (a completed signature and nothing more).
 
-    A word does not count when it is an unticked option, is negated ("not approved" counts as
-    rejected instead), sits in a condition ("not valid until signed", "must be approved by"), or
-    labels a blank ("Approved by: ______").
+    A word does not count when its own tick box is empty, when it is negated ("not approved"
+    counts as rejected instead), sits in a condition ("not valid until signed", "must be
+    approved by"), or labels a blank ("Approved by: ______", "Approved by Owner:").
     """
     found: dict[str, str] = {}
     for line in text.splitlines():
-        for status, pattern in _STATUS_WORDS:
-            for match in pattern.finditer(line):
-                before, after = line[: match.start()], line[match.end() :]
-                if _EMPTY_BOX.search(before) or _BLANK_AFTER.match(after):
-                    continue
-                if status == "approved" and (
-                    _NEGATION.search(before)
-                    or _CONDITION.search(before)
-                    or _BLANK_LABEL.match(after)
-                ):
-                    continue
-                if status in ("pending", "draft", "void") and _NEGATION.search(before):
-                    continue
+        for status, how in _marks(line):
+            if how == "signature":
+                found.setdefault(status, "signature")
+            else:
                 found[status] = "explicit"
-        for match in _SIGNATURE.finditer(line):
-            before, after = line[: match.start()], line[match.end() :]
-            if match["mark"] or not (
-                _NEGATION.search(before)
-                or _CONDITION.search(before)
-                or _BLANK_LABEL.match(after)
-                or _BLANK_AFTER.match(after)
-            ):
-                found.setdefault("approved", "signature")
     return found
+
+
+def ticked_statuses(text: str) -> set[str]:
+    """The approval states whose own tick box is ticked."""
+    return {status for line in text.splitlines() for status, how in _marks(line) if how == "ticked"}
+
+
+def has_blank_signing_line(text: str) -> bool:
+    """Whether a signature block still has a line nobody signed: "Approved by Owner: ______",
+    "By:" with nothing after it."""
+    return bool(_BLANK_SIGNING_LINE.search(text))

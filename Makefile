@@ -26,13 +26,13 @@ extract:
 ifndef FILE
 	$(error usage: make extract FILE=<path to a PDF or text file>)
 endif
-	@uv run --quiet python -m changeorder "$(FILE)"
+	@uv run --quiet python -m changeorder -- "$(FILE)"
 
 explain:
 ifndef FILE
 	$(error usage: make explain FILE=<path to a PDF or text file>)
 endif
-	@uv run --quiet python -m changeorder "$(FILE)" --diagnostics out/diagnostics.json
+	@uv run --quiet python -m changeorder --diagnostics out/diagnostics.json -- "$(FILE)"
 
 test:
 	uv run pytest

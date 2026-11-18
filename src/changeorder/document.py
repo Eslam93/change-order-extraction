@@ -11,8 +11,9 @@ runs of spaces reduced to two (enough to keep a column gap visible), blank lines
 position the pipeline keeps (a quote's span, a value's page and line) is a position in that text,
 and it is exactly the text the model is shown.
 
-Nothing here guesses. A file that is not a PDF or text, an encrypted or damaged PDF, a document
-with no usable text, garbled text and a document over a limit all raise `DocumentError`. A page
+Nothing here guesses. A file that cannot be opened, a file that is not a PDF or text, an
+encrypted or damaged PDF, a document with no usable text, garbled text and a document over a
+limit all raise `DocumentError`. A page
 that holds an image and no text (a scanned page) is not an error by itself: the pages that can be
 read are read, and the page is listed in `unread_pages` so the result is sent to a person.
 """
@@ -106,13 +107,17 @@ def read_document(path: Path, limits: Limits | None = None) -> SourceDocument:
     limits = limits or Limits()
     if not path.is_file():
         raise DocumentError("not_found", f"No file at {path}.")
-    size = path.stat().st_size
-    if size > limits.max_bytes:
-        raise DocumentError(
-            "too_large",
-            f"The file is {size:,} bytes; the limit is {limits.max_bytes:,}. Nothing was read.",
-        )
-    data = path.read_bytes()
+    try:
+        size = path.stat().st_size
+        if size > limits.max_bytes:
+            raise DocumentError(
+                "too_large",
+                f"The file is {size:,} bytes; the limit is {limits.max_bytes:,}. Nothing was read.",
+            )
+        data = path.read_bytes()
+    except OSError as exc:  # locked by another program, or no permission to read it
+        reason = exc.strerror or type(exc).__name__
+        raise DocumentError("not_readable", f"{path} could not be opened: {reason}.") from exc
     if not data.strip():
         raise DocumentError("no_text", "The file is empty.")
 
