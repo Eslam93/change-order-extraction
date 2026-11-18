@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Ironbridge Wastewater Lift Station No. 7",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "IB-LS7-2025",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "2",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-10-23",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Utility Engineering Division",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 58400,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 12,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "needs_review": true
+}

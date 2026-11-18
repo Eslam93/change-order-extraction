@@ -1,0 +1,266 @@
+{
+  "document": {
+    "name": "e18-approved-stamp-and-rejection.txt",
+    "kind": "text",
+    "sha256": "cf0988389ac5cea9ad7bd0a90257f3fec0273bedcaba3a7fe586600fe0b2219d",
+    "pages": 1,
+    "characters": 450,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a single change order adding a bird deterrent wire system to canopy beams at Platforms A through D. The + $23,700.00 figure is the change itself, and no contract sum totals are stated. The header says APPROVED, but the disposition says the change was rejected on 22 April 2026, so the approval status is unclear.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Northgate Transit Center Canopies\",\"quotes\":[\"Project: Northgate Transit Center Canopies\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"NTC-CAN-2025\",\"quotes\":[\"Contract No.: NTC-CAN-2025\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"27\",\"quotes\":[\"Change Order No.: 27\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"16 April 2026\",\"quotes\":[\"Date: 16 April 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Transit Authority Capital Projects\",\"quotes\":[\"Requested by: Transit Authority Capital Projects\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Add bird deterrent wire system to canopy beams at Platforms A through D.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"+ $23,700.00\",\"quotes\":[\"Change in Contract Sum: + $23,700.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"none\",\"quotes\":[\"Change in Contract Time: none\"],\"note\":\"\",\"direction\":\"no_change\"},\"approval_status\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"CHANGE ORDER  APPROVED\",\"Disposition: Rejected by the Authority's Change Control Board on 22 April 2026; resubmit with revised pricing.\"],\"note\":\"The header says APPROVED but the disposition says the change order was rejected by the Change Control Board.\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4093,
+        "completion_tokens": 1304,
+        "cost": 0.0010613
+      }
+    ]
+  },
+  "model_notes": "This is a single change order adding a bird deterrent wire system to canopy beams at Platforms A through D. The + $23,700.00 figure is the change itself, and no contract sum totals are stated. The header says APPROVED, but the disposition says the change was rejected on 22 April 2026, so the approval status is unclear.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "conflicting_approval_evidence",
+      "detail": "the document states approved and rejected",
+      "field": "approval_status",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "The header says APPROVED but the disposition says the change order was rejected by the Change Control Board.",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Northgate Transit Center Canopies",
+      "as_written": "Northgate Transit Center Canopies",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Northgate Transit Center Canopies",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 45,
+          "end": 87,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "NTC-CAN-2025",
+      "as_written": "NTC-CAN-2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: NTC-CAN-2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 88,
+          "end": 114,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "27",
+      "as_written": "27",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order No.: 27",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 24,
+          "end": 44,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-04-16",
+      "as_written": "16 April 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 16 April 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 115,
+          "end": 134,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Transit Authority Capital Projects",
+      "as_written": "Transit Authority Capital Projects",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Transit Authority Capital Projects",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 135,
+          "end": 183,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Add bird deterrent wire system to canopy beams at Platforms A through D.",
+      "as_written": "Add bird deterrent wire system to canopy beams at Platforms A through D.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Add bird deterrent wire system to canopy beams at Platforms A through D.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 198,
+          "end": 270,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 23700,
+      "as_written": "$23,700.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change in Contract Sum: + $23,700.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 272,
+          "end": 308,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "none",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change in Contract Time: none",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 309,
+          "end": 338,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The header says APPROVED but the disposition says the change order was rejected by the Change Control Board.",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER  APPROVED",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 22,
+          "page": 1,
+          "line": 1
+        },
+        {
+          "quote": "Disposition: Rejected by the Authority's Change Control Board on 22 April 2026; resubmit with revised pricing.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 340,
+          "end": 450,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    }
+  }
+}

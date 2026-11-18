@@ -1,0 +1,6 @@
+Change Order Log Extract - single item
+Project:	Meridian Tower Lobby Refresh
+Contract:	MT-LOBBY-2025
+CO No.	Description	Amount	Days	Status	Date
+17	Replace specified terrazzo base with stone base at elevator lobby, 96 LF	(2,140.00)	0	Approved	2025-12-02
+Requested by:	Building Management

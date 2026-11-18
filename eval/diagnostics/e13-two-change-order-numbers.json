@@ -1,0 +1,266 @@
+{
+  "document": {
+    "name": "e13-two-change-order-numbers.txt",
+    "kind": "text",
+    "sha256": "b37c4a77e491e78a4f145b7fbc8ad618e837b434263d0c8cf36f53e35f2eac89",
+    "pages": 1,
+    "characters": 403,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a short construction change order adding stainless steel bollards to the retail arcade entrances. The change itself is the $19,320.00 addition to the Contract Sum; no other figures are given. The header says CO-015 but the body says Change Order No. 16, so the change order number is unclear.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Bexley Wharf Mixed-Use Podium\",\"quotes\":[\"Project: Bexley Wharf Mixed-Use Podium\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"BW-PODIUM-GC-2024\",\"quotes\":[\"Contract No.: BW-PODIUM-GC-2024\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"CHANGE ORDER  CO-015\",\"Change Order No. 16 covers the following work:\"],\"note\":\"The header gives CO-015 while the body says Change Order No. 16, so the document gives two different numbers for this change order.\"},\"date\":{\"status\":\"stated\",\"value\":\"2 February 2026\",\"quotes\":[\"Date: 2 February 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Bexley Wharf Development Partners\",\"quotes\":[\"Requested by: Bexley Wharf Development Partners\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$19,320.00\",\"quotes\":[\"Add to Contract Sum: $19,320.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"No change to Contract Time.\",\"quotes\":[\"No change to Contract Time.\"],\"note\":\"\",\"direction\":\"no_change\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Approved: J. Marchetti for Owner, 5 February 2026\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4096,
+        "completion_tokens": 1478,
+        "cost": 0.0011486
+      }
+    ]
+  },
+  "model_notes": "This is a short construction change order adding stainless steel bollards to the retail arcade entrances. The change itself is the $19,320.00 addition to the Contract Sum; no other figures are given. The header says CO-015 but the body says Change Order No. 16, so the change order number is unclear.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "conflicting_change_order_numbers",
+      "detail": "the document labels this change order 015 and 16",
+      "field": "change_order_number",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "The header gives CO-015 while the body says Change Order No. 16, so the document gives two different numbers for this change order.",
+      "field": "change_order_number",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Bexley Wharf Mixed-Use Podium",
+      "as_written": "Bexley Wharf Mixed-Use Podium",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Bexley Wharf Mixed-Use Podium",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 22,
+          "end": 60,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "BW-PODIUM-GC-2024",
+      "as_written": "BW-PODIUM-GC-2024",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: BW-PODIUM-GC-2024",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 61,
+          "end": 92,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The header gives CO-015 while the body says Change Order No. 16, so the document gives two different numbers for this change order.",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER  CO-015",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 20,
+          "page": 1,
+          "line": 1
+        },
+        {
+          "quote": "Change Order No. 16 covers the following work:",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 164,
+          "end": 210,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-02",
+      "as_written": "2 February 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 2 February 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 93,
+          "end": 114,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Bexley Wharf Development Partners",
+      "as_written": "Bexley Wharf Development Partners",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Bexley Wharf Development Partners",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 115,
+          "end": 162,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.",
+      "as_written": "Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 211,
+          "end": 291,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 19320,
+      "as_written": "$19,320.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Add to Contract Sum: $19,320.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 293,
+          "end": 324,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "No change to Contract Time.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "No change to Contract Time.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 325,
+          "end": 352,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Approved: J. Marchetti for Owner, 5 February 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Approved: J. Marchetti for Owner, 5 February 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 354,
+          "end": 403,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    }
+  }
+}

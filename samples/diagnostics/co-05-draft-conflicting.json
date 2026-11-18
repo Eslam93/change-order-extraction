@@ -1,0 +1,281 @@
+{
+  "document": {
+    "name": "co-05-draft-conflicting.txt",
+    "kind": "text",
+    "sha256": "36c5382c7096025c9d2a367aa979ce9a2aee54294ce86ad57978cef1d02e836d",
+    "pages": 1,
+    "characters": 1465,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"Draft change order No. 12 for a differing site condition at Clarifier No. 3, marked 'DRAFT - NOT FOR EXECUTION'. The price is time-and-material with a not-to-exceed ceiling of $185,000.00 and the final amount is TBD; contract time is TBD. The text 'Change Order No. 21 supersedes field directive FD-09' appears in the reference line and is a different number from the header's 12, but it refers to a different order; no contract sums are given.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades\",\"quotes\":[\"Project:  Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"ACSD-WW-2024-06\",\"quotes\":[\"Contract No.:  ACSD-WW-2024-06\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Change Order No.: 12\",\"Reference: Ironwood PCO-031. Change Order No. 21 supersedes field directive FD-09 for this work.\"],\"note\":\"The header gives number 12 but the reference line mentions Change Order No. 21 as superseding a field directive for this work, so the identity of this change order's number is ambiguous.\"},\"date\":{\"status\":\"stated\",\"value\":\"2026-04-22\",\"quotes\":[\"Date Prepared:  2026-04-22\"],\"note\":\"\"},\"requested_by\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation\\n412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with\\ncompacted structural fill per the geotechnical memo dated April 14, 2026.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Final amount TBD - not to exceed $185,000.00 without further written authorization.\",\"Work is to proceed on a time-and-material basis in accordance with Article 11 of the General\"],\"note\":\"Price is time-and-material and TBD; the $185,000.00 is only a not-to-exceed ceiling.\",\"direction\":\"unclear\"},\"schedule_impact_days\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"To be determined. The Contractor reserves the right to request an extension of the Contract Time.\"],\"note\":\"Contract time impact is to be determined and rights are reserved.\",\"direction\":\"unclear\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"draft\",\"quotes\":[\"*** DRAFT - NOT FOR EXECUTION ***\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-sonnet-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4494,
+        "completion_tokens": 1074,
+        "cost": 0.019728
+      }
+    ]
+  },
+  "model_notes": "Draft change order No. 12 for a differing site condition at Clarifier No. 3, marked 'DRAFT - NOT FOR EXECUTION'. The price is time-and-material with a not-to-exceed ceiling of $185,000.00 and the final amount is TBD; contract time is TBD. The text 'Change Order No. 21 supersedes field directive FD-09' appears in the reference line and is a different number from the header's 12, but it refers to a different order; no contract sums are given.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "conflicting_change_order_numbers",
+      "detail": "the document labels this change order 12 and 21",
+      "field": "change_order_number",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "The header gives number 12 but the reference line mentions Change Order No. 21 as superseding a field directive for this work, so the identity of this change order's number is ambiguous.",
+      "field": "change_order_number",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "Price is time-and-material and TBD; the $185,000.00 is only a not-to-exceed ceiling.",
+      "field": "amount",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "Contract time impact is to be determined and rights are reserved.",
+      "field": "schedule_impact_days",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades",
+      "as_written": "Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project:  Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 70,
+          "end": 137,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "ACSD-WW-2024-06",
+      "as_written": "ACSD-WW-2024-06",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.:  ACSD-WW-2024-06",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 138,
+          "end": 168,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The header gives number 12 but the reference line mentions Change Order No. 21 as superseding a field directive for this work, so the identity of this change order's number is ambiguous.",
+      "evidence": [
+        {
+          "quote": "Change Order No.: 12",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 48,
+          "end": 68,
+          "page": 1,
+          "line": 4
+        },
+        {
+          "quote": "Reference: Ironwood PCO-031. Change Order No. 21 supersedes field directive FD-09 for this work.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 349,
+          "end": 445,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-04-22",
+      "as_written": "2026-04-22",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date Prepared:  2026-04-22",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 256,
+          "end": 282,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "description": {
+      "state": "accepted",
+      "value": "During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation 412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with compacted structural fill per the geotechnical memo dated April 14, 2026.",
+      "as_written": "During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation 412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with compacted structural fill per the geotechnical memo dated April 14, 2026.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation\n412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with\ncompacted structural fill per the geotechnical memo dated April 14, 2026.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 469,
+          "end": 739,
+          "page": 1,
+          "line": 17
+        }
+      ]
+    },
+    "amount": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "Price is time-and-material and TBD; the $185,000.00 is only a not-to-exceed ceiling.",
+      "evidence": [
+        {
+          "quote": "Final amount TBD - not to exceed $185,000.00 without further written authorization.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 851,
+          "end": 934,
+          "page": 1,
+          "line": 23
+        },
+        {
+          "quote": "Work is to proceed on a time-and-material basis in accordance with Article 11 of the General",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 746,
+          "end": 838,
+          "page": 1,
+          "line": 22
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "Contract time impact is to be determined and rights are reserved.",
+      "evidence": [
+        {
+          "quote": "To be determined. The Contractor reserves the right to request an extension of the Contract Time.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1001,
+          "end": 1098,
+          "page": 1,
+          "line": 27
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "draft",
+      "as_written": "*** DRAFT - NOT FOR EXECUTION ***",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "*** DRAFT - NOT FOR EXECUTION ***",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 33,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    }
+  }
+}

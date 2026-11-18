@@ -1,0 +1,85 @@
+[project]
+name = "change-order-extraction"
+version = "0.1.0"
+description = "Turns a construction change order (text-layer PDF or plain text) into one validated, evidence-checked JSON object."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<1",
+    "jsonschema>=4.23,<5",
+    "pydantic>=2.9,<3",
+    "pypdf>=5.1",
+]
+
+[project.scripts]
+changeorder = "changeorder.cli:main"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    # Only the sample generator (samples/build_samples.py) and the PDF test fixtures need it.
+    "reportlab>=4.2",
+    "ruff>=0.8",
+    "types-jsonschema>=4.23",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/changeorder"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]  # tests/helpers.py
+addopts = ["--strict-markers", "-ra", "--import-mode=importlib"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",  # pycodestyle and pyflakes
+    "I",            # import order
+    "B",            # bugbear
+    "UP",           # pyupgrade
+    "N",            # naming
+    "S",            # bandit: security
+    "A",            # shadowed builtins
+    "C4",           # comprehensions
+    "T20",          # no print() left behind
+    "RUF",          # ruff's own
+    "SIM",          # simplify
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["changeorder", "helpers"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests assert, hold fake keys, start the program itself, keep one case per line however long,
+# and quote documents that use typographic dashes on purpose.
+"tests/**" = ["S101", "S105", "S106", "S603", "E501", "RUF001"]
+# Lifted from the Toolkit as it is (see src/changeorder/vendor/README.md): kept byte-comparable.
+"src/changeorder/vendor/**" = ["RUF001", "RUF002", "RUF003", "UP046", "UP047"]
+"tests/vendor/**" = ["RUF002", "RUF003"]
+# Command-line tools print on purpose.
+"src/changeorder/cli.py" = ["T20"]
+# The evaluation tool prints progress, and its report is built from long literal labels.
+"src/changeorder/evaluation.py" = ["T20", "E501"]
+# The sample generator: long literal lines of document text, and a seeded scribble.
+"samples/**" = ["T20", "E501", "S311"]
+
+[tool.ruff.format]
+line-ending = "lf"
+# The lifted code stays as it was written, so it can be compared with its source.
+exclude = ["src/changeorder/vendor", "tests/vendor"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src/changeorder"]
+plugins = ["pydantic.mypy"]

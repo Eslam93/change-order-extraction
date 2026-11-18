@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Ashgrove Fire Station No. 4 Replacement",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "AFD-2025-018",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "5",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-03-06",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Fire Chief's Office",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Add an emergency generator docking station and manual transfer switch at the apparatus bay exterior wall, per Bulletin 11.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "schedule_impact_days": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": true
+}

@@ -1,0 +1,25 @@
+{
+  "document": "e02-zero-cost-time-only.txt",
+  "fields": {
+    "project_name": "Westfield Library Renovation",
+    "contract_number": "WLR-GC-07",
+    "change_order_number": "14",
+    "date": "2026-02-19",
+    "requested_by": "Architect (Hollis & Byrne Architects)",
+    "description": "Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.",
+    "amount": 0,
+    "schedule_impact_days": 21,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Hollis & Byrne Architects",
+      "Architect"
+    ],
+    "description": [
+      "Revise the sequence of work to allow early occupancy of the children's wing."
+    ]
+  },
+  "review_expected": false,
+  "why": "An explicitly zero-cost change: the amount is 0, not null, and not the Contract Sum that 'remains'. The time does change."
+}

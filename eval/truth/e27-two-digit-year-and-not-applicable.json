@@ -1,0 +1,17 @@
+{
+  "document": "e27-two-digit-year-and-not-applicable.txt",
+  "fields": {
+    "project_name": "Sable Creek Pump Station Upgrade",
+    "contract_number": "SCPS-25-004",
+    "change_order_number": "12",
+    "date": "2026-02-03",
+    "requested_by": "District Operations",
+    "description": "Provide VFD bypass contactors for Pumps 1 and 2.",
+    "amount": 8960.0,
+    "schedule_impact_days": 0,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "The year is written with two digits, and the schedule impact is 'N/A'. The label follows the documented policy: N/A on a line that addresses schedule is read as no change, 0. It is the weakest zero in the set."
+}

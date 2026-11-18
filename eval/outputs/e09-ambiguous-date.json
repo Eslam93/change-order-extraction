@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Calder Bridge Deck Rehabilitation",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "CBD-2025-114",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "31",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "requested_by": {
+    "value": "County Engineer",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 18975,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 3,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": true
+}

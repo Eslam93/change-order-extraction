@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Harborview Elementary School – Classroom Wing Addition",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "PAUSD-2025-0117",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "004",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-03-18",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Port Alder Unified School District",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3. 2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 38640,
+    "confidence": 0.97
+  },
+  "schedule_impact_days": {
+    "value": 14,
+    "confidence": 0.97
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

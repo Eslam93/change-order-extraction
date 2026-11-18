@@ -1,0 +1,17 @@
+{
+  "document": "e13-two-change-order-numbers.txt",
+  "fields": {
+    "project_name": "Bexley Wharf Mixed-Use Podium",
+    "contract_number": "BW-PODIUM-GC-2024",
+    "change_order_number": null,
+    "date": "2026-02-02",
+    "requested_by": "Bexley Wharf Development Partners",
+    "description": "Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.",
+    "amount": 19320.0,
+    "schedule_impact_days": 0,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": true,
+  "why": "The header says CO-015 and the body says No. 16. There is no single change order number to record, and the conflict is the reason a person should look."
+}

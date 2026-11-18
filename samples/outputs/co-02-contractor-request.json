@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Lakeshore Medical Office Building",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "change_order_number": {
+    "value": "17",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-02-10",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Tom Abernathy, Lakeshore Development (Owner's Representative)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 21318.13,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "pending",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

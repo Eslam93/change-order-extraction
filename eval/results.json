@@ -1,0 +1,697 @@
+{
+  "samples": {
+    "overall": {
+      "fields": 54,
+      "correct_value": 47,
+      "correct_null": 6,
+      "wrong_value": 0,
+      "invented": 0,
+      "missed": 1,
+      "accuracy": 0.9815,
+      "published": 47,
+      "precision_on_published_values": 1.0,
+      "stated_in_document": 48,
+      "recall_of_stated_values": 0.9792,
+      "abstention_rate_on_stated_values": 0.0208,
+      "not_stated_in_document": 6,
+      "null_detection_rate": 1.0,
+      "false_extraction_rate": 0.0
+    },
+    "by_field": {
+      "project_name": {
+        "fields": 6,
+        "correct_value": 6,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 6,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 6,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      },
+      "contract_number": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "change_order_number": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "date": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "requested_by": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "description": {
+        "fields": 6,
+        "correct_value": 6,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 6,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 6,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      },
+      "amount": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "schedule_impact_days": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 5,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "approval_status": {
+        "fields": 6,
+        "correct_value": 5,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 1,
+        "accuracy": 0.8333,
+        "published": 5,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 6,
+        "recall_of_stated_values": 0.8333,
+        "abstention_rate_on_stated_values": 0.1667,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      }
+    },
+    "confidence": {
+      "bands": [
+        {
+          "confidence": 0.97,
+          "published": 5,
+          "correct": 5,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.566,
+            1.0
+          ]
+        },
+        {
+          "confidence": 0.9,
+          "published": 33,
+          "correct": 33,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.896,
+            1.0
+          ]
+        },
+        {
+          "confidence": 0.75,
+          "published": 9,
+          "correct": 9,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.701,
+            1.0
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "at_or_above": 0.75,
+          "published": 47,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 1.0
+        },
+        {
+          "at_or_above": 0.9,
+          "published": 38,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 0.8085
+        },
+        {
+          "at_or_above": 0.97,
+          "published": 5,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 0.1064
+        }
+      ],
+      "expected_calibration_error": 0.1213
+    },
+    "review": {
+      "documents": 6,
+      "flagged_for_review": 3,
+      "review_rate": 0.5,
+      "flagged_and_expected": 3,
+      "flagged_not_expected": 0,
+      "passed_but_review_expected": 0,
+      "passed_without_review": {
+        "documents": 3,
+        "published_values": 26,
+        "wrong_or_invented_values": 0,
+        "error_rate": 0.0,
+        "values_missed_silently": 0
+      },
+      "flagged": {
+        "documents": 3,
+        "published_values": 21,
+        "wrong_or_invented_values": 0,
+        "values_missed": 1
+      }
+    },
+    "usage": {
+      "prompt_tokens": 27228,
+      "completion_tokens": 6713,
+      "cost": 0.1216
+    },
+    "not_correct": [
+      {
+        "document": "co-06-scanned-signature-page.pdf",
+        "field": "approval_status",
+        "outcome": "missed",
+        "published": null,
+        "label": "approved",
+        "confidence": 0.0,
+        "why": ""
+      }
+    ]
+  },
+  "eval": {
+    "overall": {
+      "fields": 252,
+      "correct_value": 231,
+      "correct_null": 16,
+      "wrong_value": 0,
+      "invented": 0,
+      "missed": 5,
+      "accuracy": 0.9802,
+      "published": 231,
+      "precision_on_published_values": 1.0,
+      "stated_in_document": 236,
+      "recall_of_stated_values": 0.9788,
+      "abstention_rate_on_stated_values": 0.0212,
+      "not_stated_in_document": 16,
+      "null_detection_rate": 1.0,
+      "false_extraction_rate": 0.0
+    },
+    "by_field": {
+      "project_name": {
+        "fields": 28,
+        "correct_value": 28,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 28,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 28,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      },
+      "contract_number": {
+        "fields": 28,
+        "correct_value": 27,
+        "correct_null": 1,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 27,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 27,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 1,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "change_order_number": {
+        "fields": 28,
+        "correct_value": 26,
+        "correct_null": 2,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 26,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 26,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 2,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "date": {
+        "fields": 28,
+        "correct_value": 25,
+        "correct_null": 3,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 25,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 25,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 3,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "requested_by": {
+        "fields": 28,
+        "correct_value": 27,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 1,
+        "accuracy": 0.9643,
+        "published": 27,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 28,
+        "recall_of_stated_values": 0.9643,
+        "abstention_rate_on_stated_values": 0.0357,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      },
+      "description": {
+        "fields": 28,
+        "correct_value": 28,
+        "correct_null": 0,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 0,
+        "accuracy": 1.0,
+        "published": 28,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 28,
+        "recall_of_stated_values": 1.0,
+        "abstention_rate_on_stated_values": 0.0,
+        "not_stated_in_document": 0,
+        "null_detection_rate": null,
+        "false_extraction_rate": null
+      },
+      "amount": {
+        "fields": 28,
+        "correct_value": 24,
+        "correct_null": 3,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 1,
+        "accuracy": 0.9643,
+        "published": 24,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 25,
+        "recall_of_stated_values": 0.96,
+        "abstention_rate_on_stated_values": 0.04,
+        "not_stated_in_document": 3,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "schedule_impact_days": {
+        "fields": 28,
+        "correct_value": 23,
+        "correct_null": 4,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 1,
+        "accuracy": 0.9643,
+        "published": 23,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 24,
+        "recall_of_stated_values": 0.9583,
+        "abstention_rate_on_stated_values": 0.0417,
+        "not_stated_in_document": 4,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      },
+      "approval_status": {
+        "fields": 28,
+        "correct_value": 23,
+        "correct_null": 3,
+        "wrong_value": 0,
+        "invented": 0,
+        "missed": 2,
+        "accuracy": 0.9286,
+        "published": 23,
+        "precision_on_published_values": 1.0,
+        "stated_in_document": 25,
+        "recall_of_stated_values": 0.92,
+        "abstention_rate_on_stated_values": 0.08,
+        "not_stated_in_document": 3,
+        "null_detection_rate": 1.0,
+        "false_extraction_rate": 0.0
+      }
+    },
+    "confidence": {
+      "bands": [
+        {
+          "confidence": 0.97,
+          "published": 2,
+          "correct": 2,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.342,
+            1.0
+          ]
+        },
+        {
+          "confidence": 0.9,
+          "published": 212,
+          "correct": 212,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.982,
+            1.0
+          ]
+        },
+        {
+          "confidence": 0.75,
+          "published": 17,
+          "correct": 17,
+          "accuracy": 1.0,
+          "wilson_95": [
+            0.816,
+            1.0
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "at_or_above": 0.75,
+          "published": 231,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 1.0
+        },
+        {
+          "at_or_above": 0.9,
+          "published": 214,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 0.9264
+        },
+        {
+          "at_or_above": 0.97,
+          "published": 2,
+          "errors": 0,
+          "accuracy": 1.0,
+          "coverage_of_published": 0.0087
+        }
+      ],
+      "expected_calibration_error": 0.1104
+    },
+    "review": {
+      "documents": 28,
+      "flagged_for_review": 12,
+      "review_rate": 0.4286,
+      "flagged_and_expected": 8,
+      "flagged_not_expected": 4,
+      "passed_but_review_expected": 0,
+      "passed_without_review": {
+        "documents": 16,
+        "published_values": 142,
+        "wrong_or_invented_values": 0,
+        "error_rate": 0.0,
+        "values_missed_silently": 0
+      },
+      "flagged": {
+        "documents": 12,
+        "published_values": 89,
+        "wrong_or_invented_values": 0,
+        "values_missed": 5
+      }
+    },
+    "usage": {
+      "prompt_tokens": 115294,
+      "completion_tokens": 40885,
+      "cost": 0.032
+    },
+    "not_correct": [
+      {
+        "document": "e05-credit-in-words.txt",
+        "field": "requested_by",
+        "outcome": "missed",
+        "published": null,
+        "label": "Greenway Parks Conservancy",
+        "confidence": 0.0,
+        "why": "value_not_in_quoted_text"
+      },
+      {
+        "document": "e05-credit-in-words.txt",
+        "field": "approval_status",
+        "outcome": "missed",
+        "published": null,
+        "label": "pending",
+        "confidence": 0.0,
+        "why": "status_not_shown_by_quoted_text"
+      },
+      {
+        "document": "e23-amount-in-words.txt",
+        "field": "amount",
+        "outcome": "missed",
+        "published": null,
+        "label": 12500.0,
+        "confidence": 0.0,
+        "why": "figure_not_readable"
+      },
+      {
+        "document": "e25-acceleration.txt",
+        "field": "approval_status",
+        "outcome": "missed",
+        "published": null,
+        "label": "approved",
+        "confidence": 0.0,
+        "why": "status_not_shown_by_quoted_text"
+      },
+      {
+        "document": "e27-two-digit-year-and-not-applicable.txt",
+        "field": "schedule_impact_days",
+        "outcome": "missed",
+        "published": null,
+        "label": 0,
+        "confidence": 0.0,
+        "why": "model_reported_unclear"
+      }
+    ]
+  },
+  "stress": {
+    "injected": 770,
+    "documents": 34,
+    "by_kind": {
+      "another figure taken for the amount": {
+        "injected": 71,
+        "rejected": 71
+      },
+      "the amount's direction reversed": {
+        "injected": 29,
+        "rejected": 29
+      },
+      "a figure that is not in the document": {
+        "injected": 29,
+        "rejected": 29
+      },
+      "the direction reversed and the contract sums swapped": {
+        "injected": 5,
+        "rejected": 5
+      },
+      "a change reported as no change": {
+        "injected": 49,
+        "rejected": 49
+      },
+      "another date taken for the change order's date": {
+        "injected": 43,
+        "rejected": 43
+      },
+      "the schedule's direction reversed": {
+        "injected": 20,
+        "rejected": 20
+      },
+      "the day of a date taken for a number of days": {
+        "injected": 58,
+        "rejected": 58
+      },
+      "another status claimed on the same quotes": {
+        "injected": 120,
+        "rejected": 120
+      },
+      "the contract number taken for the change order number": {
+        "injected": 32,
+        "rejected": 32
+      },
+      "the requester taken for the project name": {
+        "injected": 33,
+        "published_wrong": 1,
+        "rejected": 32
+      },
+      "a year out of a date taken for the change order number": {
+        "injected": 34,
+        "rejected": 34
+      },
+      "a name the model rewrote": {
+        "injected": 62,
+        "rejected": 62
+      },
+      "a stated value reported as absent": {
+        "injected": 149,
+        "flagged": 148,
+        "silent": 1
+      },
+      "another duration taken for the schedule impact": {
+        "injected": 3,
+        "rejected": 3
+      },
+      "no change read from a line about something else": {
+        "injected": 11,
+        "rejected": 11
+      },
+      "approval read from wording about approval": {
+        "injected": 22,
+        "rejected": 22
+      }
+    },
+    "published_wrong": 1,
+    "published_wrong_by_confidence": {
+      "0.90": 1
+    },
+    "published_wrong_in_documents_flagged_for_review": 1,
+    "silent_absences": [
+      {
+        "document": "e26-pasted-spreadsheet-row.txt",
+        "field": "schedule_impact_days",
+        "label": 0
+      }
+    ],
+    "wrong_values": [
+      {
+        "document": "e20-memo-with-almost-nothing.txt",
+        "field": "project_name",
+        "mistake": "the requester taken for the project name",
+        "published": "Owner",
+        "label": "Larkspur Clinic Tenant Improvement",
+        "confidence": 0.9,
+        "needs_review": true
+      }
+    ],
+    "without_label_checks": {
+      "published_wrong": 126,
+      "by_kind": {
+        "another figure taken for the amount": 23,
+        "the amount's direction reversed": 0,
+        "a figure that is not in the document": 0,
+        "the direction reversed and the contract sums swapped": 2,
+        "a change reported as no change": 1,
+        "another date taken for the change order's date": 39,
+        "the schedule's direction reversed": 0,
+        "the day of a date taken for a number of days": 0,
+        "another status claimed on the same quotes": 0,
+        "the contract number taken for the change order number": 9,
+        "the requester taken for the project name": 32,
+        "a year out of a date taken for the change order number": 8,
+        "a name the model rewrote": 0,
+        "a stated value reported as absent": 0,
+        "another duration taken for the schedule impact": 3,
+        "no change read from a line about something else": 9,
+        "approval read from wording about approval": 0
+      }
+    }
+  }
+}

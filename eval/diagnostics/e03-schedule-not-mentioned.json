@@ -1,0 +1,234 @@
+{
+  "document": {
+    "name": "e03-schedule-not-mentioned.txt",
+    "kind": "text",
+    "sha256": "8922253e2e2be79108be15dc76f5ea8968c0d018ea4c5e87c6a512c808e56270",
+    "pages": 1,
+    "characters": 379,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a single change order (CO #22) for upgrading 54 unit entry doors on floors 2-4 to a 45-minute fire rating. The only price figure is the net add of $31,266.00, which is the change itself. The document gives no original contract sum, prior change total or revised contract sum, and no schedule impact.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Pinecrest Senior Living - Building 2\",\"quotes\":[\"Job: Pinecrest Senior Living - Building 2\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"PSL-2024-B2-GC\",\"quotes\":[\"Contract #: PSL-2024-B2-GC\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"22\",\"quotes\":[\"CO #: 22\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"Oct 3, 2025\",\"quotes\":[\"Dated: Oct 3, 2025\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Owner's representative (K. Alvarez)\",\"quotes\":[\"Requested by: Owner's representative (K. Alvarez)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$31,266.00\",\"quotes\":[\"Total add to contract: $31,266.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\",\"direction\":\"unclear\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Owner approval: K. Alvarez (signed) 10/07/2025\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4086,
+        "completion_tokens": 1285,
+        "cost": 0.0010511
+      }
+    ]
+  },
+  "model_notes": "This is a single change order (CO #22) for upgrading 54 unit entry doors on floors 2-4 to a 45-minute fire rating. The only price figure is the net add of $31,266.00, which is the change itself. The document gives no original contract sum, prior change total or revised contract sum, and no schedule impact.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Pinecrest Senior Living - Building 2",
+      "as_written": "Pinecrest Senior Living - Building 2",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Job: Pinecrest Senior Living - Building 2",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 22,
+          "end": 63,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "PSL-2024-B2-GC",
+      "as_written": "PSL-2024-B2-GC",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract #: PSL-2024-B2-GC",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 64,
+          "end": 90,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "22",
+      "as_written": "22",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CO #: 22",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 13,
+          "end": 21,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2025-10-03",
+      "as_written": "Oct 3, 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Dated: Oct 3, 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 91,
+          "end": 109,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Owner's representative (K. Alvarez)",
+      "as_written": "Owner's representative (K. Alvarez)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Owner's representative (K. Alvarez)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 110,
+          "end": 159,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.",
+      "as_written": "Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 168,
+          "end": 296,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 31266,
+      "as_written": "$31,266.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Total add to contract: $31,266.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 298,
+          "end": 331,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Owner approval: K. Alvarez (signed) 10/07/2025",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "approval_from_signature_only"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner approval: K. Alvarez (signed) 10/07/2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 333,
+          "end": 379,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    }
+  }
+}

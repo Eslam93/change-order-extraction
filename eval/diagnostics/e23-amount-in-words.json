@@ -1,0 +1,251 @@
+{
+  "document": {
+    "name": "e23-amount-in-words.txt",
+    "kind": "text",
+    "sha256": "442e6d6462917f94e3be4c194a2a2f6c89d2349a3b44182f4bf8fff966b73f90",
+    "pages": 1,
+    "characters": 448,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a change order amending a roof replacement contract. The change itself is the increase of the Contract Sum by twelve thousand five hundred dollars and the extension of the Contract Time by five calendar days. The document gives no original contract sum, prior changes or revised contract sums, so the arithmetic check cannot be run.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Rowan County Courthouse Roof Replacement\",\"quotes\":[\"Project: Rowan County Courthouse Roof Replacement\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"RCC-2025-ROOF\",\"quotes\":[\"Contract No.: RCC-2025-ROOF\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"2\",\"quotes\":[\"AMENDMENT TO CONTRACT (CHANGE ORDER NO. 2)\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"5 May 2026\",\"quotes\":[\"Date: 5 May 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"County Facilities Director\",\"quotes\":[\"Requested by: County Facilities Director\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Replace rotted roof deck sheathing uncovered during tear-off at the east wing.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"Twelve Thousand Five Hundred Dollars\",\"quotes\":[\"The Contract Sum is increased by Twelve Thousand Five Hundred Dollars.\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"five calendar days\",\"quotes\":[\"The Contract Time is increased by five calendar days.\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Approved by the County Commission on 12 May 2026.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4100,
+        "completion_tokens": 1295,
+        "cost": 0.0010575
+      }
+    ]
+  },
+  "model_notes": "This is a change order amending a roof replacement contract. The change itself is the increase of the Contract Sum by twelve thousand five hundred dollars and the extension of the Contract Time by five calendar days. The document gives no original contract sum, prior changes or revised contract sums, so the arithmetic check cannot be run.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "figure_not_readable",
+      "detail": "no value could be accepted",
+      "field": "amount",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Rowan County Courthouse Roof Replacement",
+      "as_written": "Rowan County Courthouse Roof Replacement",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Rowan County Courthouse Roof Replacement",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 43,
+          "end": 92,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "RCC-2025-ROOF",
+      "as_written": "RCC-2025-ROOF",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: RCC-2025-ROOF",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 93,
+          "end": 120,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "2",
+      "as_written": "2",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "AMENDMENT TO CONTRACT (CHANGE ORDER NO. 2)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 42,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-05-05",
+      "as_written": "5 May 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 5 May 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 121,
+          "end": 137,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "County Facilities Director",
+      "as_written": "County Facilities Director",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: County Facilities Director",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 138,
+          "end": 178,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Replace rotted roof deck sheathing uncovered during tear-off at the east wing.",
+      "as_written": "Replace rotted roof deck sheathing uncovered during tear-off at the east wing.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Replace rotted roof deck sheathing uncovered during tear-off at the east wing.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 193,
+          "end": 271,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "amount": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "figure_not_readable"
+      ],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "The Contract Sum is increased by Twelve Thousand Five Hundred Dollars.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 273,
+          "end": 343,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 5,
+      "as_written": "five calendar days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "The Contract Time is increased by five calendar days.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 344,
+          "end": 397,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Approved by the County Commission on 12 May 2026.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Approved by the County Commission on 12 May 2026.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 399,
+          "end": 448,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    }
+  }
+}

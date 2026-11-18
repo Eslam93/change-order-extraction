@@ -1,0 +1,244 @@
+{
+  "document": {
+    "name": "e21-many-dates.txt",
+    "kind": "text",
+    "sha256": "ee8b3b79823c5f185da2d63fc518d75e6525a2d3835520a8c978cbdc3551ecbd",
+    "pages": 1,
+    "characters": 792,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a construction change order (No. 5) for adding carbon fiber wrap to twelve columns on the Whitcombe Hall Seismic Retrofit. The $142,300.00 figure is the net change to the Contract Sum, and the 15 calendar days is the time extension. The document gives no original contract sum, prior change totals, or before/after contract sums. The stated revised Substantial Completion of 15 October 2026 is consistent with the original 30 September 2026 plus 15 days.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Whitcombe Hall Seismic Retrofit\",\"quotes\":[\"Project: Whitcombe Hall Seismic Retrofit  Contract No.: UWH-SR-2024-11\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"UWH-SR-2024-11\",\"quotes\":[\"Project: Whitcombe Hall Seismic Retrofit  Contract No.: UWH-SR-2024-11\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"5\",\"quotes\":[\"CHANGE ORDER No. 5\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"9 February 2026\",\"quotes\":[\"Change Order Date: 9 February 2026  Substantial Completion: 30 September 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"University Facilities Planning\",\"quotes\":[\"Requested by: University Facilities Planning\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$142,300.00\",\"quotes\":[\"This Change Order increases the Contract Sum by $142,300.00 and extends the Contract Time by 15 calendar days.\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"15 calendar days\",\"quotes\":[\"This Change Order increases the Contract Sum by $142,300.00 and extends the Contract Time by 15 calendar days.\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"University: P. Sandoval (signed 12 February 2026)  Contractor: E. Roth (signed 11 February 2026)\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4232,
+        "completion_tokens": 1669,
+        "cost": 0.0012577
+      }
+    ]
+  },
+  "model_notes": "This is a construction change order (No. 5) for adding carbon fiber wrap to twelve columns on the Whitcombe Hall Seismic Retrofit. The $142,300.00 figure is the net change to the Contract Sum, and the 15 calendar days is the time extension. The document gives no original contract sum, prior change totals, or before/after contract sums. The stated revised Substantial Completion of 15 October 2026 is consistent with the original 30 September 2026 plus 15 days.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Whitcombe Hall Seismic Retrofit",
+      "as_written": "Whitcombe Hall Seismic Retrofit",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Whitcombe Hall Seismic Retrofit  Contract No.: UWH-SR-2024-11",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 20,
+          "end": 90,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "UWH-SR-2024-11",
+      "as_written": "UWH-SR-2024-11",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Whitcombe Hall Seismic Retrofit  Contract No.: UWH-SR-2024-11",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 20,
+          "end": 90,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "5",
+      "as_written": "5",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER No. 5",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 18,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-09",
+      "as_written": "9 February 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order Date: 9 February 2026  Substantial Completion: 30 September 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 151,
+          "end": 228,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "University Facilities Planning",
+      "as_written": "University Facilities Planning",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: University Facilities Planning",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 230,
+          "end": 274,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.",
+      "as_written": "Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 382,
+          "end": 509,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 142300,
+      "as_written": "$142,300.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "This Change Order increases the Contract Sum by $142,300.00 and extends the Contract Time by 15 calendar days.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 511,
+          "end": 621,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 15,
+      "as_written": "15 calendar days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "This Change Order increases the Contract Sum by $142,300.00 and extends the Contract Time by 15 calendar days.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 511,
+          "end": 621,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "University: P. Sandoval (signed 12 February 2026) Contractor: E. Roth (signed 11 February 2026)",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "approval_from_signature_only"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "University: P. Sandoval (signed 12 February 2026)  Contractor: E. Roth (signed 11 February 2026)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 696,
+          "end": 792,
+          "page": 1,
+          "line": 16
+        }
+      ]
+    }
+  }
+}

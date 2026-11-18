@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Whitcombe Hall Seismic Retrofit",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "UWH-SR-2024-11",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "5",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-02-09",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "University Facilities Planning",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 142300,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 15,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.75
+  },
+  "needs_review": false
+}

@@ -1,0 +1,232 @@
+{
+  "document": {
+    "name": "co-02-contractor-request.txt",
+    "kind": "text",
+    "sha256": "655db955112cba3f810615f4ca3ca4e2312fa2b68e3bca49a11c36fac82ed963",
+    "pages": 1,
+    "characters": 1653,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is an email from the mechanical subcontractor transmitting Change Order Request No. 17 for relocating RTU-3. The change itself is 'TOTAL THIS CHANGE $21,318.13', which includes overhead and profit; the subtotal of $18,537.50 is a part. The request is pending Owner approval. No contract number or contract sums are given.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Lakeshore Medical Office Building\",\"quotes\":[\"PROJECT:  Lakeshore Medical Office Building\"],\"note\":\"\"},\"contract_number\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"17\",\"quotes\":[\"COR NO.:  17\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"February 10, 2026\",\"quotes\":[\"DATE:  February 10, 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Tom Abernathy, Lakeshore Development (Owner's Representative)\",\"quotes\":[\"REQUESTED BY: Tom Abernathy, Lakeshore Development (Owner's Representative)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$21,318.13\",\"quotes\":[\"TOTAL THIS CHANGE  $21,318.13\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"No change to the contract completion date\",\"quotes\":[\"SCHEDULE: No change to the contract completion date.\"],\"note\":\"\",\"direction\":\"no_change\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"pending\",\"quotes\":[\"STATUS: Pending Owner approval\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-sonnet-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4610,
+        "completion_tokens": 1432,
+        "cost": 0.02354
+      }
+    ]
+  },
+  "model_notes": "This is an email from the mechanical subcontractor transmitting Change Order Request No. 17 for relocating RTU-3. The change itself is 'TOTAL THIS CHANGE $21,318.13', which includes overhead and profit; the subtotal of $18,537.50 is a part. The request is pending Owner approval. No contract number or contract sums are given.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Lakeshore Medical Office Building",
+      "as_written": "Lakeshore Medical Office Building",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "PROJECT:  Lakeshore Medical Office Building",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 469,
+          "end": 512,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "17",
+      "as_written": "17",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "COR NO.:  17",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 580,
+          "end": 592,
+          "page": 1,
+          "line": 15
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-10",
+      "as_written": "February 10, 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "DATE:  February 10, 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 593,
+          "end": 617,
+          "page": 1,
+          "line": 16
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Tom Abernathy, Lakeshore Development (Owner's Representative)",
+      "as_written": "Tom Abernathy, Lakeshore Development (Owner's Representative)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "REQUESTED BY: Tom Abernathy, Lakeshore Development (Owner's Representative)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 619,
+          "end": 694,
+          "page": 1,
+          "line": 18
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.",
+      "as_written": "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.",
+          "kind": "normalized",
+          "score": 1.0,
+          "start": 712,
+          "end": 957,
+          "page": 1,
+          "line": 21
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 21318.13,
+      "as_written": "$21,318.13",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "TOTAL THIS CHANGE  $21,318.13",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1210,
+          "end": 1239,
+          "page": 1,
+          "line": 33
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "No change to the contract completion date",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "SCHEDULE: No change to the contract completion date.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1350,
+          "end": 1402,
+          "page": 1,
+          "line": 38
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "pending",
+      "as_written": "STATUS: Pending Owner approval",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "STATUS: Pending Owner approval",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1547,
+          "end": 1577,
+          "page": 1,
+          "line": 43
+        }
+      ]
+    }
+  }
+}

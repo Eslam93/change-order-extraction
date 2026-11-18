@@ -1,0 +1,222 @@
+{
+  "document": {
+    "name": "e20-memo-with-almost-nothing.txt",
+    "kind": "text",
+    "sha256": "186971e751cc33b347b3480cd9d9e6c06b58f0804506741f190511e7dccc895c",
+    "pages": 1,
+    "characters": 233,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a short internal memo titled Change to Scope for the Larkspur Clinic Tenant Improvement, not a formal numbered change order. It describes a scope deletion at Waiting 101 requested by the Owner; no price is given (Price to follow) and no contract numbers, sums, dates or schedule impact appear.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Larkspur Clinic Tenant Improvement\",\"quotes\":[\"Project: Larkspur Clinic Tenant Improvement\"],\"note\":\"\"},\"contract_number\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"change_order_number\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"date\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Owner\",\"quotes\":[\"At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall.\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall. No drawings will be reissued.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Price to follow.\"],\"note\":\"The memo says the price will follow later, so the amount is not fixed yet.\",\"direction\":\"unclear\"},\"schedule_impact_days\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\",\"direction\":\"unclear\"},\"approval_status\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4008,
+        "completion_tokens": 683,
+        "cost": 0.0007423
+      }
+    ]
+  },
+  "model_notes": "This is a short internal memo titled Change to Scope for the Larkspur Clinic Tenant Improvement, not a formal numbered change order. It describes a scope deletion at Waiting 101 requested by the Owner; no price is given (Price to follow) and no contract numbers, sums, dates or schedule impact appear.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "model_reported_unclear",
+      "detail": "The memo says the price will follow later, so the amount is not fixed yet.",
+      "field": "amount",
+      "review": true
+    },
+    {
+      "code": "critical_field_missing",
+      "detail": "the document gives none",
+      "field": "change_order_number",
+      "review": true
+    },
+    {
+      "code": "critical_field_missing",
+      "detail": "the document gives none",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Larkspur Clinic Tenant Improvement",
+      "as_written": "Larkspur Clinic Tenant Improvement",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Larkspur Clinic Tenant Improvement",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 38,
+          "end": 81,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "change_order_number": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "date": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Owner",
+      "as_written": "Owner",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 83,
+          "end": 186,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall. No drawings will be reissued.",
+      "as_written": "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall. No drawings will be reissued.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 83,
+          "end": 186,
+          "page": 1,
+          "line": 6
+        },
+        {
+          "quote": "No drawings will be reissued.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 204,
+          "end": 233,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "amount": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The memo says the price will follow later, so the amount is not fixed yet.",
+      "evidence": [
+        {
+          "quote": "Price to follow.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 187,
+          "end": 203,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "approval_status": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "document": "co-05-draft-conflicting.txt",
+  "fields": {
+    "project_name": "Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades",
+    "contract_number": "ACSD-WW-2024-06",
+    "change_order_number": null,
+    "date": "2026-04-22",
+    "requested_by": null,
+    "description": "During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation 412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with compacted structural fill per the geotechnical memo dated April 14, 2026.",
+    "amount": null,
+    "schedule_impact_days": null,
+    "approval_status": "draft"
+  },
+  "also_accept": {
+    "description": [
+      "Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with compacted structural fill per the geotechnical memo dated April 14, 2026."
+    ]
+  },
+  "review_expected": true,
+  "why": "The header says Change Order No. 12 and the body says No. 21: no single number can be taken. The amount is to be determined; 185,000.00 is a not-to-exceed ceiling, not the change. The Contract Time is to be determined as well, which is not the same as no change. The approval section is an instruction and three empty signature lines, so it shows no approval; the document is marked DRAFT. Nobody is named as requesting the change."
+}

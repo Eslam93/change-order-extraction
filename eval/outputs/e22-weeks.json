@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Hollybrook Townhomes, Phase 1",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "HB-P1-2025",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "4",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-11-20",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Hollybrook Development LLC",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Convert garages in Buildings 3 and 4 from slab-on-grade to structural slab over void forms due to expansive soils (geotech addendum 2).",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 88000,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 21,
+    "confidence": 0.75
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.75
+  },
+  "needs_review": false
+}

@@ -1,0 +1,17 @@
+{
+  "document": "e26-pasted-spreadsheet-row.txt",
+  "fields": {
+    "project_name": "Meridian Tower Lobby Refresh",
+    "contract_number": "MT-LOBBY-2025",
+    "change_order_number": "17",
+    "date": "2025-12-02",
+    "requested_by": "Building Management",
+    "description": "Replace specified terrazzo base with stone base at elevator lobby, 96 LF",
+    "amount": -2140.0,
+    "schedule_impact_days": 0,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "A row pasted from a spreadsheet, tab separated: the labels are a header row above the values, not beside them. The amount is in parentheses (a credit) and the days column holds an explicit 0."
+}

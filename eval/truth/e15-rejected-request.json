@@ -1,0 +1,21 @@
+{
+  "document": "e15-rejected-request.txt",
+  "fields": {
+    "project_name": "Saltmarsh Visitor Center",
+    "contract_number": "SVC-2025-GC",
+    "change_order_number": "12",
+    "date": "2025-08-12",
+    "requested_by": "Coastline Builders, Inc. (Contractor)",
+    "description": "Substitute fiber cement siding for the specified cedar siding on all elevations.",
+    "amount": -11200.0,
+    "schedule_impact_days": 0,
+    "approval_status": "rejected"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Coastline Builders, Inc."
+    ]
+  },
+  "review_expected": false,
+  "why": "A rejected request still states what was asked: a credit of 11,200.00 and no schedule effect. 'No change to the Contract is authorized' contains the word 'authorized' and means the opposite."
+}

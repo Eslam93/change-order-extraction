@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Riverside Greenway Phase 3",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "GPC-RG3-014",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "6",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-01-22",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "description": {
+    "value": "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": -9450,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "needs_review": true
+}

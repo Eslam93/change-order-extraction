@@ -1,0 +1,26 @@
+{
+  "document": "e05-credit-in-words.txt",
+  "fields": {
+    "project_name": "Riverside Greenway Phase 3",
+    "contract_number": "GPC-RG3-014",
+    "change_order_number": "6",
+    "date": "2026-01-22",
+    "requested_by": "Greenway Parks Conservancy",
+    "description": "we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+    "amount": -9450.0,
+    "schedule_impact_days": 0,
+    "approval_status": "pending"
+  },
+  "also_accept": {
+    "requested_by": [
+      "the Conservancy",
+      "Conservancy"
+    ],
+    "description": [
+      "omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy",
+      "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy."
+    ]
+  },
+  "review_expected": false,
+  "why": "The figure carries no minus sign or parentheses; the word 'Credit' makes it negative. The schedule is explicitly unchanged: 0. The letter asks for a countersignature and the acceptance line is blank, so it is pending, not approved."
+}

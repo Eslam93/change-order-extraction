@@ -1,0 +1,17 @@
+{
+  "document": "e09-ambiguous-date.txt",
+  "fields": {
+    "project_name": "Calder Bridge Deck Rehabilitation",
+    "contract_number": "CBD-2025-114",
+    "change_order_number": "31",
+    "date": null,
+    "requested_by": "County Engineer",
+    "description": "Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.",
+    "amount": 18975.0,
+    "schedule_impact_days": 3,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": true,
+  "why": "05/06/2026 is 5 June or 6 May and the document has no other date to settle it: null, and a person should look."
+}

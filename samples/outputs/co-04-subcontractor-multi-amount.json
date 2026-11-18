@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Eastgate Transit Plaza – Parking Structure P2",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "ETP-SC-0457",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "9",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "requested_by": {
+    "value": "Hallmark General Contractors – J. Ortega (Project Engineer), RFI-112 response",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Provide and install EV charging infrastructure at Level 1: (8) dual-port Level 2 chargers, 400A distribution panel EV1, feeders from switchboard MSB, underground conduit and trenching (approx. 310 LF), and bollards per sketch SK-E-14.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 81640.55,
+    "confidence": 0.97
+  },
+  "schedule_impact_days": {
+    "value": 4,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.75
+  },
+  "needs_review": true
+}

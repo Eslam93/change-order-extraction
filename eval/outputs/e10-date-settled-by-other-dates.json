@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Thornbury Primary School Extension",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "TPS/EXT/2025/03",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "VO-07",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-02-04",
+    "confidence": 0.75
+  },
+  "requested_by": {
+    "value": "Contract Administrator (Leyland Partnership)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 6340,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 3,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.75
+  },
+  "needs_review": false
+}

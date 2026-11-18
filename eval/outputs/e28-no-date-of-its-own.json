@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Tamarack Lodge Kitchen Expansion",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "TL-KIT-2025",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "3",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "requested_by": {
+    "value": "Lodge General Manager",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 17480,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 4,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

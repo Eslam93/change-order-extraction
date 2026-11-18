@@ -1,0 +1,242 @@
+{
+  "document": {
+    "name": "e04-deductive-parentheses.txt",
+    "kind": "text",
+    "sha256": "ba9cb03cb6cfaf369f5e6ecd46bbcc7521c662f12ce8e628584f70e1ec0483e6",
+    "pages": 1,
+    "characters": 575,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a deductive change order that deletes traffic membrane coating work from the Agreement. The credit of ($27,930.00) is the net price change and the 4 working days earlier is the schedule change. The document gives no original contract sum, prior change totals or revised contract sums.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Harlow Street Parking Deck Repairs\",\"quotes\":[\"Project: Harlow Street Parking Deck Repairs\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"HSPD-2025-R1\",\"quotes\":[\"Agreement No. HSPD-2025-R1\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"009\",\"quotes\":[\"Change Order Number: 009  Date: 14 November 2025\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"14 November 2025\",\"quotes\":[\"Change Order Number: 009  Date: 14 November 2025\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"City of Harlow, Department of Public Works\",\"quotes\":[\"Requested by: City of Harlow, Department of Public Works\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"The following work is deleted from the Agreement: Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"($27,930.00)\",\"quotes\":[\"Adjustment to Agreement price ........ ($27,930.00)\"],\"note\":\"\",\"direction\":\"decrease\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"4 working days earlier\",\"quotes\":[\"Adjustment to completion date ........ 4 working days earlier\"],\"note\":\"\",\"direction\":\"decrease\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Executed by the City on 20 November 2025 (signature on file).\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4140,
+        "completion_tokens": 1674,
+        "cost": 0.001251
+      }
+    ]
+  },
+  "model_notes": "This is a deductive change order that deletes traffic membrane coating work from the Agreement. The credit of ($27,930.00) is the net price change and the 4 working days earlier is the schedule change. The document gives no original contract sum, prior change totals or revised contract sums.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Harlow Street Parking Deck Repairs",
+      "as_written": "Harlow Street Parking Deck Repairs",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Harlow Street Parking Deck Repairs",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 73,
+          "end": 116,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "HSPD-2025-R1",
+      "as_written": "HSPD-2025-R1",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Agreement No. HSPD-2025-R1",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 117,
+          "end": 143,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "009",
+      "as_written": "009",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order Number: 009  Date: 14 November 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 24,
+          "end": 72,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2025-11-14",
+      "as_written": "14 November 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order Number: 009  Date: 14 November 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 24,
+          "end": 72,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "City of Harlow, Department of Public Works",
+      "as_written": "City of Harlow, Department of Public Works",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: City of Harlow, Department of Public Works",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 145,
+          "end": 201,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "The following work is deleted from the Agreement: Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.",
+      "as_written": "The following work is deleted from the Agreement: Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "The following work is deleted from the Agreement: Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.",
+          "kind": "normalized",
+          "score": 1.0,
+          "start": 203,
+          "end": 397,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": -27930,
+      "as_written": "($27,930.00)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Adjustment to Agreement price ........ ($27,930.00)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 399,
+          "end": 450,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": -4,
+      "as_written": "4 working days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Adjustment to completion date ........ 4 working days earlier",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 451,
+          "end": 512,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Executed by the City on 20 November 2025 (signature on file).",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Executed by the City on 20 November 2025 (signature on file).",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 514,
+          "end": 575,
+          "page": 1,
+          "line": 15
+        }
+      ]
+    }
+  }
+}

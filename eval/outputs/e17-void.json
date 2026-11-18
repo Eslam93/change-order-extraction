@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Fenwick Avenue Streetscape",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "FAS-2025-CIV",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "19",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-10-21",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "City Arborist",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Substitute 3-inch caliper honeylocust for the specified 2-inch caliper trees at 18 locations.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 7650,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "void",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

@@ -1,0 +1,20 @@
+{
+  "document": "co-06-scanned-signature-page.pdf",
+  "fields": {
+    "project_name": "Stonebridge Residences – Tower B",
+    "contract_number": "SUL-TB-GC-001",
+    "change_order_number": "CO-023",
+    "date": "2026-05-07",
+    "requested_by": "Stonebridge Urban Living LP",
+    "description": "Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals (approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace lighting.",
+    "amount": 57754.10,
+    "schedule_impact_days": 5,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": ["023", "23"],
+    "requested_by": ["Stonebridge Urban Living LP – Design Bulletin DB-19"]
+  },
+  "review_expected": true,
+  "why": "The label is what a person reading both pages would record: page 2, a scan with no text layer, carries both signatures and an APPROVED stamp. A reader of the text layer alone cannot see it, so the right behaviour there is to leave approval_status null and ask for review, never to infer approval from 'signatures appear on page 2'. The amount is the Change Order total (add), confirmed by the contract price before and after."
+}

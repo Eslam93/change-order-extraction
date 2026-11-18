@@ -1,0 +1,24 @@
+CHANGE ORDER REQUEST                                COR-031
+Kessler Mechanical, LLC
+
+Project:  Dunmore Elementary HVAC Replacement
+Prime Contract No.:  DSD-HVAC-2025-02
+Date:  April 2, 2026
+Change requested by:  Dunmore School District (Owner) - added scope at Room 114
+
+Description:
+Furnish and install one (1) additional 2-ton ductless split system serving the new sensory room (Room 114), including refrigerant piping, condensate pump, and 208V circuit from Panel LB.
+
+  Equipment                    4,860.00
+  Piping and insulation        1,275.00
+  Electrical (sub)             1,940.00
+  Labor - 28 hrs @ 92.00       2,576.00
+  Subtotal                    10,651.00
+  Overhead 10%                 1,065.10
+  Profit 5%                      585.81
+  Sales tax (material only)      490.80
+  TOTAL COR-031               12,792.71
+
+Time impact: none
+
+Submitted for approval. This COR is not a change to the contract until approved in writing by the Owner.

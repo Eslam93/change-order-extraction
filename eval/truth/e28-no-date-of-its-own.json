@@ -1,0 +1,17 @@
+{
+  "document": "e28-no-date-of-its-own.txt",
+  "fields": {
+    "project_name": "Tamarack Lodge Kitchen Expansion",
+    "contract_number": "TL-KIT-2025",
+    "change_order_number": "3",
+    "date": null,
+    "requested_by": "Lodge General Manager",
+    "description": "Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.",
+    "amount": 17480.0,
+    "schedule_impact_days": 4,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "Two dates and neither is the change order's: one dates the agreement, the other the owner's approval. The change order has no date of its own, so it is null, and a missing date alone needs no review."
+}

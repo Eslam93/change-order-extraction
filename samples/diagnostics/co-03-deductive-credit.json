@@ -1,0 +1,244 @@
+{
+  "document": {
+    "name": "co-03-deductive-credit.pdf",
+    "kind": "pdf",
+    "sha256": "0152a78848f3a3a1763b78336c704ddc3a1baa8e46db8fc415fd2e89e33e659d",
+    "pages": 1,
+    "characters": 1408,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"Deductive change order CO-011 from Northgate Constructors for Riverbend Logistics Center – Building C, deleting the mezzanine office build-out. The change itself is the net deduct of ($110,983.75); the subtotal (116,825.00) and retained OH&P 5,841.25 are parts, and the original, prior and revised contract sums are totals. Both owner and contractor have signed the Accepted block; no conflicts found.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Riverbend Logistics Center – Building C\",\"quotes\":[\"Project:  Riverbend Logistics Center – Building C\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"CIP-RLC-0932\",\"quotes\":[\"Contract / Agreement No.:  CIP-RLC-0932\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"CO-011\",\"quotes\":[\"No. CO-011 (Deductive)\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"12-Jan-2026\",\"quotes\":[\"General Contractor  Date: 12-Jan-2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Calloway Industrial Properties (Owner)\",\"quotes\":[\"Initiated by:  Calloway Industrial Properties (Owner)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing,\\ngypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in. Owner will complete this\\nwork under a separate tenant-improvement contract.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"($110,983.75)\",\"quotes\":[\"NET CHANGE – DEDUCT  ($110,983.75)\"],\"note\":\"\",\"direction\":\"decrease\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"ten (10) calendar\\ndays\",\"quotes\":[\"Contract Time: The date of Substantial Completion is advanced; the Contract Time is decreased by ten (10) calendar\"],\"note\":\"\",\"direction\":\"decrease\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Owner: Calloway Industrial Properties  Signed: /s/ R. Calloway  Date: 15-Jan-2026\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"stated\",\"value\":\"$12,480,000.00\",\"quotes\":[\"Original Contract Sum  $12,480,000.00\"],\"note\":\"\"},\"previous_changes\":{\"status\":\"stated\",\"value\":\"$264,310.00\",\"quotes\":[\"Net change by prior Change Orders  $264,310.00\"],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"stated\",\"value\":\"$12,744,310.00\",\"quotes\":[\"Contract Sum prior to this Change Order  $12,744,310.00\"],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"stated\",\"value\":\"$12,633,326.25\",\"quotes\":[\"Revised Contract Sum  $12,633,326.25\"],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-sonnet-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4553,
+        "completion_tokens": 1059,
+        "cost": 0.019696
+      }
+    ]
+  },
+  "model_notes": "Deductive change order CO-011 from Northgate Constructors for Riverbend Logistics Center – Building C, deleting the mezzanine office build-out. The change itself is the net deduct of ($110,983.75); the subtotal (116,825.00) and retained OH&P 5,841.25 are parts, and the original, prior and revised contract sums are totals. Both owner and contractor have signed the Accepted block; no conflicts found.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Riverbend Logistics Center – Building C",
+      "as_written": "Riverbend Logistics Center – Building C",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project:  Riverbend Logistics Center – Building C",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 133,
+          "end": 182,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "CIP-RLC-0932",
+      "as_written": "CIP-RLC-0932",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract / Agreement No.:  CIP-RLC-0932",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 222,
+          "end": 261,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "CO-011",
+      "as_written": "CO-011",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "No. CO-011 (Deductive)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 71,
+          "end": 93,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-01-12",
+      "as_written": "12-Jan-2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "General Contractor  Date: 12-Jan-2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 94,
+          "end": 131,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Calloway Industrial Properties (Owner)",
+      "as_written": "Calloway Industrial Properties (Owner)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Initiated by:  Calloway Industrial Properties (Owner)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 262,
+          "end": 315,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing, gypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in. Owner will complete this work under a separate tenant-improvement contract.",
+      "as_written": "Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing, gypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in. Owner will complete this work under a separate tenant-improvement contract.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing,\ngypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in. Owner will complete this\nwork under a separate tenant-improvement contract.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 340,
+          "end": 621,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": -110983.75,
+      "as_written": "($110,983.75)",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "NET CHANGE – DEDUCT  ($110,983.75)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 897,
+          "end": 931,
+          "page": 1,
+          "line": 24
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": -10,
+      "as_written": "ten (10) calendar days",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract Time: The date of Substantial Completion is advanced; the Contract Time is decreased by ten (10) calendar",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1112,
+          "end": 1226,
+          "page": 1,
+          "line": 31
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Owner: Calloway Industrial Properties Signed: /s/ R. Calloway Date: 15-Jan-2026",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "approval_from_signature_only"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner: Calloway Industrial Properties  Signed: /s/ R. Calloway  Date: 15-Jan-2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1244,
+          "end": 1325,
+          "page": 1,
+          "line": 35
+        }
+      ]
+    }
+  }
+}

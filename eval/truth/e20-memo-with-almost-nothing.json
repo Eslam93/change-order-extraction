@@ -1,0 +1,24 @@
+{
+  "document": "e20-memo-with-almost-nothing.txt",
+  "fields": {
+    "project_name": "Larkspur Clinic Tenant Improvement",
+    "contract_number": null,
+    "change_order_number": null,
+    "date": null,
+    "requested_by": "Owner",
+    "description": "delete the built-in millwork bench at Waiting 101 and patch and paint the wall.",
+    "amount": null,
+    "schedule_impact_days": null,
+    "approval_status": null
+  },
+  "also_accept": {
+    "requested_by": [
+      "the Owner"
+    ],
+    "description": [
+      "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall."
+    ]
+  },
+  "review_expected": true,
+  "why": "A memo with a project, a requester and a scope and nothing else. No number, no date, no price (it is 'to follow'), no schedule, no approval: all null, none of them zero or guessed."
+}

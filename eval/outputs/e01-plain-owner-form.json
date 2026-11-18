@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Cedar Ridge Middle School Gymnasium",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "CRSD-C-2211",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "3",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-09-08",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Cedar Ridge School District Facilities Office",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Replace the specified maple strip flooring with a resilient athletic floor system in the auxiliary gym (approx. 6,200 sq ft), including moisture mitigation primer.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 46180,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 6,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

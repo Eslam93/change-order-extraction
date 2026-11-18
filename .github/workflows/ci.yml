@@ -1,0 +1,43 @@
+name: CI
+
+# No job needs a secret: the test suite scripts the model, and committed outputs are rebuilt
+# from recorded replies. A live model run is never part of CI.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, types, tests, replay
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: make lint
+      - run: make typecheck
+      - run: make test
+      - name: Committed outputs and the report are what the code produces
+        run: make eval-replay
+      - name: A processed document prints exactly one JSON object to stdout
+        run: |
+          uv run python -m changeorder samples/inputs/co-01-standard-form.pdf \
+            --replay samples/diagnostics/co-01-standard-form.json > result.json
+          uv run python -c "import json; json.load(open('result.json'))"
+      - name: make extract fails, and prints nothing, when no model is configured
+        run: |
+          if make extract FILE=samples/inputs/co-01-standard-form.pdf > result.json; then
+            echo "expected a nonzero exit status"; exit 1
+          fi
+          test ! -s result.json

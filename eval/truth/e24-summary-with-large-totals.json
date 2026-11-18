@@ -1,0 +1,17 @@
+{
+  "document": "e24-summary-with-large-totals.txt",
+  "fields": {
+    "project_name": "Estuary Point Seawall Repair",
+    "contract_number": "EP-SW-2025-003",
+    "change_order_number": "6",
+    "date": "2025-07-07",
+    "requested_by": "Harbor District Engineering",
+    "description": "Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.",
+    "amount": 48115.0,
+    "schedule_impact_days": 8,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "Five figures, and the change is the smallest but one. The four around it are the original sum, the earlier change orders, the sum to date and the new sum, which add up around it."
+}

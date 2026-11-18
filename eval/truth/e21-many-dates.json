@@ -1,0 +1,17 @@
+{
+  "document": "e21-many-dates.txt",
+  "fields": {
+    "project_name": "Whitcombe Hall Seismic Retrofit",
+    "contract_number": "UWH-SR-2024-11",
+    "change_order_number": "5",
+    "date": "2026-02-09",
+    "requested_by": "University Facilities Planning",
+    "description": "Add carbon fiber wrap to twelve (12) additional columns at the basement level identified in the Engineer's supplemental survey.",
+    "amount": 142300.0,
+    "schedule_impact_days": 15,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "Nine dates. One is the change order's; the others belong to the contract, the notice to proceed, two completion dates, an RFI, a proposal and two signatures."
+}

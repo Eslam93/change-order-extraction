@@ -1,0 +1,19 @@
+{
+  "document": "co-01-standard-form.pdf",
+  "fields": {
+    "project_name": "Harborview Elementary School – Classroom Wing Addition",
+    "contract_number": "PAUSD-2025-0117",
+    "change_order_number": "004",
+    "date": "2026-03-18",
+    "requested_by": "Port Alder Unified School District",
+    "description": "Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.",
+    "amount": 38640.00,
+    "schedule_impact_days": 14,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": ["4"]
+  },
+  "review_expected": false,
+  "why": "Clean form. The amount is the 'increased by this Change Order' line, not the original, prior or new Contract Sum. The contract date (June 2, 2025), the signature dates and the completion date are not the change order date. The 'not valid until signed' notice is boilerplate; the explicit status line and three completed signature blocks establish approval."
+}

@@ -1,0 +1,17 @@
+{
+  "document": "e14-approval-section-not-signed.txt",
+  "fields": {
+    "project_name": "Ironbridge Wastewater Lift Station No. 7",
+    "contract_number": "IB-LS7-2025",
+    "change_order_number": "2",
+    "date": "2025-10-23",
+    "requested_by": "Utility Engineering Division",
+    "description": "Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.",
+    "amount": 58400.0,
+    "schedule_impact_days": 12,
+    "approval_status": null
+  },
+  "also_accept": {},
+  "review_expected": true,
+  "why": "An approval heading, a sentence about when it becomes effective and two empty signature lines: the word 'approved' appears three times and nothing was approved. The state cannot be established, so it is null."
+}

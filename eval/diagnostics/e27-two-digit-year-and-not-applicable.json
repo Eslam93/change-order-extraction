@@ -1,0 +1,253 @@
+{
+  "document": {
+    "name": "e27-two-digit-year-and-not-applicable.txt",
+    "kind": "text",
+    "sha256": "f27a2d4db7cf192b4b21d2394910c9d72c74dae86264dad16f7812f7a7059def",
+    "pages": 1,
+    "characters": 279,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a single change order (No. 12) for the Sable Creek Pump Station Upgrade, adding VFD bypass contactors for Pumps 1 and 2. The amount of $8,960.00 ADD is the change itself; the document gives no contract totals. The schedule impact is written only as N/A, which is not an explicit statement that contract time is unchanged.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Sable Creek Pump Station Upgrade\",\"quotes\":[\"Project: Sable Creek Pump Station Upgrade\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"SCPS-25-004\",\"quotes\":[\"Contract: SCPS-25-004\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"12\",\"quotes\":[\"CHANGE ORDER 12\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"3-Feb-26\",\"quotes\":[\"Date: 3-Feb-26\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"District Operations\",\"quotes\":[\"Requested by: District Operations\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Provide VFD bypass contactors for Pumps 1 and 2.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$8,960.00 ADD\",\"quotes\":[\"Amount: $8,960.00 ADD\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Schedule impact: N/A\"],\"note\":\"The document writes N/A for schedule impact, which does not clearly say whether contract time changes or simply does not apply.\",\"direction\":\"unclear\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Approved by District Engineer - W. Abara\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4040,
+        "completion_tokens": 1524,
+        "cost": 0.001166
+      }
+    ]
+  },
+  "model_notes": "This is a single change order (No. 12) for the Sable Creek Pump Station Upgrade, adding VFD bypass contactors for Pumps 1 and 2. The amount of $8,960.00 ADD is the change itself; the document gives no contract totals. The schedule impact is written only as N/A, which is not an explicit statement that contract time is unchanged.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "model_reported_unclear",
+      "detail": "The document writes N/A for schedule impact, which does not clearly say whether contract time changes or simply does not apply.",
+      "field": "schedule_impact_days",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Sable Creek Pump Station Upgrade",
+      "as_written": "Sable Creek Pump Station Upgrade",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Sable Creek Pump Station Upgrade",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 32,
+          "end": 73,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "SCPS-25-004",
+      "as_written": "SCPS-25-004",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract: SCPS-25-004",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 75,
+          "end": 96,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "12",
+      "as_written": "12",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER 12",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 15,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-03",
+      "as_written": "3-Feb-26",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "two_digit_year"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 3-Feb-26",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 17,
+          "end": 31,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "District Operations",
+      "as_written": "District Operations",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: District Operations",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 97,
+          "end": 130,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Provide VFD bypass contactors for Pumps 1 and 2.",
+      "as_written": "Provide VFD bypass contactors for Pumps 1 and 2.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Provide VFD bypass contactors for Pumps 1 and 2.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 145,
+          "end": 193,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 8960,
+      "as_written": "$8,960.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Amount: $8,960.00 ADD",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 195,
+          "end": 216,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The document writes N/A for schedule impact, which does not clearly say whether contract time changes or simply does not apply.",
+      "evidence": [
+        {
+          "quote": "Schedule impact: N/A",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 217,
+          "end": 237,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Approved by District Engineer - W. Abara",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Approved by District Engineer - W. Abara",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 239,
+          "end": 279,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    }
+  }
+}

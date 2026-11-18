@@ -1,0 +1,246 @@
+{
+  "document": {
+    "name": "e10-date-settled-by-other-dates.txt",
+    "kind": "text",
+    "sha256": "d399077e9903df9c96cf9a4c59efc89300f9ee7cfb1c284ce845dc1f4184abcd",
+    "pages": 1,
+    "characters": 510,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a variation order (VO-07) on the Thornbury Primary School Extension, changing brickwork to the east elevation. The £6,340.00 addition and the 3 working day extension of time are the change itself. The document gives no original sum, previous variations or revised contract totals.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Thornbury Primary School Extension\",\"quotes\":[\"Project: Thornbury Primary School Extension\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"TPS/EXT/2025/03\",\"quotes\":[\"Contract Ref: TPS/EXT/2025/03\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"VO-07\",\"quotes\":[\"Variation Order No: VO-07\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"04/02/2026\",\"quotes\":[\"Date: 04/02/2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Contract Administrator (Leyland Partnership)\",\"quotes\":[\"Instructed by: Contract Administrator (Leyland Partnership)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"£6,340.00\",\"quotes\":[\"Addition to Contract Sum: £6,340.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"3 working days\",\"quotes\":[\"Extension of time: 3 working days\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Signed for the Employer: R. Haddad  13/02/2026\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4112,
+        "completion_tokens": 1305,
+        "cost": 0.0010637
+      }
+    ]
+  },
+  "model_notes": "This is a variation order (VO-07) on the Thornbury Primary School Extension, changing brickwork to the east elevation. The £6,340.00 addition and the 3 working day extension of time are the change itself. The document gives no original sum, previous variations or revised contract totals.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Thornbury Primary School Extension",
+      "as_written": "Thornbury Primary School Extension",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Thornbury Primary School Extension",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 43,
+          "end": 86,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "TPS/EXT/2025/03",
+      "as_written": "TPS/EXT/2025/03",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract Ref: TPS/EXT/2025/03",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 87,
+          "end": 116,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "VO-07",
+      "as_written": "VO-07",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Variation Order No: VO-07",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 17,
+          "end": 42,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-04",
+      "as_written": "04/02/2026",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "day_month_order_from_other_dates"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 04/02/2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 117,
+          "end": 133,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Contract Administrator (Leyland Partnership)",
+      "as_written": "Contract Administrator (Leyland Partnership)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Instructed by: Contract Administrator (Leyland Partnership)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 134,
+          "end": 193,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.",
+      "as_written": "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 217,
+          "end": 391,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 6340,
+      "as_written": "£6,340.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Addition to Contract Sum: £6,340.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 393,
+          "end": 428,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 3,
+      "as_written": "3 working days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Extension of time: 3 working days",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 429,
+          "end": 462,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Signed for the Employer: R. Haddad 13/02/2026",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "approval_from_signature_only"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Signed for the Employer: R. Haddad  13/02/2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 464,
+          "end": 510,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    }
+  }
+}

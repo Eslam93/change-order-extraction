@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Westfield Library Renovation",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "WLR-GC-07",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "14",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-02-19",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Architect (Hollis & Byrne Architects)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 21,
+    "confidence": 0.97
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

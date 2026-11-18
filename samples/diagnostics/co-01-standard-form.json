@@ -1,0 +1,242 @@
+{
+  "document": {
+    "name": "co-01-standard-form.pdf",
+    "kind": "pdf",
+    "sha256": "b618dcf5fee71f00b6fb98a1b26a07f82af2d0f72dc10cd360bb6999d4a8632b",
+    "pages": 1,
+    "characters": 1488,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"AIA-style Change Order No. 004 for the Harborview Elementary School classroom wing addition. The change itself is an increase of $38,640.00 and 14 calendar days. $4,860,000.00 is the original sum, $73,215.00 the previous changes, $4,933,215.00 the sum before and $4,971,855.00 the new total. The arithmetic is consistent and the document is marked approved and fully executed.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Harborview Elementary School – Classroom Wing Addition\",\"quotes\":[\"PROJECT:  Harborview Elementary School – Classroom Wing Addition  CHANGE ORDER NO.:004\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"PAUSD-2025-0117\",\"quotes\":[\"CONTRACT NO.:  PAUSD-2025-0117\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"004\",\"quotes\":[\"PROJECT:  Harborview Elementary School – Classroom Wing Addition  CHANGE ORDER NO.:004\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"March 18, 2026\",\"quotes\":[\"1420 Marina Way, Port Alder  DATE:  March 18, 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Port Alder Unified School District\",\"quotes\":[\"REQUESTED BY:  Port Alder Unified School District\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3.\\n2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$ 38,640.00\",\"quotes\":[\"The Contract Sum will be increased by this Change Order in the amount of  $ 38,640.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"fourteen (14) calendar days\",\"quotes\":[\"The Contract Time will be increased by fourteen (14) calendar days.\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"STATUS: APPROVED – fully executed by all parties.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"stated\",\"value\":\"$ 4,860,000.00\",\"quotes\":[\"The original Contract Sum was  $ 4,860,000.00\"],\"note\":\"\"},\"previous_changes\":{\"status\":\"stated\",\"value\":\"$ 73,215.00\",\"quotes\":[\"Net change by previously authorized Change Orders  $ 73,215.00\"],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"stated\",\"value\":\"$ 4,933,215.00\",\"quotes\":[\"The Contract Sum prior to this Change Order was  $ 4,933,215.00\"],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"stated\",\"value\":\"$ 4,971,855.00\",\"quotes\":[\"The new Contract Sum including this Change Order will be  $ 4,971,855.00\"],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-sonnet-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4577,
+        "completion_tokens": 1094,
+        "cost": 0.020094
+      }
+    ]
+  },
+  "model_notes": "AIA-style Change Order No. 004 for the Harborview Elementary School classroom wing addition. The change itself is an increase of $38,640.00 and 14 calendar days. $4,860,000.00 is the original sum, $73,215.00 the previous changes, $4,933,215.00 the sum before and $4,971,855.00 the new total. The arithmetic is consistent and the document is marked approved and fully executed.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Harborview Elementary School – Classroom Wing Addition",
+      "as_written": "Harborview Elementary School – Classroom Wing Addition",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "PROJECT:  Harborview Elementary School – Classroom Wing Addition  CHANGE ORDER NO.:004",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 107,
+          "end": 193,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "PAUSD-2025-0117",
+      "as_written": "PAUSD-2025-0117",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CONTRACT NO.:  PAUSD-2025-0117",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 289,
+          "end": 319,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "004",
+      "as_written": "004",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "PROJECT:  Harborview Elementary School – Classroom Wing Addition  CHANGE ORDER NO.:004",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 107,
+          "end": 193,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-03-18",
+      "as_written": "March 18, 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "1420 Marina Way, Port Alder  DATE:  March 18, 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 194,
+          "end": 244,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Port Alder Unified School District",
+      "as_written": "Port Alder Unified School District",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "REQUESTED BY:  Port Alder Unified School District",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 424,
+          "end": 473,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3. 2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.",
+      "as_written": "Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3. 2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Furnish and install twelve (12) additional data drops in Classrooms 201–206 per Owner Bulletin No. 3.\n2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per ASI-07.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 514,
+          "end": 710,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 38640,
+      "as_written": "$ 38,640.00",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "The Contract Sum will be increased by this Change Order in the amount of  $ 38,640.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 885,
+          "end": 970,
+          "page": 1,
+          "line": 19
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 14,
+      "as_written": "fourteen (14) calendar days",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "The Contract Time will be increased by fourteen (14) calendar days.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1045,
+          "end": 1112,
+          "page": 1,
+          "line": 22
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "STATUS: APPROVED – fully executed by all parties.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "STATUS: APPROVED – fully executed by all parties.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 1439,
+          "end": 1488,
+          "page": 1,
+          "line": 30
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "document": "e07-requested-and-approved-amounts.txt",
+  "fields": {
+    "project_name": "Marlow Heights Office Park - Building D",
+    "contract_number": "MHOP-D-0931",
+    "change_order_number": "18",
+    "date": "2025-12-11",
+    "requested_by": "Barton Construction Group (General Contractor)",
+    "description": "Frame and finish added demising wall at Suite 240 (48 LF, full height, STC 50), including sound attenuation batts.",
+    "amount": 13100.0,
+    "schedule_impact_days": 2,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Barton Construction Group"
+    ]
+  },
+  "review_expected": false,
+  "why": "Two amounts for the same change. The change order is approved, so the approved figure is the change, not the larger requested one. 'reduced' describes the negotiation; the change is still an increase."
+}

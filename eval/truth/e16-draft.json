@@ -1,0 +1,22 @@
+{
+  "document": "e16-draft.txt",
+  "fields": {
+    "project_name": "Quarry Lane Distribution Warehouse",
+    "contract_number": "QLD-2025-DB-01",
+    "change_order_number": "8",
+    "date": "2025-06-30",
+    "requested_by": "Tenant (Northline Logistics) via Owner",
+    "description": "Add six (6) dock levelers and seals at doors 31 through 36; extend dock apron slab 12 feet.",
+    "amount": 96500.0,
+    "schedule_impact_days": 10,
+    "approval_status": "draft"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Northline Logistics",
+      "Tenant (Northline Logistics)"
+    ]
+  },
+  "review_expected": false,
+  "why": "A draft with complete terms. The price and time carry no word for their direction and no sign of a decrease: positive as written."
+}

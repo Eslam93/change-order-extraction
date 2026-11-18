@@ -1,0 +1,259 @@
+{
+  "document": {
+    "name": "e05-credit-in-words.txt",
+    "kind": "text",
+    "sha256": "cfd36124970fef0b68e62a9a8af57ea86ab0f75d18d893b7df5b96dc9e5d551f",
+    "pages": 1,
+    "characters": 588,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a credit change order (Change Order 6) that reduces the contract price by $9,450.00 by omitting stone seat walls at Overlook B and substituting Conservancy-furnished timber benches. The document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check has no figures to use. Approval is pending because the acceptance block is unsigned.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Riverside Greenway Phase 3\",\"quotes\":[\"Re: Riverside Greenway Phase 3 - Change Order 6 (credit)\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"GPC-RG3-014\",\"quotes\":[\"Contract: GPC-RG3-014\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"6\",\"quotes\":[\"Re: Riverside Greenway Phase 3 - Change Order 6 (credit)\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"January 22, 2026\",\"quotes\":[\"Date: January 22, 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Greenway Parks Conservancy\",\"quotes\":[\"Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$9,450.00\",\"quotes\":[\"Credit to the Conservancy for this change: $9,450.00\"],\"note\":\"\",\"direction\":\"decrease\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"There is no adjustment to the completion date.\",\"quotes\":[\"There is no adjustment to the completion date.\"],\"note\":\"\",\"direction\":\"no_change\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"pending\",\"quotes\":[\"Please countersign below to accept.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4138,
+        "completion_tokens": 1634,
+        "cost": 0.0012308
+      }
+    ]
+  },
+  "model_notes": "This is a credit change order (Change Order 6) that reduces the contract price by $9,450.00 by omitting stone seat walls at Overlook B and substituting Conservancy-furnished timber benches. The document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check has no figures to use. Approval is pending because the acceptance block is unsigned.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "value_not_in_quoted_text",
+      "detail": "no value could be accepted",
+      "field": "requested_by",
+      "review": true
+    },
+    {
+      "code": "status_not_shown_by_quoted_text",
+      "detail": "no value could be accepted",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Riverside Greenway Phase 3",
+      "as_written": "Riverside Greenway Phase 3",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Re: Riverside Greenway Phase 3 - Change Order 6 (credit)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 98,
+          "end": 154,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "GPC-RG3-014",
+      "as_written": "GPC-RG3-014",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract: GPC-RG3-014",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 179,
+          "end": 200,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "6",
+      "as_written": "6",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Re: Riverside Greenway Phase 3 - Change Order 6 (credit)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 98,
+          "end": 154,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-01-22",
+      "as_written": "January 22, 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: January 22, 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 156,
+          "end": 178,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "value_not_in_quoted_text"
+      ],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 202,
+          "end": 368,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+      "as_written": "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Per the Conservancy's request at the January 15 site walk, we will omit the stone seat walls at Overlook B and substitute timber benches furnished by the Conservancy.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 202,
+          "end": 368,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": -9450,
+      "as_written": "$9,450.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Credit to the Conservancy for this change: $9,450.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 370,
+          "end": 422,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "There is no adjustment to the completion date.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "There is no adjustment to the completion date.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 423,
+          "end": 469,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "status_not_shown_by_quoted_text"
+      ],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Please countersign below to accept.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 471,
+          "end": 506,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "document": {
+    "name": "e02-zero-cost-time-only.txt",
+    "kind": "text",
+    "sha256": "07639aa573e795cdc67d02af920dca3738ac918dff73b82d717b418e12155447",
+    "pages": 1,
+    "characters": 464,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a construction change order for the Westfield Library Renovation that changes the sequence of work and the contract time, not the price. The price change is zero, and the contract sum of $2,318,400.00 remains unchanged. The 21-day extension is the schedule change, and the approval by Owner is dated 2026-02-24.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Westfield Library Renovation\",\"quotes\":[\"Project: Westfield Library Renovation\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"WLR-GC-07\",\"quotes\":[\"Contract: WLR-GC-07\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"14\",\"quotes\":[\"CHANGE ORDER NO. 14\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"2026-02-19\",\"quotes\":[\"Date: 2026-02-19\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Architect (Hollis & Byrne Architects)\",\"quotes\":[\"Initiated by: Architect (Hollis & Byrne Architects)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"This change is made at no cost to the Owner\",\"quotes\":[\"Cost: This change is made at no cost to the Owner.\"],\"note\":\"\",\"direction\":\"no_change\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"twenty-one (21) calendar days\",\"quotes\":[\"Time: The Contract Time is extended by twenty-one (21) calendar days.\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Status: Approved by Owner 2026-02-24.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"stated\",\"value\":\"$2,318,400.00\",\"quotes\":[\"Cost: This change is made at no cost to the Owner. Contract Sum remains $2,318,400.00.\"],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"stated\",\"value\":\"$2,318,400.00\",\"quotes\":[\"Cost: This change is made at no cost to the Owner. Contract Sum remains $2,318,400.00.\"],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4093,
+        "completion_tokens": 1653,
+        "cost": 0.0012358
+      }
+    ]
+  },
+  "model_notes": "This is a construction change order for the Westfield Library Renovation that changes the sequence of work and the contract time, not the price. The price change is zero, and the contract sum of $2,318,400.00 remains unchanged. The 21-day extension is the schedule change, and the approval by Owner is dated 2026-02-24.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Westfield Library Renovation",
+      "as_written": "Westfield Library Renovation",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Westfield Library Renovation",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 20,
+          "end": 57,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "WLR-GC-07",
+      "as_written": "WLR-GC-07",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract: WLR-GC-07",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 59,
+          "end": 78,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "14",
+      "as_written": "14",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER NO. 14",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 19,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-02-19",
+      "as_written": "2026-02-19",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 2026-02-19",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 79,
+          "end": 95,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Architect (Hollis & Byrne Architects)",
+      "as_written": "Architect (Hollis & Byrne Architects)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Initiated by: Architect (Hollis & Byrne Architects)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 97,
+          "end": 148,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.",
+      "as_written": "Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Revise the sequence of work to allow early occupancy of the children's wing. No change in scope of materials.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 158,
+          "end": 267,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "This change is made at no cost to the Owner",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Cost: This change is made at no cost to the Owner.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 269,
+          "end": 319,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 21,
+      "as_written": "twenty-one (21) calendar days",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Time: The Contract Time is extended by twenty-one (21) calendar days.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 356,
+          "end": 425,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Status: Approved by Owner 2026-02-24.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Status: Approved by Owner 2026-02-24.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 427,
+          "end": 464,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    }
+  }
+}

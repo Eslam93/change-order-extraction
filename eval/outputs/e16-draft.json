@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Quarry Lane Distribution Warehouse",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "QLD-2025-DB-01",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "8",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-06-30",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Tenant (Northline Logistics) via Owner",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Add six (6) dock levelers and seals at doors 31 through 36; extend dock apron slab 12 feet.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 96500,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 10,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "draft",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

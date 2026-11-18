@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Halvorsen Cold Storage Expansion",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "HCS-EXP-2025",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "44",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-01-09",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Owner's Project Manager, S. Idowu",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "schedule_impact_days": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": true
+}

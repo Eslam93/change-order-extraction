@@ -1,0 +1,26 @@
+{
+  "document": "e11-european-number-format.txt",
+  "fields": {
+    "project_name": "Lindenhof Wohnquartier - Haus C",
+    "contract_number": "LHQ-2025-GU-01",
+    "change_order_number": "NA-04",
+    "date": "2026-03-17",
+    "requested_by": "Bauherr (Lindenhof Projekt GmbH)",
+    "description": "Additional waterproofing to the underground car park ramp (approx. 85 m2) with a two-layer bituminous membrane and protection screed.",
+    "amount": 14870.5,
+    "schedule_impact_days": 5,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": [
+      "04",
+      "4"
+    ],
+    "requested_by": [
+      "Lindenhof Projekt GmbH",
+      "Bauherr"
+    ]
+  },
+  "review_expected": false,
+  "why": "A point groups thousands and a comma is the decimal mark: 14,870.50, not 14.87. The amount stays in the document's currency; nothing is converted."
+}
