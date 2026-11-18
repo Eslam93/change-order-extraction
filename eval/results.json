@@ -574,7 +574,7 @@
     ]
   },
   "stress": {
-    "injected": 551,
+    "injected": 770,
     "documents": 34,
     "by_kind": {
       "another figure taken for the amount": {
@@ -589,6 +589,14 @@
         "injected": 29,
         "rejected": 29
       },
+      "the direction reversed and the contract sums swapped": {
+        "injected": 5,
+        "rejected": 5
+      },
+      "a change reported as no change": {
+        "injected": 49,
+        "rejected": 49
+      },
       "another date taken for the change order's date": {
         "injected": 43,
         "rejected": 43
@@ -596,6 +604,10 @@
       "the schedule's direction reversed": {
         "injected": 20,
         "rejected": 20
+      },
+      "the day of a date taken for a number of days": {
+        "injected": 58,
+        "rejected": 58
       },
       "another status claimed on the same quotes": {
         "injected": 120,
@@ -610,6 +622,14 @@
         "published_wrong": 1,
         "rejected": 32
       },
+      "a year out of a date taken for the change order number": {
+        "injected": 34,
+        "rejected": 34
+      },
+      "a name the model rewrote": {
+        "injected": 62,
+        "rejected": 62
+      },
       "a stated value reported as absent": {
         "injected": 149,
         "flagged": 148,
@@ -618,6 +638,10 @@
       "another duration taken for the schedule impact": {
         "injected": 3,
         "rejected": 3
+      },
+      "no change read from a line about something else": {
+        "injected": 11,
+        "rejected": 11
       },
       "approval read from wording about approval": {
         "injected": 22,
@@ -648,18 +672,24 @@
       }
     ],
     "without_label_checks": {
-      "published_wrong": 107,
+      "published_wrong": 126,
       "by_kind": {
-        "another figure taken for the amount": 24,
+        "another figure taken for the amount": 23,
         "the amount's direction reversed": 0,
         "a figure that is not in the document": 0,
+        "the direction reversed and the contract sums swapped": 2,
+        "a change reported as no change": 1,
         "another date taken for the change order's date": 39,
         "the schedule's direction reversed": 0,
+        "the day of a date taken for a number of days": 0,
         "another status claimed on the same quotes": 0,
         "the contract number taken for the change order number": 9,
         "the requester taken for the project name": 32,
+        "a year out of a date taken for the change order number": 8,
+        "a name the model rewrote": 0,
         "a stated value reported as absent": 0,
         "another duration taken for the schedule impact": 3,
+        "no change read from a line about something else": 9,
         "approval read from wording about approval": 0
       }
     }

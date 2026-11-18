@@ -166,22 +166,28 @@ plausibly gets it wrong, and the deterministic stages run on the changed reply
 published as null, **harmless** when the changed reply still yields the labelled value, and
 **published** when a wrong value goes out.
 
-551 mistakes were played on 34 documents.
+770 mistakes were played on 34 documents.
 
 | Mistake played | Played | Refused | Harmless | Wrong value published | Published if labels were not checked |
 |---|---|---|---|---|---|
-| Another figure taken for the amount | 71 | 71 | 0 | 0 | 24 |
+| Another figure taken for the amount | 71 | 71 | 0 | 0 | 23 |
 | The amount's direction reversed | 29 | 29 | 0 | 0 | 0 |
 | A figure that is not in the document | 29 | 29 | 0 | 0 | 0 |
+| The direction reversed and the contract sums swapped | 5 | 5 | 0 | 0 | 2 |
+| A change reported as no change | 49 | 49 | 0 | 0 | 1 |
 | Another date taken for the change order's date | 43 | 43 | 0 | 0 | 39 |
 | The schedule's direction reversed | 20 | 20 | 0 | 0 | 0 |
+| The day of a date taken for a number of days | 58 | 58 | 0 | 0 | 0 |
 | Another status claimed on the same quotes | 120 | 120 | 0 | 0 | 0 |
 | The contract number taken for the change order number | 32 | 32 | 0 | 0 | 9 |
 | The requester taken for the project name | 33 | 32 | 0 | 1 | 32 |
+| A year out of a date taken for the change order number | 34 | 34 | 0 | 0 | 8 |
+| A name the model rewrote | 62 | 62 | 0 | 0 | 0 |
 | Another duration taken for the schedule impact | 3 | 3 | 0 | 0 | 3 |
+| No change read from a line about something else | 11 | 11 | 0 | 0 | 9 |
 | Approval read from wording about approval | 22 | 22 | 0 | 0 | 0 |
 
-The last column is an ablation. With the label checks switched off, so that a value is accepted wherever its quote is found and it can be read, 107 of these mistakes are published instead of 1. A quote that exists is not a quote that supports the field.
+The last column is an ablation. With the label checks switched off, so that a value is accepted wherever its quote is found and it can be read, 126 of these mistakes are published instead of 1. A quote that exists is not a quote that supports the field.
 
 A value the document states, reported as absent, was played 149 times. 148 sent the document to review for that field; 1 passed unnoticed.
 

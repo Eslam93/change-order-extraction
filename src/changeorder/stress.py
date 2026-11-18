@@ -3,9 +3,9 @@
 On the labelled documents the live models made no mistake that reached the output, so those
 runs cannot show what happens when a model does make one. This module makes the mistakes on
 purpose. It takes each document's recorded reply, changes one field the way a model plausibly
-gets it wrong (the wrong figure, a flipped sign, another date, an approval read from an
-approval section, a value reported absent) and runs the deterministic stages on the changed
-reply. No model is called.
+gets it wrong (the wrong figure, a flipped sign, a change reported as no change, another
+date, an approval read from an approval section, a value reported absent) and runs the
+deterministic stages on the changed reply. No model is called.
 
 Each injected mistake ends in one of these ways:
 
@@ -44,6 +44,7 @@ from .normalize import (
     find_days,
     find_money,
     line_of,
+    no_change_cue,
     written_like_money,
 )
 from .pipeline import process_document
@@ -106,6 +107,15 @@ def mistakes(
         invented = f"${(size or Decimal(0)) + Decimal('1234.56'):,.2f}"
         candidate = {**reply["amount"], "value": invented}
         yield "amount", "a figure that is not in the document", changed("amount", candidate)
+        before, after = reply["contract_sum_before"], reply["contract_sum_after"]
+        if before["status"] == "stated" and after["status"] == "stated":
+            # The same reversal, with the contract sums swapped so the arithmetic agrees.
+            swapped = changed("amount", {**reply["amount"], "direction": flipped})
+            swapped["contract_sum_before"], swapped["contract_sum_after"] = after, before
+            yield "amount", "the direction reversed and the contract sums swapped", swapped
+    if is_stated("amount") and size:
+        candidate = {**reply["amount"], "value": "$0.00", "direction": "no_change"}
+        yield "amount", "a change reported as no change", changed("amount", candidate)
 
     # The date: any other date in the document.
     tokens = find_dates(text)
@@ -142,6 +152,38 @@ def mistakes(
             "the schedule's direction reversed",
             changed("schedule_impact_days", {**schedule, "direction": flipped}),
         )
+    if is_stated("schedule_impact_days") and days_label:
+        candidate = {**schedule, "value": "0 days", "direction": "no_change"}
+        yield (
+            "schedule_impact_days",
+            "a change reported as no change",
+            changed("schedule_impact_days", candidate),
+        )
+    # The day of a date read as a number of days.
+    for token in tokens:
+        day = re.match(r"\d{1,2}(?=\D)", token.raw)
+        if day is None or (days_label is not None and int(day.group(0)) == abs(days_label)):
+            continue
+        candidate = stated(day.group(0), line(token.start), direction="increase")
+        yield (
+            "schedule_impact_days",
+            "the day of a date taken for a number of days",
+            changed("schedule_impact_days", candidate),
+        )
+
+    # No change, read from every line that says "no change" about anything.
+    for statement in dict.fromkeys(
+        item.strip() for item in text.splitlines() if no_change_cue(item)
+    ):
+        for field in ("amount", "schedule_impact_days"):
+            if labels[field] == 0:
+                continue
+            candidate = stated("0", statement, direction="no_change")
+            yield (
+                field,
+                "no change read from a line about something else",
+                changed(field, candidate),
+            )
 
     # Approval: another status on the same evidence, and approval read from approval wording.
     status = labels["approval_status"]
@@ -178,6 +220,22 @@ def mistakes(
             "the requester taken for the project name",
             changed("project_name", copy.deepcopy(reply["requested_by"])),
         )
+    # A year out of a date, offered as the change order number.
+    for year in dict.fromkeys(str(token.year) for token in tokens):
+        token = next(item for item in tokens if str(item.year) == year)
+        if year in token.raw and year != str(labels["change_order_number"]):
+            yield (
+                "change_order_number",
+                "a year out of a date taken for the change order number",
+                changed("change_order_number", stated(year, line(token.start))),
+            )
+    # A name the model tidied: a word dropped from the middle of it.
+    for field in ("project_name", "requested_by"):
+        words = str(labels[field] or "").split()
+        if is_stated(field) and len(words) >= 3:
+            tidied = " ".join(words[:1] + words[2:])
+            candidate = {**reply[field], "value": tidied}
+            yield field, "a name the model rewrote", changed(field, candidate)
 
     # A value the document states, reported as absent.
     for field in (
