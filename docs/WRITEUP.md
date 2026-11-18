@@ -154,7 +154,7 @@ caught by the absence checks in section 4.
 
 | Field | Rule | Refused |
 |---|---|---|
-| `amount` | One decimal rule (lifted from the Toolkit): with a comma and a point, the last is the decimal mark; one mark before two digits is decimal; a comma before three digits groups thousands; a point before three digits is refused unless the document's own figures show what its points mean. Parentheses, a minus sign, a dash set against the figure or CR make it negative; parentheses that restate an amount in words do not. Kept in `Decimal`; emitted as a JSON number. | Groups that are not thousands; three decimals where the document proves a decimal mark; a figure scaled by a word ("$1.2 million", "2.75 MM"); amounts written only in words; several figures in one value |
+| `amount` | One decimal rule (lifted from the Toolkit): with a comma and a point, the last is the decimal mark; one mark before two digits is decimal; a comma before three digits groups thousands; a point before three digits is refused unless the document's own figures show what its points mean. Parentheses, a minus sign, a dash set against the figure or CR make it negative; parentheses that restate an amount in words do not. Kept in `Decimal`; emitted as a JSON number. | Groups that are not thousands; three decimals where the document proves a decimal mark; a figure scaled by a word ("$1.2 million", "$1.2 mil", "2.75 MM") or by a note ("All amounts in thousands of dollars"); amounts written only in words; several figures in one value |
 | `schedule_impact_days` | Whole days. Weeks are multiplied by seven, with a caveat. Working days are not converted to calendar days: the number is taken as stated. A duration in words and figures must agree. A bare number counts only under a label about time ("Days added: 14"), with a caveat. | Months; fractions of a day; "ten (12) days"; a range ("10-14 days"); a number in words past ninety-nine with no figure beside it; the day of a date |
 | `date` | ISO, month-name and numeric forms. A numeric date needs a four-digit year: "26-05-19" is as likely a cost code. One whose first or second number exceeds 12 reads one way. Otherwise it needs the document's convention, taken from its other numeric dates when they prove one and do not disagree; the value then carries a caveat. With a month's name, a two-digit year is read as 20xx below 80, with a caveat. | `03/04/2026` with nothing to settle it; `03/04/26`; impossible dates |
 | `approval_status` | `approved`, `rejected`, `pending`, `draft`, `void`, by the cues in section 3. A qualified approval ("approved as noted") is `approved`, one band lower, and always reviewed, because the output cannot carry the condition. | Any status the quoted text does not show |
@@ -202,7 +202,7 @@ difference is the policy:
 | Two change order numbers; a number that differs from the labelled one | `conflicting_change_order_numbers`, `number_differs_from_labelled_change_order_number` | conflict |
 | Approval stated two ways (an APPROVED stamp and a rejection); a signature while another line of the block is unsigned | `conflicting_approval_evidence`, `signature_block_is_incomplete` | conflict |
 | Value under another field's label | `labelled_as_something_else`, `date_belongs_to_another_event`, `value_is_part_of_a_date` | conflict |
-| Value not supported, or not readable by rule | `quote_not_found_in_document`, `value_not_in_quoted_text`, `wording_not_in_document`, `status_not_shown_by_quoted_text`, `figure_not_readable`, `duration_not_readable`, `day_and_month_ambiguous` | conflict |
+| Value not supported, or not readable by rule | `quote_not_found_in_document`, `value_not_in_quoted_text`, `wording_not_in_document`, `status_not_shown_by_quoted_text`, `figure_not_readable`, `duration_not_readable`, `day_and_month_ambiguous`, `amounts_are_stated_in_thousands_or_millions` | conflict |
 | Change order dated before its contract; year outside 1990 to 2100 | `date_before_contract_date`, `date_outside_plausible_range` | suspicion |
 | Qualified approval | `approval_is_qualified` | suspicion |
 | The model called a field absent that the document seems to hold | `possibly_missed_value` | suspicion |
@@ -254,7 +254,10 @@ What this does not establish:
   one author cannot support a probability.
 - **That the bands are ordered.** No errors means no evidence that 0.97 is more reliable than
   0.90, or 0.90 than 0.75. The ordering is by construction (a higher band has passed strictly
-  more checks) and is unmeasured.
+  more checks) and is unmeasured. The second review round (section 7) got four wrong values
+  out at 0.97 from mistaken replies: a range written in words and figures, and a running total
+  that the contract sums happened to agree with. "Corroborated" means two checks agreed. It
+  does not mean the value is right.
 - **Anything about real documents.** A value at 0.90 is exactly as reliable as the checks are
   complete. The stress test shows what they cover and one thing they do not: a name taken from
   running text, where there is no label to check.
@@ -406,6 +409,51 @@ What this says about the numbers in this document: a stress test written by the 
 measures the mistakes the author thought of. "1 in 551" was true and said little, and the same
 has to be assumed of "1 in 770".
 
+### A second round, and what is still open
+
+The reviewer was then pointed at the fixed checks. It was stopped before it wrote a report, so
+what follows comes from the reproductions it had saved, each run again against this code.
+
+One class needed no mistake from the model. The scale-word rule knew "million" and "thousand"
+and nothing shorter, so "$1.2 mil", "$350 thou.", a "million" that had wrapped to the next
+line, and a figure under "(All amounts in thousands of dollars)" were read as 1.2 and 350, at
+0.90, without review. The model had pointed at the right figure; the reader got it wrong. That
+is fixed and pinned.
+
+The rest is not fixed. `tests/test_known_gaps.py` pins every case as an expected failure, 126
+in all, so this list cannot drift from the code.
+
+| What still gets through | Cases | Examples |
+|---|---|---|
+| An approval read from a label, a negative answer or another party | 18 | "Approved by Owner: not yet"; "Approved: [ ] Yes [X] No"; the Contractor's acceptance over the Owner's empty line |
+| A zero that is a printed option, is about something else, or is hedged in other words | 18 | "[ ] None  [X] Yes, see attached quote"; "Deductions: $0.00" beside "Additions: $12,450.00"; "no change; final pricing to follow" |
+| A duration that is not the change, or is not firm | 16 | "Total time extensions to date: 35 days"; "about 10 days"; "ten (10) to fourteen (14) days", at 0.97 |
+| Another figure, or a figure that is not firm | 12 | A line item above a "Grand Total"; "$22,000.00 (provisional)"; the total of change orders to date, which the contract sums happened to agree with, at 0.97 |
+| A sign in words or marks the direction lexicon does not read | 10 | "$12,450.00 - CREDIT"; "<$12,450.00>"; "will be deducted from the Contract Sum" |
+| What was requested, where something else was granted | 6 | "Time extension requested: 10 days. Denied by Owner." |
+| An identifier or a name close to the right one | 6 | The contract number without its last digit; a proposal number offered as the contract number |
+| A date that belongs to something else | 5 | A signature block with an empty line in it; "Contract Date:" on the line above its date |
+
+Those are 91 cases. In 89 the model has to make the mistake the case scripts: point at the
+line item, report "no change" for an unticked option, call a label an approval. Given the
+reply a careful model gives, the same documents are read correctly or refused. In the other
+two, an approval qualified in words the lexicon does not know ("approved in principle") goes
+out as a plain approval. When it happens, 90 of the 91 go out without `needs_review`, four of
+them at 0.97.
+
+The other 35 are correct replies that the checks refuse, so the field is null and the document
+goes to review: a second date on a signature line makes the document's own date look
+ambiguous; "This Change Order is dated 15 January 2026"; "5 workdays"; "No schedule impact.";
+a credit written "<$12,450.00>"; the right amount standing beside "Total Change Orders to
+date". Nothing wrong is published in these, and a person does work a better lexicon would
+have saved.
+
+What this means for every claim above: both rounds found dozens of cases, and a third would
+find more. The labels and cues are finite lists, and the ways of writing a change order are
+not. The checks make a mistaken reply unlikely to pass. They do not make it impossible, and
+no number in this document says they do. What has limited the damage so far is that the model
+has to make the mistake first, and in the 34 recorded runs neither model made one.
+
 ### How to read this
 
 - **These are development results.** The first stress run, against a verifier that checked
@@ -517,6 +565,9 @@ is a private repository; the project installs and runs without access to it.
 - Four unnecessary reviews in the edge cases, from lexicon gaps (section 7).
 - A name in running text is not checked against a label, because there is none.
 - A zero in a table column is not noticed when the model reports the field absent.
+- 91 known cases where a wrong value can still be published, nearly all of them only when the
+  model's reply is wrong first, and 35 where a correct reply is refused. Section 7 has the
+  table; `tests/test_known_gaps.py` pins each as an expected failure.
 - The label rules refuse some layouts a person reads without trouble: two fields on one line
   separated by single spaces ("Project: Gym Date: 15 January 2026"), a date under a label
   outside the short list ("Bid Date"), "Item 3 - 14 days" read as a range. Each ends in null

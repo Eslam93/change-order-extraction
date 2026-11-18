@@ -14,7 +14,8 @@ need no network and no API key.
 
 ## 1. The automated suite
 
-970 tests, about 45 seconds. `make test`, or `uv run pytest`.
+994 tests pass and 126 known gaps are pinned as expected failures, in about 45 seconds.
+`make test`, or `uv run pytest`.
 
 The model is never called. A scripted model (`ScriptedModel`) returns whatever reply the test
 wrote, which is how a test plays a model that is right, wrong, fooled or broken and then checks
@@ -25,8 +26,9 @@ tests with reportlab, so pypdf parses real files.
 | File | Tests | What it covers |
 |---|---|---|
 | `tests/test_pipeline.py` | 117 | End to end with a scripted model: what is published, at which confidence, and whether review is asked for |
-| `tests/test_false_accepts.py` | 94 | Wrong values a mistaken model could once get published, each beside the neighbouring case that must still be accepted (layer 5) |
-| `tests/test_normalize.py` | 254 | The fixed rules: money, durations, dates, the day/month convention, direction words, labels, tick boxes, approval cues |
+| `tests/test_false_accepts.py` | 102 | Wrong values a mistaken model could once get published, each beside the neighbouring case that must still be accepted (layer 5) |
+| `tests/test_normalize.py` | 270 | The fixed rules: money, durations, dates, the day/month convention, direction words, labels, tick boxes, approval cues |
+| `tests/test_known_gaps.py` | 126 | Not counted above: the gaps the second review round found that are not fixed, each an expected failure (layer 5) |
 | `tests/test_hostile_input.py` | 34 | Text built to be slow, and input that used to end in a traceback |
 | `tests/test_document.py` | 22 | Reading text and PDFs, page positions, tables stored column by column, and every refusal |
 | `tests/test_llm.py` | 35 | The client: request shape, one bounded retry, the wall, structured-output fallback, error classes, no secrets in errors |
@@ -127,6 +129,19 @@ Each finding was fixed in the deterministic stages and is pinned:
 - the stress test, which now plays the same mistakes on all 34 labelled documents.
 
 None of the fixes changed the prompt, and none changed a committed output.
+
+A second round against the fixed checks was stopped before it reported. Its saved
+reproductions were run again and sorted by hand:
+
+- One class needed no mistake from the model: a figure scaled by a word the rule did not know
+  ("$1.2 mil"), or by a note ("all amounts in thousands"). It is fixed and pinned in
+  `tests/test_false_accepts.py`.
+- 91 cases where a wrong value can still be published, nearly all of them only when the
+  model's reply is wrong first, and 35 where a correct reply is refused, are not fixed. They
+  are pinned in `tests/test_known_gaps.py` as expected failures (`xfail`, strict), so a gap
+  that gets fixed has to be moved out of that file and the list cannot go stale.
+
+`docs/WRITEUP.md` section 7 has the table of what is open.
 
 ## 6. Live runs and manual checks
 
