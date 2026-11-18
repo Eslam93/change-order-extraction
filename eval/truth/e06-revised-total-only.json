@@ -1,0 +1,17 @@
+{
+  "document": "e06-revised-total-only.txt",
+  "fields": {
+    "project_name": "Ashgrove Fire Station No. 4 Replacement",
+    "contract_number": "AFD-2025-018",
+    "change_order_number": "5",
+    "date": "2026-03-06",
+    "requested_by": "Fire Chief's Office",
+    "description": "Add an emergency generator docking station and manual transfer switch at the apparatus bay exterior wall, per Bulletin 11.",
+    "amount": null,
+    "schedule_impact_days": null,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": true,
+  "why": "The only figure is the revised contract total. The change itself is never stated and must not be taken from the total or derived. Only a new completion date is given, not a number of days. With no amount, a person has to look."
+}

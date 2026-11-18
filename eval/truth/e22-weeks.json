@@ -1,0 +1,17 @@
+{
+  "document": "e22-weeks.txt",
+  "fields": {
+    "project_name": "Hollybrook Townhomes, Phase 1",
+    "contract_number": "HB-P1-2025",
+    "change_order_number": "4",
+    "date": "2025-11-20",
+    "requested_by": "Hollybrook Development LLC",
+    "description": "Convert garages in Buildings 3 and 4 from slab-on-grade to structural slab over void forms due to expansive soils (geotech addendum 2).",
+    "amount": 88000.0,
+    "schedule_impact_days": 21,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "The schedule is given in weeks: three weeks are 21 days. 11/20/2025 reads one way only, since 20 is not a month. Everything sits on one header line."
+}

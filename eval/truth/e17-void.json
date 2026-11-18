@@ -1,0 +1,17 @@
+{
+  "document": "e17-void.txt",
+  "fields": {
+    "project_name": "Fenwick Avenue Streetscape",
+    "contract_number": "FAS-2025-CIV",
+    "change_order_number": "19",
+    "date": "2025-10-21",
+    "requested_by": "City Arborist",
+    "description": "Substitute 3-inch caliper honeylocust for the specified 2-inch caliper trees at 18 locations.",
+    "amount": 7650.0,
+    "schedule_impact_days": 0,
+    "approval_status": "void"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "A voided change order. Its number is 19; No. 23 is the one that replaced it, not a second number for this one. Its date is the original date, not the day it was voided."
+}

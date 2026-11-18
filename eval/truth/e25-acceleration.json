@@ -1,0 +1,22 @@
+{
+  "document": "e25-acceleration.txt",
+  "fields": {
+    "project_name": "Alder Row Apartments - Site Utilities",
+    "contract_number": "ARA-SU-2026",
+    "change_order_number": "10",
+    "date": "2026-01-08",
+    "requested_by": "Owner (Alder Row Partners LP)",
+    "description": "Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.",
+    "amount": 36900.0,
+    "schedule_impact_days": -12,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Alder Row Partners LP",
+      "Owner"
+    ]
+  },
+  "review_expected": false,
+  "why": "Cost and time move in opposite directions: the price rises to buy a shorter schedule. Each sign comes from its own line."
+}

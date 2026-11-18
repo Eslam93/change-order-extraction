@@ -1,0 +1,17 @@
+{
+  "document": "e18-approved-stamp-and-rejection.txt",
+  "fields": {
+    "project_name": "Northgate Transit Center Canopies",
+    "contract_number": "NTC-CAN-2025",
+    "change_order_number": "27",
+    "date": "2026-04-16",
+    "requested_by": "Transit Authority Capital Projects",
+    "description": "Add bird deterrent wire system to canopy beams at Platforms A through D.",
+    "amount": 23700.0,
+    "schedule_impact_days": 0,
+    "approval_status": null
+  },
+  "also_accept": {},
+  "review_expected": true,
+  "why": "The header is stamped APPROVED and the disposition says rejected. The document contradicts itself about its own state, so no status is recorded and a person decides."
+}

@@ -1,0 +1,17 @@
+{
+  "document": "e23-amount-in-words.txt",
+  "fields": {
+    "project_name": "Rowan County Courthouse Roof Replacement",
+    "contract_number": "RCC-2025-ROOF",
+    "change_order_number": "2",
+    "date": "2026-05-05",
+    "requested_by": "County Facilities Director",
+    "description": "Replace rotted roof deck sheathing uncovered during tear-off at the east wing.",
+    "amount": 12500.0,
+    "schedule_impact_days": 5,
+    "approval_status": "approved"
+  },
+  "also_accept": {},
+  "review_expected": false,
+  "why": "The amount is written only in words. A person reads twelve thousand five hundred without trouble, so that is the label, and nothing here would need review."
+}

@@ -1,0 +1,26 @@
+{
+  "document": "e08-line-items-subtotal-tax.txt",
+  "fields": {
+    "project_name": "Dunmore Elementary HVAC Replacement",
+    "contract_number": "DSD-HVAC-2025-02",
+    "change_order_number": "COR-031",
+    "date": "2026-04-02",
+    "requested_by": "Dunmore School District (Owner)",
+    "description": "Furnish and install one (1) additional 2-ton ductless split system serving the new sensory room (Room 114), including refrigerant piping, condensate pump, and 208V circuit from Panel LB.",
+    "amount": 12792.71,
+    "schedule_impact_days": 0,
+    "approval_status": "pending"
+  },
+  "also_accept": {
+    "change_order_number": [
+      "031",
+      "31"
+    ],
+    "requested_by": [
+      "Dunmore School District",
+      "Dunmore School District (Owner) - added scope at Room 114"
+    ]
+  },
+  "review_expected": false,
+  "why": "Nine figures in a column. The amount is the total, not the subtotal and not a line, a markup or the tax. 'Time impact: none' is an explicit zero. It is submitted for approval, and 'until approved in writing' is a condition, not an approval."
+}

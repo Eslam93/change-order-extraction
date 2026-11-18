@@ -1,0 +1,25 @@
+{
+  "document": "e12-time-and-material-not-to-exceed.txt",
+  "fields": {
+    "project_name": "Halvorsen Cold Storage Expansion",
+    "contract_number": "HCS-EXP-2025",
+    "change_order_number": "44",
+    "date": "2026-01-09",
+    "requested_by": "Owner's Project Manager, S. Idowu",
+    "description": "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7. Work to proceed immediately to avoid delay to slab pour.",
+    "amount": null,
+    "schedule_impact_days": null,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "S. Idowu",
+      "Owner's Project Manager"
+    ],
+    "description": [
+      "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7."
+    ]
+  },
+  "review_expected": true,
+  "why": "The price is not fixed: 22,000.00 is a ceiling, not the change. The schedule effect is put off, which is not the same as none. The directive itself is authorised."
+}

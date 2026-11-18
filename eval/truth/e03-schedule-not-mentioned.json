@@ -1,0 +1,22 @@
+{
+  "document": "e03-schedule-not-mentioned.txt",
+  "fields": {
+    "project_name": "Pinecrest Senior Living - Building 2",
+    "contract_number": "PSL-2024-B2-GC",
+    "change_order_number": "22",
+    "date": "2025-10-03",
+    "requested_by": "Owner's representative (K. Alvarez)",
+    "description": "Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.",
+    "amount": 31266.0,
+    "schedule_impact_days": null,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "K. Alvarez",
+      "Owner's representative"
+    ]
+  },
+  "review_expected": false,
+  "why": "Nothing is said about schedule, so it is null and that needs no review. The owner's representative signed the approval line. 10/07/2025 is the signature's date and reads two ways; it is not the change order's date."
+}

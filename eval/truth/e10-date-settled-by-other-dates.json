@@ -1,0 +1,29 @@
+{
+  "document": "e10-date-settled-by-other-dates.txt",
+  "fields": {
+    "project_name": "Thornbury Primary School Extension",
+    "contract_number": "TPS/EXT/2025/03",
+    "change_order_number": "VO-07",
+    "date": "2026-02-04",
+    "requested_by": "Contract Administrator (Leyland Partnership)",
+    "description": "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2, following the planning condition discharge dated 28/01/2026.",
+    "amount": 6340.0,
+    "schedule_impact_days": 3,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": [
+      "07",
+      "7"
+    ],
+    "requested_by": [
+      "Leyland Partnership",
+      "Contract Administrator"
+    ],
+    "description": [
+      "Omit the specified clay facing brick to the east elevation and substitute buff engineering brick, approx. 140 m2"
+    ]
+  },
+  "review_expected": false,
+  "why": "04/02/2026 alone reads two ways, but 28/01/2026 and 13/02/2026 can only be day first, so this document writes day first: 4 February. A variation order is the same instrument under its British name. The work omits one brick and the price still rises."
+}

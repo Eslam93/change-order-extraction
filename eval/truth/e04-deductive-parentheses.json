@@ -1,0 +1,24 @@
+{
+  "document": "e04-deductive-parentheses.txt",
+  "fields": {
+    "project_name": "Harlow Street Parking Deck Repairs",
+    "contract_number": "HSPD-2025-R1",
+    "change_order_number": "009",
+    "date": "2025-11-14",
+    "requested_by": "City of Harlow, Department of Public Works",
+    "description": "Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.",
+    "amount": -27930.0,
+    "schedule_impact_days": -4,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": [
+      "9"
+    ],
+    "description": [
+      "Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft)"
+    ]
+  },
+  "review_expected": false,
+  "why": "A credit written in parentheses under a 'Deductive' title, and a completion date that moves earlier: both negative."
+}
