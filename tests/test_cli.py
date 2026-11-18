@@ -4,8 +4,11 @@ exit status that tells a processed document from a failure."""
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import pytest
@@ -277,3 +280,76 @@ def test_a_file_name_that_looks_like_an_option_is_still_a_file_name(capsys):
     out, err = capsys.readouterr()
     assert status == 3 and out == ""
     assert "not_found" in err
+
+
+def test_the_program_against_a_local_endpoint_reproduces_a_committed_output(tmp_path):
+    # Nothing is mocked inside the program here: it runs as a subprocess and makes a real HTTP
+    # request, to a local OpenAI-compatible endpoint that answers with the reply recorded for
+    # a sample. This is the path `make extract` takes, minus the paid model.
+    root = Path(__file__).resolve().parents[1]
+    sample = root / "samples" / "inputs" / "co-03-deductive-credit.pdf"
+    recording = root / "samples" / "diagnostics" / "co-03-deductive-credit.json"
+    reply = json.loads(recording.read_text(encoding="utf-8"))["run"]["replies"][-1]["text"]
+    asked: list[dict[str, str | None]] = []
+
+    class Endpoint(BaseHTTPRequestHandler):
+        def do_POST(self) -> None:
+            request = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            asked.append(
+                {
+                    "path": self.path,
+                    "authorization": self.headers.get("Authorization"),
+                    "model": request["model"],
+                }
+            )
+            choice = {
+                "index": 0,
+                "finish_reason": "stop",
+                "message": {"role": "assistant", "content": reply},
+            }
+            usage = {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}
+            body = json.dumps(
+                {"model": request["model"], "choices": [choice], "usage": usage}
+            ).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *args: object) -> None:
+            pass
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Endpoint)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    settings = {
+        "LLM_API_KEY": "sk-local-test-key",
+        "LLM_BASE_URL": f"http://127.0.0.1:{server.server_port}/v1",
+        "LLM_MODEL": "local-model",
+        "NO_PROXY": "127.0.0.1,localhost",
+    }
+    kept = {name: value for name, value in os.environ.items() if not name.startswith("LLM_")}
+    try:
+        done = subprocess.run(
+            [sys.executable, "-m", "changeorder", str(sample)],
+            capture_output=True,
+            check=False,
+            cwd=tmp_path,  # no .env here: only the settings above reach the program
+            env={**kept, **settings},
+            timeout=120,
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert done.returncode == 0, done.stderr.decode("utf-8", "replace")
+    committed = root / "samples" / "outputs" / "co-03-deductive-credit.json"
+    assert done.stdout == committed.read_bytes()  # the delivered sample output, byte for byte
+    assert asked == [
+        {
+            "path": "/v1/chat/completions",
+            "authorization": "Bearer sk-local-test-key",
+            "model": "local-model",
+        }
+    ]
+    assert b"sk-local-test-key" not in done.stderr and b"needs_review=false" in done.stderr
