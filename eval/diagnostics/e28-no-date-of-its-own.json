@@ -1,0 +1,232 @@
+{
+  "document": {
+    "name": "e28-no-date-of-its-own.txt",
+    "kind": "text",
+    "sha256": "74ece6500d6898a1b5c793c8008878c30041f46e232738995617b4c8b2cf7f38",
+    "pages": 1,
+    "characters": 375,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a construction change order (No. 3) to Agreement TL-KIT-2025 for the Tamarack Lodge Kitchen Expansion. The $17,480.00 price change and the 4 working day time change are the change itself; the document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check cannot be run. The change order has no issue date of its own; the only date is the agreement date of 12 March 2025.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Tamarack Lodge Kitchen Expansion\",\"quotes\":[\"Project: Tamarack Lodge Kitchen Expansion\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"TL-KIT-2025\",\"quotes\":[\"Agreement No.: TL-KIT-2025\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"3\",\"quotes\":[\"CHANGE ORDER No. 3 to Agreement dated 12 March 2025\"],\"note\":\"\"},\"date\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Lodge General Manager\",\"quotes\":[\"Requested by: Lodge General Manager\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$17,480.00\",\"quotes\":[\"Price change: add $17,480.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"4 working days\",\"quotes\":[\"Time change: add 4 working days\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Owner: approved, R. Lindqvist, 2 June 2025\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4075,
+        "completion_tokens": 1299,
+        "cost": 0.001057
+      }
+    ]
+  },
+  "model_notes": "This is a construction change order (No. 3) to Agreement TL-KIT-2025 for the Tamarack Lodge Kitchen Expansion. The $17,480.00 price change and the 4 working day time change are the change itself; the document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check cannot be run. The change order has no issue date of its own; the only date is the agreement date of 12 March 2025.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Tamarack Lodge Kitchen Expansion",
+      "as_written": "Tamarack Lodge Kitchen Expansion",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Tamarack Lodge Kitchen Expansion",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 53,
+          "end": 94,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "TL-KIT-2025",
+      "as_written": "TL-KIT-2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Agreement No.: TL-KIT-2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 95,
+          "end": 121,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "3",
+      "as_written": "3",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CHANGE ORDER No. 3 to Agreement dated 12 March 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 0,
+          "end": 51,
+          "page": 1,
+          "line": 1
+        }
+      ]
+    },
+    "date": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Lodge General Manager",
+      "as_written": "Lodge General Manager",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Lodge General Manager",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 122,
+          "end": 157,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.",
+      "as_written": "Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Add a 6-foot Type I exhaust hood extension with fire suppression drops over the new char-broiler line.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 167,
+          "end": 269,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 17480,
+      "as_written": "$17,480.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Price change: add $17,480.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 271,
+          "end": 299,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 4,
+      "as_written": "4 working days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Time change: add 4 working days",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 300,
+          "end": 331,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Owner: approved, R. Lindqvist, 2 June 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner: approved, R. Lindqvist, 2 June 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 333,
+          "end": 375,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    }
+  }
+}

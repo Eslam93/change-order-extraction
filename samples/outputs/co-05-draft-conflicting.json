@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Alder Creek Wastewater Treatment Plant - Phase 2 Upgrades",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "ACSD-WW-2024-06",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "date": {
+    "value": "2026-04-22",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "description": {
+    "value": "During excavation for Clarifier No. 3, unsuitable organic soils were encountered below elevation 412.0. Over-excavate approximately 1,150 CY of unsuitable material, haul off site, and replace with compacted structural fill per the geotechnical memo dated April 14, 2026.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "schedule_impact_days": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "approval_status": {
+    "value": "draft",
+    "confidence": 0.9
+  },
+  "needs_review": true
+}

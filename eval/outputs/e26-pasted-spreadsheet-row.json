@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Meridian Tower Lobby Refresh",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "MT-LOBBY-2025",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "17",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-12-02",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Building Management",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Replace specified terrazzo base with stone base at elevator lobby, 96 LF",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": -2140,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

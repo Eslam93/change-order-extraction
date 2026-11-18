@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Stonebridge Residences – Tower B",
+    "confidence": 0.75
+  },
+  "contract_number": {
+    "value": "SUL-TB-GC-001",
+    "confidence": 0.75
+  },
+  "change_order_number": {
+    "value": "CO-023",
+    "confidence": 0.75
+  },
+  "date": {
+    "value": "2026-05-07",
+    "confidence": 0.75
+  },
+  "requested_by": {
+    "value": "Stonebridge Urban Living LP",
+    "confidence": 0.75
+  },
+  "description": {
+    "value": "Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals (approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace lighting.",
+    "confidence": 0.75
+  },
+  "amount": {
+    "value": 57754.1,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 5,
+    "confidence": 0.75
+  },
+  "approval_status": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "needs_review": true
+}

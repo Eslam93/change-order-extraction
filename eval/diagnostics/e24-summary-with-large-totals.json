@@ -1,0 +1,244 @@
+{
+  "document": {
+    "name": "e24-summary-with-large-totals.txt",
+    "kind": "text",
+    "sha256": "b6b4e616f890e4fd7d69a58a051b856e950aff957b8d85307f19fc413f41c1bd",
+    "pages": 1,
+    "characters": 605,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a construction change order summary for the Estuary Point Seawall Repair, modifying contract EP-SW-2025-003. The change itself is THIS CHANGE ORDER at $  48,115.00 and 8 added days; the original sum, previous changes and contract sums before and after are totals used for the arithmetic check. No conflicts were found.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Estuary Point Seawall Repair\",\"quotes\":[\"Project: Estuary Point Seawall Repair\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"EP-SW-2025-003\",\"quotes\":[\"Contract: EP-SW-2025-003\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"6\",\"quotes\":[\"CO No.: 6\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"7 July 2025\",\"quotes\":[\"Issued: 7 July 2025\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Harbor District Engineering\",\"quotes\":[\"Requested by: Harbor District Engineering\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$  48,115.00\",\"quotes\":[\"THIS CHANGE ORDER ..................... $  48,115.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"8\",\"quotes\":[\"Days added: 8\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Owner: approved 7/14/2025 (H. Castellanos)\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"stated\",\"value\":\"$3,950,000.00\",\"quotes\":[\"ORIGINAL CONTRACT SUM ................. $3,950,000.00\"],\"note\":\"\"},\"previous_changes\":{\"status\":\"stated\",\"value\":\"$  212,640.00\",\"quotes\":[\"PREVIOUS CHANGE ORDERS (1-5) .......... $  212,640.00\"],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"stated\",\"value\":\"$4,162,640.00\",\"quotes\":[\"CONTRACT SUM TO DATE .................. $4,162,640.00\"],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"stated\",\"value\":\"$4,210,755.00\",\"quotes\":[\"NEW CONTRACT SUM ...................... $4,210,755.00\"],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4194,
+        "completion_tokens": 1946,
+        "cost": 0.0013924
+      }
+    ]
+  },
+  "model_notes": "This is a construction change order summary for the Estuary Point Seawall Repair, modifying contract EP-SW-2025-003. The change itself is THIS CHANGE ORDER at $  48,115.00 and 8 added days; the original sum, previous changes and contract sums before and after are totals used for the arithmetic check. No conflicts were found.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Estuary Point Seawall Repair",
+      "as_written": "Estuary Point Seawall Repair",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Estuary Point Seawall Repair",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 22,
+          "end": 59,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "EP-SW-2025-003",
+      "as_written": "EP-SW-2025-003",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract: EP-SW-2025-003",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 71,
+          "end": 95,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "6",
+      "as_written": "6",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "CO No.: 6",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 61,
+          "end": 70,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2025-07-07",
+      "as_written": "7 July 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Issued: 7 July 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 97,
+          "end": 116,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Harbor District Engineering",
+      "as_written": "Harbor District Engineering",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Harbor District Engineering",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 117,
+          "end": 158,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.",
+      "as_written": "Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 436,
+          "end": 546,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 48115,
+      "as_written": "$  48,115.00",
+      "confidence": 0.97,
+      "band": "corroborated",
+      "corroborated": true,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "THIS CHANGE ORDER ..................... $  48,115.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 322,
+          "end": 374,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 8,
+      "as_written": "8",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "unit_not_stated"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Days added: 8",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 548,
+          "end": 561,
+          "page": 1,
+          "line": 15
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Owner: approved 7/14/2025 (H. Castellanos)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner: approved 7/14/2025 (H. Castellanos)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 563,
+          "end": 605,
+          "page": 1,
+          "line": 17
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Dunmore Elementary HVAC Replacement",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "DSD-HVAC-2025-02",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "COR-031",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-04-02",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Dunmore School District (Owner)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Furnish and install one (1) additional 2-ton ductless split system serving the new sensory room (Room 114), including refrigerant piping, condensate pump, and 208V circuit from Panel LB.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 12792.71,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "pending",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

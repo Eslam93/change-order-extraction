@@ -1,0 +1,259 @@
+{
+  "document": {
+    "name": "e12-time-and-material-not-to-exceed.txt",
+    "kind": "text",
+    "sha256": "c6149c55a195a1ad5d1c2e7437dc0d687ae15c797c8bd92081531ce6e1c671ac",
+    "pages": 1,
+    "characters": 555,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a field change order directing time-and-material repair of a crushed under-slab sanitary line. The $22,000.00 figure is a not-to-exceed ceiling, not the change amount, and the final cost and schedule effect are both to be determined.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Halvorsen Cold Storage Expansion\",\"quotes\":[\"Project: Halvorsen Cold Storage Expansion\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"HCS-EXP-2025\",\"quotes\":[\"Contract No.: HCS-EXP-2025\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"44\",\"quotes\":[\"FCO No.: 44\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"9 January 2026\",\"quotes\":[\"Date: 9 January 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Owner's Project Manager, S. Idowu\",\"quotes\":[\"Directed by: Owner's Project Manager, S. Idowu\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Basis of payment: Time and material, not to exceed $22,000.00. Final cost to be determined from signed daily T&M tickets.\"],\"note\":\"The price is time and material with a not-to-exceed ceiling of $22,000.00 and the final cost is to be determined from daily tickets, so no fixed change amount is stated.\",\"direction\":\"unclear\"},\"schedule_impact_days\":{\"status\":\"unclear\",\"value\":\"\",\"quotes\":[\"Schedule effect: To be determined.\"],\"note\":\"The document defers the schedule effect as to be determined.\",\"direction\":\"unclear\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Authorized to proceed: S. Idowu, 9 January 2026\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4145,
+        "completion_tokens": 1846,
+        "cost": 0.0013375
+      }
+    ]
+  },
+  "model_notes": "This is a field change order directing time-and-material repair of a crushed under-slab sanitary line. The $22,000.00 figure is a not-to-exceed ceiling, not the change amount, and the final cost and schedule effect are both to be determined.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "model_reported_unclear",
+      "detail": "The price is time and material with a not-to-exceed ceiling of $22,000.00 and the final cost is to be determined from daily tickets, so no fixed change amount is stated.",
+      "field": "amount",
+      "review": true
+    },
+    {
+      "code": "model_reported_unclear",
+      "detail": "The document defers the schedule effect as to be determined.",
+      "field": "schedule_impact_days",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Halvorsen Cold Storage Expansion",
+      "as_written": "Halvorsen Cold Storage Expansion",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Halvorsen Cold Storage Expansion",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 32,
+          "end": 73,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "HCS-EXP-2025",
+      "as_written": "HCS-EXP-2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: HCS-EXP-2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 74,
+          "end": 100,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "44",
+      "as_written": "44",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "FCO No.: 44",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 20,
+          "end": 31,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-01-09",
+      "as_written": "9 January 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 9 January 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 101,
+          "end": 121,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Owner's Project Manager, S. Idowu",
+      "as_written": "Owner's Project Manager, S. Idowu",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Directed by: Owner's Project Manager, S. Idowu",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 122,
+          "end": 168,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7.",
+      "as_written": "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Remove and replace approximately 60 LF of under-slab sanitary line found crushed at grid C-4 through C-7.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 185,
+          "end": 290,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The price is time and material with a not-to-exceed ceiling of $22,000.00 and the final cost is to be determined from daily tickets, so no fixed change amount is stated.",
+      "evidence": [
+        {
+          "quote": "Basis of payment: Time and material, not to exceed $22,000.00. Final cost to be determined from signed daily T&M tickets.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 349,
+          "end": 470,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "model_reported_unclear"
+      ],
+      "model_note": "The document defers the schedule effect as to be determined.",
+      "evidence": [
+        {
+          "quote": "Schedule effect: To be determined.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 472,
+          "end": 506,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Authorized to proceed: S. Idowu, 9 January 2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Authorized to proceed: S. Idowu, 9 January 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 508,
+          "end": 555,
+          "page": 1,
+          "line": 15
+        }
+      ]
+    }
+  }
+}

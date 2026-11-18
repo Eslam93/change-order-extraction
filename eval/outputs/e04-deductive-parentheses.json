@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Harlow Street Parking Deck Repairs",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "HSPD-2025-R1",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "009",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-11-14",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "City of Harlow, Department of Public Works",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "The following work is deleted from the Agreement: Delete traffic membrane coating at Level P3 ramps (approx. 8,400 sq ft); the Owner will perform this work under its annual maintenance contract.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": -27930,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": -4,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

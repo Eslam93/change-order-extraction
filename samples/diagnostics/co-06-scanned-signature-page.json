@@ -1,0 +1,263 @@
+{
+  "document": {
+    "name": "co-06-scanned-signature-page.pdf",
+    "kind": "pdf",
+    "sha256": "8d5d86dfb3d45ce34ea0b9636e3354bf5f6cbc4a991370d3b8ff85f71285227a",
+    "pages": 2,
+    "characters": 1123,
+    "unread_pages": [
+      2
+    ],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"Change order CO-023 for Stonebridge Residences – Tower B, revising the Level 14 amenity terrace. The change itself is the Change Order total (add) of $57,754.10; line items are parts, and the $31,912,480.00 and $31,970,234.10 figures are contract totals before and after. Signatures are said to appear on page 2, which is not shown, so approval is not established.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Stonebridge Residences – Tower B\",\"quotes\":[\"Stonebridge Residences – Tower B  Change Order: CO-023\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"SUL-TB-GC-001\",\"quotes\":[\"Contractor: Kestrel & Vance Construction Ltd.  Contract: SUL-TB-GC-001\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"CO-023\",\"quotes\":[\"Stonebridge Residences – Tower B  Change Order: CO-023\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"7 May 2026\",\"quotes\":[\"Owner: Stonebridge Urban Living LP  Issued: 7 May 2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Stonebridge Urban Living LP\",\"quotes\":[\"Change requested by: Stonebridge Urban Living LP – Design Bulletin DB-19\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals\\n(approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace\\nlighting.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$57,754.10\",\"quotes\":[\"Change Order total (add)  $57,754.10\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"5 working days\",\"quotes\":[\"Schedule: The Substantial Performance date is extended by 5 working days, from 30 October 2026 to 6\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[\"Authorization: signatures of the Owner and the Contractor appear on page 2.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"stated\",\"value\":\"$31,912,480.00\",\"quotes\":[\"Contract price before this Change Order  $31,912,480.00\"],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"stated\",\"value\":\"$31,970,234.10\",\"quotes\":[\"Contract price after this Change Order  $31,970,234.10\"],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-sonnet-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4385,
+        "completion_tokens": 989,
+        "cost": 0.01866
+      }
+    ]
+  },
+  "model_notes": "Change order CO-023 for Stonebridge Residences – Tower B, revising the Level 14 amenity terrace. The change itself is the Change Order total (add) of $57,754.10; line items are parts, and the $31,912,480.00 and $31,970,234.10 figures are contract totals before and after. Signatures are said to appear on page 2, which is not shown, so approval is not established.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "unread_pages",
+      "detail": "page 2 holds an image and no text layer; it was not read",
+      "field": null,
+      "review": true
+    },
+    {
+      "code": "critical_field_missing",
+      "detail": "the document gives none",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Stonebridge Residences – Tower B",
+      "as_written": "Stonebridge Residences – Tower B",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Stonebridge Residences – Tower B  Change Order: CO-023",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 27,
+          "end": 81,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "SUL-TB-GC-001",
+      "as_written": "SUL-TB-GC-001",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contractor: Kestrel & Vance Construction Ltd.  Contract: SUL-TB-GC-001",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 137,
+          "end": 207,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "CO-023",
+      "as_written": "CO-023",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Stonebridge Residences – Tower B  Change Order: CO-023",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 27,
+          "end": 81,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-05-07",
+      "as_written": "7 May 2026",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner: Stonebridge Urban Living LP  Issued: 7 May 2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 82,
+          "end": 136,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Stonebridge Urban Living LP",
+      "as_written": "Stonebridge Urban Living LP",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change requested by: Stonebridge Urban Living LP – Design Bulletin DB-19",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 209,
+          "end": 281,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals (approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace lighting.",
+      "as_written": "Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals (approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace lighting.",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Revise Level 14 amenity terrace: replace specified concrete pavers with porcelain pavers on adjustable pedestals\n(approx. 3,600 sq ft), add two (2) gas fire tables with dedicated gas line, and add in-slab conduit for future terrace\nlighting.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 290,
+          "end": 531,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 57754.1,
+      "as_written": "$57,754.10",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": true,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order total (add)  $57,754.10",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 782,
+          "end": 818,
+          "page": 1,
+          "line": 22
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 5,
+      "as_written": "5 working days",
+      "confidence": 0.75,
+      "band": "qualified",
+      "corroborated": false,
+      "caveats": [
+        "document_has_unread_pages"
+      ],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Schedule: The Substantial Performance date is extended by 5 working days, from 30 October 2026 to 6",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 932,
+          "end": 1031,
+          "page": 1,
+          "line": 27
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    }
+  }
+}

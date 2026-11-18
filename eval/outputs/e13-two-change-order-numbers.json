@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Bexley Wharf Mixed-Use Podium",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "BW-PODIUM-GC-2024",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "date": {
+    "value": "2026-02-02",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Bexley Wharf Development Partners",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Add stainless steel bollards (qty 14) at the retail arcade entrances per ASI-22.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 19320,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 0,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": true
+}

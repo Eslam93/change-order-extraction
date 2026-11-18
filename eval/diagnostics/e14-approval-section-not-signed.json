@@ -1,0 +1,239 @@
+{
+  "document": {
+    "name": "e14-approval-section-not-signed.txt",
+    "kind": "text",
+    "sha256": "63637816196aa92274e3f714cfcf89e8e01c0d474d1bcf9b1f86962c0bade8c1",
+    "pages": 1,
+    "characters": 639,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a construction change order modifying Contract IB-LS7-2025 to increase wet well depth by 2.5 feet. The $58,400.00 contract price increase and 12 calendar days time extension are the change itself. The document gives no contract sums or prior change totals, and the approval signature lines are blank.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Ironbridge Wastewater Lift Station No. 7\",\"quotes\":[\"Project: Ironbridge Wastewater Lift Station No. 7\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"IB-LS7-2025\",\"quotes\":[\"Contract No.: IB-LS7-2025\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"2\",\"quotes\":[\"Change Order No.: 2\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"23 October 2025\",\"quotes\":[\"Date: 23 October 2025\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Utility Engineering Division\",\"quotes\":[\"Requested by: Utility Engineering Division\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$58,400.00\",\"quotes\":[\"Increase in Contract Price: $58,400.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"12 calendar days\",\"quotes\":[\"Increase in Contract Time: 12 calendar days\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4149,
+        "completion_tokens": 1332,
+        "cost": 0.0010809
+      }
+    ]
+  },
+  "model_notes": "This is a construction change order modifying Contract IB-LS7-2025 to increase wet well depth by 2.5 feet. The $58,400.00 contract price increase and 12 calendar days time extension are the change itself. The document gives no contract sums or prior change totals, and the approval signature lines are blank.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "critical_field_missing",
+      "detail": "the document gives none",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Ironbridge Wastewater Lift Station No. 7",
+      "as_written": "Ironbridge Wastewater Lift Station No. 7",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Ironbridge Wastewater Lift Station No. 7",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 34,
+          "end": 83,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "IB-LS7-2025",
+      "as_written": "IB-LS7-2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: IB-LS7-2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 84,
+          "end": 109,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "2",
+      "as_written": "2",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Change Order No.: 2",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 14,
+          "end": 33,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2025-10-23",
+      "as_written": "23 October 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 23 October 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 110,
+          "end": 131,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Utility Engineering Division",
+      "as_written": "Utility Engineering Division",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Utility Engineering Division",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 132,
+          "end": 174,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.",
+      "as_written": "Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Increase wet well depth by 2.5 feet to accommodate revised invert elevation of the incoming 18-inch force main.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 189,
+          "end": 300,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 58400,
+      "as_written": "$58,400.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Increase in Contract Price: $58,400.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 302,
+          "end": 340,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 12,
+      "as_written": "12 calendar days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Increase in Contract Time: 12 calendar days",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 341,
+          "end": 384,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "absent",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": []
+    }
+  }
+}

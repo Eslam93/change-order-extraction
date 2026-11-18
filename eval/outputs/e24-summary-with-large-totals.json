@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Estuary Point Seawall Repair",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "EP-SW-2025-003",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "6",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-07-07",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Harbor District Engineering",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Install additional toe protection riprap (approx. 310 tons) along stations 4+50 to 6+20 where scour was found.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 48115,
+    "confidence": 0.97
+  },
+  "schedule_impact_days": {
+    "value": 8,
+    "confidence": 0.75
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

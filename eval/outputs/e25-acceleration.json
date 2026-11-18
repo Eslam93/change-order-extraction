@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Alder Row Apartments - Site Utilities",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "ARA-SU-2026",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "10",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-01-08",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Owner (Alder Row Partners LP)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 36900,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": -12,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "needs_review": true
+}

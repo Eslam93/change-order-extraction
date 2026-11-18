@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Larkspur Clinic Tenant Improvement",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "change_order_number": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "date": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "requested_by": {
+    "value": "Owner",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "At the Owner's request, delete the built-in millwork bench at Waiting 101 and patch and paint the wall. No drawings will be reissued.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "schedule_impact_days": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "approval_status": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "needs_review": true
+}

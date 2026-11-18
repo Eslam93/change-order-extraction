@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Lindenhof Wohnquartier - Haus C",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "LHQ-2025-GU-01",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "NA-04",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2026-03-17",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Bauherr (Lindenhof Projekt GmbH)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Additional waterproofing to the underground car park ramp (approx. 85 m2) with a two-layer bituminous membrane and protection screed.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 14870.5,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 5,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

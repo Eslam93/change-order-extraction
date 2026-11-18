@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Pinecrest Senior Living - Building 2",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "PSL-2024-B2-GC",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "22",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-10-03",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Owner's representative (K. Alvarez)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Upgrade unit entry doors on floors 2-4 from 20-minute to 45-minute fire rating, 54 doors total, including closers and gasketing.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 31266,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": null,
+    "confidence": 0.0
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.75
+  },
+  "needs_review": false
+}

@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Glenhaven Community Pool Renovation",
+    "confidence": 0.75
+  },
+  "contract_number": {
+    "value": "GCP-2025-07",
+    "confidence": 0.75
+  },
+  "change_order_number": {
+    "value": "11",
+    "confidence": 0.75
+  },
+  "date": {
+    "value": "2026-05-18",
+    "confidence": 0.75
+  },
+  "requested_by": {
+    "value": "Parks and Recreation Department",
+    "confidence": 0.75
+  },
+  "description": {
+    "value": "Replace the existing sand filters with two regenerative media filters, including face piping and controls.",
+    "confidence": 0.75
+  },
+  "amount": {
+    "value": 64250,
+    "confidence": 0.75
+  },
+  "schedule_impact_days": {
+    "value": 9,
+    "confidence": 0.75
+  },
+  "approval_status": {
+    "value": "pending",
+    "confidence": 0.75
+  },
+  "needs_review": true
+}

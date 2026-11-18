@@ -1,0 +1,39 @@
+{
+  "project_name": {
+    "value": "Marlow Heights Office Park - Building D",
+    "confidence": 0.9
+  },
+  "contract_number": {
+    "value": "MHOP-D-0931",
+    "confidence": 0.9
+  },
+  "change_order_number": {
+    "value": "18",
+    "confidence": 0.9
+  },
+  "date": {
+    "value": "2025-12-11",
+    "confidence": 0.9
+  },
+  "requested_by": {
+    "value": "Barton Construction Group (General Contractor)",
+    "confidence": 0.9
+  },
+  "description": {
+    "value": "Frame and finish added demising wall at Suite 240 (48 LF, full height, STC 50), including sound attenuation batts.",
+    "confidence": 0.9
+  },
+  "amount": {
+    "value": 13100,
+    "confidence": 0.9
+  },
+  "schedule_impact_days": {
+    "value": 2,
+    "confidence": 0.9
+  },
+  "approval_status": {
+    "value": "approved",
+    "confidence": 0.9
+  },
+  "needs_review": false
+}

@@ -1,0 +1,251 @@
+{
+  "document": {
+    "name": "e25-acceleration.txt",
+    "kind": "text",
+    "sha256": "587a7876e0550f85afbfa30c89085e01665db4c016e1559e7fe510ecda071d4c",
+    "pages": 1,
+    "characters": 496,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is an acceleration change order (C.O. No. 10) adding a second pipe crew, with a stated net increase of $36,900.00 and a 12 calendar day reduction in contract time. The document gives only the change itself; the original contract sum and running totals are not stated.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Alder Row Apartments - Site Utilities\",\"quotes\":[\"Project: Alder Row Apartments - Site Utilities\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"ARA-SU-2026\",\"quotes\":[\"Contract No.: ARA-SU-2026\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"10\",\"quotes\":[\"C.O. No. 10\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"2026-01-08\",\"quotes\":[\"Date: 2026-01-08\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Owner (Alder Row Partners LP)\",\"quotes\":[\"Requested by: Owner (Alder Row Partners LP)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$36,900.00\",\"quotes\":[\"Contract Sum: increased by $36,900.00 (premium time and added crew)\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"12 calendar days\",\"quotes\":[\"Contract Time: reduced by 12 calendar days\"],\"note\":\"\",\"direction\":\"decrease\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Owner acceptance: Alder Row Partners LP, by C. Dunne, Managing Partner - 2026-01-12\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4125,
+        "completion_tokens": 1426,
+        "cost": 0.0011255
+      }
+    ]
+  },
+  "model_notes": "This is an acceleration change order (C.O. No. 10) adding a second pipe crew, with a stated net increase of $36,900.00 and a 12 calendar day reduction in contract time. The document gives only the change itself; the original contract sum and running totals are not stated.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "status_not_shown_by_quoted_text",
+      "detail": "no value could be accepted",
+      "field": "approval_status",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Alder Row Apartments - Site Utilities",
+      "as_written": "Alder Row Apartments - Site Utilities",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Alder Row Apartments - Site Utilities",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 39,
+          "end": 85,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "ARA-SU-2026",
+      "as_written": "ARA-SU-2026",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: ARA-SU-2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 86,
+          "end": 111,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "10",
+      "as_written": "10",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "C.O. No. 10",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 27,
+          "end": 38,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2026-01-08",
+      "as_written": "2026-01-08",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 2026-01-08",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 112,
+          "end": 128,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Owner (Alder Row Partners LP)",
+      "as_written": "Owner (Alder Row Partners LP)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Owner (Alder Row Partners LP)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 129,
+          "end": 172,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.",
+      "as_written": "Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contractor shall add a second pipe crew to complete the storm drain mainline ahead of the building pad turnover.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 187,
+          "end": 299,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 36900,
+      "as_written": "$36,900.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract Sum: increased by $36,900.00 (premium time and added crew)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 301,
+          "end": 368,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": -12,
+      "as_written": "12 calendar days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract Time: reduced by 12 calendar days",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 369,
+          "end": 411,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": null,
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "status_not_shown_by_quoted_text"
+      ],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Owner acceptance: Alder Row Partners LP, by C. Dunne, Managing Partner - 2026-01-12",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 413,
+          "end": 496,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    }
+  }
+}

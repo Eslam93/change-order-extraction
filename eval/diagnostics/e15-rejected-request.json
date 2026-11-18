@@ -1,0 +1,242 @@
+{
+  "document": {
+    "name": "e15-rejected-request.txt",
+    "kind": "text",
+    "sha256": "2de3ac3539e2f7fc5f12fb92970932b3a6854360857c106db713ead1aa902b53",
+    "pages": 1,
+    "characters": 500,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is a contractor change order request (COR 12) with an owner response that rejects it. The ($11,200.00) credit is the proposed change, and the owner's response states that no change to the Contract is authorized. The document gives no contract totals or prior change figures.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Saltmarsh Visitor Center\",\"quotes\":[\"Project: Saltmarsh Visitor Center\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"SVC-2025-GC\",\"quotes\":[\"Contract No.: SVC-2025-GC\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"12\",\"quotes\":[\"COR No.: 12\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"12 August 2025\",\"quotes\":[\"Date: 12 August 2025\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"Coastline Builders, Inc. (Contractor)\",\"quotes\":[\"Requested by: Coastline Builders, Inc. (Contractor)\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Substitute fiber cement siding for the specified cedar siding on all elevations.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"($11,200.00)\",\"quotes\":[\"Proposed credit to Owner: ($11,200.00)\"],\"note\":\"\",\"direction\":\"decrease\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"none\",\"quotes\":[\"Proposed schedule impact: none\"],\"note\":\"\",\"direction\":\"no_change\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"rejected\",\"quotes\":[\"OWNER RESPONSE (19 August 2025): REJECTED.\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4126,
+        "completion_tokens": 1674,
+        "cost": 0.0012496
+      }
+    ]
+  },
+  "model_notes": "This is a contractor change order request (COR 12) with an owner response that rejects it. The ($11,200.00) credit is the proposed change, and the owner's response states that no change to the Contract is authorized. The document gives no contract totals or prior change figures.",
+  "needs_review": false,
+  "findings": [],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Saltmarsh Visitor Center",
+      "as_written": "Saltmarsh Visitor Center",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Saltmarsh Visitor Center",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 51,
+          "end": 84,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "SVC-2025-GC",
+      "as_written": "SVC-2025-GC",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract No.: SVC-2025-GC",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 85,
+          "end": 110,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "12",
+      "as_written": "12",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "COR No.: 12",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 39,
+          "end": 50,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "date": {
+      "state": "accepted",
+      "value": "2025-08-12",
+      "as_written": "12 August 2025",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 12 August 2025",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 111,
+          "end": 131,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "Coastline Builders, Inc. (Contractor)",
+      "as_written": "Coastline Builders, Inc. (Contractor)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: Coastline Builders, Inc. (Contractor)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 132,
+          "end": 183,
+          "page": 1,
+          "line": 7
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Substitute fiber cement siding for the specified cedar siding on all elevations.",
+      "as_written": "Substitute fiber cement siding for the specified cedar siding on all elevations.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Substitute fiber cement siding for the specified cedar siding on all elevations.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 202,
+          "end": 282,
+          "page": 1,
+          "line": 9
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": -11200,
+      "as_written": "($11,200.00)",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Proposed credit to Owner: ($11,200.00)",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 284,
+          "end": 322,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 0,
+      "as_written": "none",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Proposed schedule impact: none",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 323,
+          "end": 353,
+          "page": 1,
+          "line": 12
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "rejected",
+      "as_written": "OWNER RESPONSE (19 August 2025): REJECTED. The cedar siding is a condition of the coastal design permit. No change to the Contract is authorized.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "OWNER RESPONSE (19 August 2025): REJECTED.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 355,
+          "end": 397,
+          "page": 1,
+          "line": 14
+        }
+      ]
+    }
+  }
+}

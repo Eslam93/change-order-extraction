@@ -1,0 +1,251 @@
+{
+  "document": {
+    "name": "e09-ambiguous-date.txt",
+    "kind": "text",
+    "sha256": "f849b38ad198ad7bfd2d797af8a4e8f3b86b26700c2de6176554c2cee53c3c81",
+    "pages": 1,
+    "characters": 385,
+    "unread_pages": [],
+    "notes": []
+  },
+  "run": {
+    "pipeline_version": "0.1.0",
+    "prompt": "change_order_facts@1",
+    "prompt_fingerprint": "ee8a3afebcbc038a85a3d243a909c701f6ffeb06d41679c2f1fb9df74622d3c7",
+    "model": {
+      "model": "anthropic/claude-haiku-5.5",
+      "base_url": "https://openrouter.ai/api/v1",
+      "timeout_seconds": 120.0,
+      "max_output_tokens": 4000,
+      "temperature": null,
+      "structured_output": "auto",
+      "http_requests": 1,
+      "rebuilt_from_recorded_replies": true
+    },
+    "corrective_retry": false,
+    "replies": [
+      {
+        "text": "{\"document_notes\":\"This is Change Order No. 31 on the Calder Bridge Deck Rehabilitation contract CBD-2025-114, adding work for a deteriorated expansion joint at Pier 3. The $18,975.00 contract amount increase is the change itself. The document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check has nothing to compare against.\",\"project_name\":{\"status\":\"stated\",\"value\":\"Calder Bridge Deck Rehabilitation\",\"quotes\":[\"Project: Calder Bridge Deck Rehabilitation\"],\"note\":\"\"},\"contract_number\":{\"status\":\"stated\",\"value\":\"CBD-2025-114\",\"quotes\":[\"Contract: CBD-2025-114\"],\"note\":\"\"},\"change_order_number\":{\"status\":\"stated\",\"value\":\"31\",\"quotes\":[\"No. 31\"],\"note\":\"\"},\"date\":{\"status\":\"stated\",\"value\":\"05/06/2026\",\"quotes\":[\"Date: 05/06/2026\"],\"note\":\"\"},\"requested_by\":{\"status\":\"stated\",\"value\":\"County Engineer\",\"quotes\":[\"Requested by: County Engineer\"],\"note\":\"\"},\"description\":{\"status\":\"stated\",\"value\":\"Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.\",\"quotes\":[],\"note\":\"\"},\"amount\":{\"status\":\"stated\",\"value\":\"$18,975.00\",\"quotes\":[\"Contract amount increase: $18,975.00\"],\"note\":\"\",\"direction\":\"increase\"},\"schedule_impact_days\":{\"status\":\"stated\",\"value\":\"3 working days\",\"quotes\":[\"Contract time increase: 3 working days\"],\"note\":\"\",\"direction\":\"increase\"},\"approval_status\":{\"status\":\"stated\",\"value\":\"approved\",\"quotes\":[\"Status: APPROVED\"],\"note\":\"\"},\"original_contract_sum\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"previous_changes\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_before\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"contract_sum_after\":{\"status\":\"absent\",\"value\":\"\",\"quotes\":[],\"note\":\"\"},\"suspicious_instructions\":false}",
+        "finish_reason": "stop",
+        "model": "anthropic/claude-haiku-5.5",
+        "provider": "Google",
+        "response_format": "json_schema",
+        "prompt_tokens": 4067,
+        "completion_tokens": 1256,
+        "cost": 0.0010347
+      }
+    ]
+  },
+  "model_notes": "This is Change Order No. 31 on the Calder Bridge Deck Rehabilitation contract CBD-2025-114, adding work for a deteriorated expansion joint at Pier 3. The $18,975.00 contract amount increase is the change itself. The document gives no original contract sum, prior change total or revised contract sum, so the arithmetic check has nothing to compare against.",
+  "needs_review": true,
+  "findings": [
+    {
+      "code": "day_and_month_ambiguous",
+      "detail": "no value could be accepted",
+      "field": "date",
+      "review": true
+    }
+  ],
+  "fields": {
+    "project_name": {
+      "state": "accepted",
+      "value": "Calder Bridge Deck Rehabilitation",
+      "as_written": "Calder Bridge Deck Rehabilitation",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Project: Calder Bridge Deck Rehabilitation",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 20,
+          "end": 62,
+          "page": 1,
+          "line": 3
+        }
+      ]
+    },
+    "contract_number": {
+      "state": "accepted",
+      "value": "CBD-2025-114",
+      "as_written": "CBD-2025-114",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract: CBD-2025-114",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 63,
+          "end": 85,
+          "page": 1,
+          "line": 4
+        }
+      ]
+    },
+    "change_order_number": {
+      "state": "accepted",
+      "value": "31",
+      "as_written": "31",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "No. 31",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 13,
+          "end": 19,
+          "page": 1,
+          "line": 2
+        }
+      ]
+    },
+    "date": {
+      "state": "unresolved",
+      "value": null,
+      "as_written": "05/06/2026",
+      "confidence": 0.0,
+      "band": "no_value",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [
+        "day_and_month_ambiguous"
+      ],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Date: 05/06/2026",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 86,
+          "end": 102,
+          "page": 1,
+          "line": 5
+        }
+      ]
+    },
+    "requested_by": {
+      "state": "accepted",
+      "value": "County Engineer",
+      "as_written": "County Engineer",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Requested by: County Engineer",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 103,
+          "end": 132,
+          "page": 1,
+          "line": 6
+        }
+      ]
+    },
+    "description": {
+      "state": "accepted",
+      "value": "Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.",
+      "as_written": "Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Replace additional deteriorated expansion joint at Pier 3 discovered during deck removal (22 LF), including new strip seal and header concrete.",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 147,
+          "end": 290,
+          "page": 1,
+          "line": 8
+        }
+      ]
+    },
+    "amount": {
+      "state": "accepted",
+      "value": 18975,
+      "as_written": "$18,975.00",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract amount increase: $18,975.00",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 292,
+          "end": 328,
+          "page": 1,
+          "line": 10
+        }
+      ]
+    },
+    "schedule_impact_days": {
+      "state": "accepted",
+      "value": 3,
+      "as_written": "3 working days",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Contract time increase: 3 working days",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 329,
+          "end": 367,
+          "page": 1,
+          "line": 11
+        }
+      ]
+    },
+    "approval_status": {
+      "state": "accepted",
+      "value": "approved",
+      "as_written": "Status: APPROVED",
+      "confidence": 0.9,
+      "band": "supported",
+      "corroborated": false,
+      "caveats": [],
+      "reasons": [],
+      "model_note": "",
+      "evidence": [
+        {
+          "quote": "Status: APPROVED",
+          "kind": "exact",
+          "score": 1.0,
+          "start": 369,
+          "end": 385,
+          "page": 1,
+          "line": 13
+        }
+      ]
+    }
+  }
+}
