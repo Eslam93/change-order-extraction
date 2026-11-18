@@ -1,6 +1,7 @@
 # Code lifted from the Toolkit
 
-Three small cores copied from `github.com/Eslam93/ToolKit` at commit `bc4f149` (2026-11-06).
+Three small cores copied from the author's Toolkit, a private repository, at commit `bc4f149`
+(2026-11-06).
 The Toolkit is built to be lifted from: each core is independent and travels with its tests.
 The copies are here so this project installs and runs with no access to that repository.
 

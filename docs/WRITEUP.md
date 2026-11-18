@@ -78,38 +78,67 @@ strict on purpose: it forgives a dropped word, not a paraphrase. It also lowers 
 confidence band.
 
 **2. The value is in the quoted lines, and is read from them** (`normalize.py`). For a name or
-an identifier, the value must be found inside the lines the quotes touch, and what is published
-is sliced from the document, so the model's change of case or dashes never reaches the output.
+an identifier, the value must be found inside the lines the quotes touch, in one piece, and
+what is published is sliced from the document, so the model's change of case or dashes never
+reaches the output. Words that are all on the line with other text between them are not a
+match: joining them would publish the model's wording.
 For a number, a duration or a date, the scanners find the tokens on the quoted lines, the
 model's value selects one by what it reads to, and the token is read by a fixed rule that
 refuses what it cannot settle. A description is rebuilt sentence by sentence from the
 document's own wording, entirely or not at all.
 
-**3. The label fits the field.** The words beside a value say what it is. A figure labelled
-"Revised Contract Sum", "Subtotal" or "not to exceed", a figure followed by a unit or preceded
-by "@", a date labelled "Contract Date" or sitting in a signature block, a duration in "valid
-for 15 days", an identifier under "Contract No." offered as the change order number: each is
-refused with a reason. A date is accepted only under a label that makes it the document's own
-("Date:", "Issued:", "Date Prepared:") or alone at the head of its line, as a letter's date is.
-In a table row, the label is the column's heading in the header row above.
+**3. The label fits the field.** The words beside a value say what it is. Each of these is
+refused with a reason:
+
+- a figure labelled "Revised Contract Sum", "Subtotal" or "not to exceed" (said before the
+  figure or after it), a figure followed by a unit or preceded by "@", and one of two figures
+  on a line with no label to tell them apart;
+- a date labelled "Contract Date" or "Invoice Date", or standing anywhere in a signature block;
+- a duration that is the contract time itself ("Revised Contract Time: 386 days"), an estimate
+  ("up to 10 days, to be confirmed") or a term for something else ("valid for 15 days",
+  "payment is due within 30 days");
+- an identifier under "Contract No." offered as the change order number, and a number taken
+  out of a date.
+
+A date is accepted only under a label that makes it the document's own: "Date", "Issued",
+"Date Prepared", "Change Order Date", and a short list of words that may stand before "date".
+Any other word there ("Invoice Date", "Start Date") makes it another event's. A date alone at
+the head of its line is accepted as a letter's date is. In a table row, the label is the
+column's heading in the header row above.
 
 **4. Nothing contradicts it.**
-- *Sign.* A figure written as negative (parentheses, a minus sign, CR) or wording that goes one
-  way only ("deduct", "credit", "add") must agree with the direction the model reported. A
-  decrease that nothing in the document shows is not accepted on the model's word. A blank
-  form that prints both "(increased) (decreased)" settles nothing by itself.
-- *Arithmetic.* The model also points at the contract sum before and after the change. If they
+- *Sign.* A figure written as negative (parentheses, a minus sign or a dash set against it,
+  CR) or wording that goes one way only ("deduct", "credit", "add") must agree with the
+  direction the model reported. The wording is read where a document puts it: the label before
+  the figure, a word or a remark straight after it ("(credit to Owner)"), the heading of its
+  column, and the document's title ("DEDUCTIVE CHANGE ORDER"), whether or not the model quoted
+  it. Parentheses that restate an amount in words are not a minus. A decrease that nothing in
+  the document shows is not accepted on the model's word. A blank form that prints both
+  "(increased) (decreased)", or a row under both an "Add" and a "Deduct" heading, settles
+  nothing by itself.
+- *Arithmetic.* The model also points at the contract sum before and after the change. Each is
+  used only in the role its own label gives it: a figure labelled "Revised Contract Sum" is
+  not accepted as the sum before, and a subtotal is not a contract sum at all. If the two
   differ by exactly the amount, the amount is corroborated and its sign is confirmed. If they
   differ by something else, the amount is refused. If only the original sum is known, a
   difference neither corroborates nor contradicts, because earlier change orders the document
-  does not list could explain it.
+  does not list could explain it. A figure that is itself labelled as a contract sum is never
+  the change, whatever the arithmetic.
+- *Zero.* "No change" is checked like a value. The model reporting it only starts the check.
+  The quoted statement has to say it about this field ("no change to the Contract Time" says
+  nothing about the price), without a hedge ("at this time", "subject to", a right to claim
+  reserved in the same paragraph), and no other figure in the document may be labelled as the
+  change. A zero figure counts under a label that makes it the change, not as the total of
+  earlier change orders.
 - *Approval.* A status is accepted only if the quoted lines show it: a statement, a stamp, a
-  ticked box, or a completed signature. The word does not count when it is an unticked option,
-  is negated, sits in a condition ("not valid until signed", "must be approved by") or labels a
-  blank ("Approved by Owner: ______").
+  ticked box, or a completed signature. The word does not count when its own box is empty
+  (boxes may stand before their options or after them), when it is negated, sits in a
+  condition ("not valid until signed", "must be approved by") or labels a blank ("Approved by
+  Owner: ______", or "Approved by Owner:" with nothing after it). A signature is not an
+  approval while another line of the block is unsigned.
 
 The stress test in section 7 measures what layers 3 and 4 are worth: with the label checks
-switched off, 107 of 551 injected mistakes are published; with them on, 1.
+switched off, 126 of 770 injected mistakes are published; with them on, 1.
 
 **Untrusted text.** Invisible characters are removed before any position is taken. The
 document reaches the model fenced between markers carrying a random token it cannot guess, and
@@ -125,18 +154,22 @@ caught by the absence checks in section 4.
 
 | Field | Rule | Refused |
 |---|---|---|
-| `amount` | One decimal rule (lifted from the Toolkit): with a comma and a point, the last is the decimal mark; one mark before two digits is decimal; one mark before three digits groups thousands, unless the document's own figures prove the other mark. Parentheses, a minus sign or CR make it negative. Kept in `Decimal`; emitted as a JSON number. | Groups that are not thousands; three decimals where the document proves a decimal mark; amounts written only in words; several figures in one value |
-| `schedule_impact_days` | Whole days. Weeks are multiplied by seven, with a caveat. Working days are not converted to calendar days: the number is taken as stated. A duration in words and figures must agree. | Months; fractions of a day; "ten (12) days" |
-| `date` | ISO, month-name and numeric forms. A numeric date whose first or second number exceeds 12 reads one way. Otherwise it needs the document's convention, taken from its other numeric dates when they prove one and do not disagree; the value then carries a caveat. Two-digit years are read as 20xx below 80, with a caveat. | `03/04/2026` with nothing to settle it; impossible dates |
+| `amount` | One decimal rule (lifted from the Toolkit): with a comma and a point, the last is the decimal mark; one mark before two digits is decimal; a comma before three digits groups thousands; a point before three digits is refused unless the document's own figures show what its points mean. Parentheses, a minus sign, a dash set against the figure or CR make it negative; parentheses that restate an amount in words do not. Kept in `Decimal`; emitted as a JSON number. | Groups that are not thousands; three decimals where the document proves a decimal mark; a figure scaled by a word ("$1.2 million", "2.75 MM"); amounts written only in words; several figures in one value |
+| `schedule_impact_days` | Whole days. Weeks are multiplied by seven, with a caveat. Working days are not converted to calendar days: the number is taken as stated. A duration in words and figures must agree. A bare number counts only under a label about time ("Days added: 14"), with a caveat. | Months; fractions of a day; "ten (12) days"; a range ("10-14 days"); a number in words past ninety-nine with no figure beside it; the day of a date |
+| `date` | ISO, month-name and numeric forms. A numeric date needs a four-digit year: "26-05-19" is as likely a cost code. One whose first or second number exceeds 12 reads one way. Otherwise it needs the document's convention, taken from its other numeric dates when they prove one and do not disagree; the value then carries a caveat. With a month's name, a two-digit year is read as 20xx below 80, with a caveat. | `03/04/2026` with nothing to settle it; `03/04/26`; impossible dates |
 | `approval_status` | `approved`, `rejected`, `pending`, `draft`, `void`, by the cues in section 3. A qualified approval ("approved as noted") is `approved`, one band lower, and always reviewed, because the output cannot carry the condition. | Any status the quoted text does not show |
-| Names, identifiers | The document's characters, white space collapsed. | A value interrupted by another column is kept with a caveat; one that is not in its quote is refused |
+| Names, identifiers | The document's characters, white space collapsed. | A value that does not stand in its quote in one piece; a value under another field's label; part of a date offered as an identifier |
 
-**Missing versus zero.** `0` needs evidence like any other value: a zero figure, or wording
-that says nothing changes ("no change to the Contract Time", "at no cost to the Owner",
-"none"). "N/A" is read as no change one band lower. "TBD", "to follow" and reserved rights are
-not zero: the model reports `unclear`, the field is null and the document is reviewed. A field
-the document never mentions is null, at confidence 0.0, and for the non-critical fields that
-needs no review.
+**Missing versus zero.** `0` needs evidence like any other value, and the evidence is the
+document's, not the model's: a zero figure under a label that makes it the change, or a
+statement that nothing changes about this field ("no change to the Contract Time", "at no cost
+to the Owner", "Time impact: none"). "N/A" is read as no change one band lower. A hedged
+statement is not zero: "no time extension is requested at this time", "no change, subject to
+review", a right to claim reserved in the same paragraph, "TBD", "to follow". Neither is a "no
+change" said about the other field, or one that stands beside a figure the document labels as
+the change. In each of those cases the field is null and the document is reviewed, whether the
+model reported `unclear` or reported zero. A field the document never mentions is null, at
+confidence 0.0, and for the non-critical fields that needs no review.
 
 **No currency conversion.** The amount is the figure in the document's currency. Currency is
 not part of the output contract, and a document mixing currencies is not detected.
@@ -161,13 +194,15 @@ difference is the policy:
 |---|---|---|
 | Sign against the figure, the wording or the contract sums | `direction_contradicts_figure`, `direction_contradicts_wording`, `sign_contradicts_contract_sums`, `decrease_not_shown_by_document`, `wording_gives_both_directions` | conflict |
 | Amount is a contract total, a part, a ceiling, a quantity or a rate | `figure_is_a_contract_total`, `figure_is_a_part_of_the_change`, `figure_is_a_ceiling_or_an_estimate`, `figure_is_a_quantity_or_a_rate` | conflict |
-| Another figure is labelled as the change; a requested figure or duration when another was granted | `another_figure_is_labelled_as_the_change`, `a_different_figure_was_approved`, `a_different_duration_was_granted` | conflict |
+| Another figure is labelled as the change, or shares an unlabelled line; a requested figure or duration when another was granted | `another_figure_is_labelled_as_the_change`, `another_figure_shares_the_line`, `a_different_figure_was_approved`, `a_different_duration_was_granted` | conflict |
+| A duration that is the contract time, an estimate, or a term for something else | `duration_is_a_contract_time_total`, `duration_is_a_ceiling_or_an_estimate`, `duration_is_not_about_the_schedule` | conflict |
+| "No change" the document does not state about this field, hedges, or contradicts | `no_change_not_shown_by_document`, `no_change_is_about_something_else`, `no_change_is_hedged`, `no_change_reported_beside_a_figure`, `another_duration_is_given_for_the_schedule` | conflict |
 | Two differing values under the same kind of label: two change amounts, two dates of the document's own, two schedule durations | `two_figures_are_labelled_as_the_change`, `two_dates_are_labelled_as_the_documents_own`, `two_durations_are_given_for_the_schedule` | conflict |
 | Amount against the contract sums before and after | `figure_contradicts_contract_sums` | conflict |
 | Two change order numbers; a number that differs from the labelled one | `conflicting_change_order_numbers`, `number_differs_from_labelled_change_order_number` | conflict |
-| Approval stated two ways (an APPROVED stamp and a rejection) | `conflicting_approval_evidence` | conflict |
-| Value under another field's label | `labelled_as_something_else`, `date_belongs_to_another_event`, `duration_is_not_about_the_schedule` | conflict |
-| Value not supported | `quote_not_found_in_document`, `value_not_in_quoted_text`, `wording_not_in_document`, `status_not_shown_by_quoted_text` | conflict |
+| Approval stated two ways (an APPROVED stamp and a rejection); a signature while another line of the block is unsigned | `conflicting_approval_evidence`, `signature_block_is_incomplete` | conflict |
+| Value under another field's label | `labelled_as_something_else`, `date_belongs_to_another_event`, `value_is_part_of_a_date` | conflict |
+| Value not supported, or not readable by rule | `quote_not_found_in_document`, `value_not_in_quoted_text`, `wording_not_in_document`, `status_not_shown_by_quoted_text`, `figure_not_readable`, `duration_not_readable`, `day_and_month_ambiguous` | conflict |
 | Change order dated before its contract; year outside 1990 to 2100 | `date_before_contract_date`, `date_outside_plausible_range` | suspicion |
 | Qualified approval | `approval_is_qualified` | suspicion |
 | The model called a field absent that the document seems to hold | `possibly_missed_value` | suspicion |
@@ -260,7 +295,7 @@ document that needs it for another field.
 ### Method
 
 - **Labels first.** The six samples and 28 edge cases were written and labelled by hand, and
-  committed, before any model read them (commits `d1866e4` and `99b7391`, both ahead of the
+  committed, before any model read them (commits `9d0e843` and `b95da8e`, both ahead of the
   pipeline's). No label was derived from an output.
 - **Per field, five outcomes**: `correct_value`, `correct_null`, `wrong_value`, `invented`,
   `missed`. A wrong or invented value is the error that matters. A missed value is an
@@ -312,18 +347,24 @@ Neither model made a mistake that reached an output, so those runs say nothing a
 mistake would do. `stress.py` makes them on purpose: it changes one field of each recorded
 reply the way a model plausibly errs, and runs the deterministic stages. No model is called.
 
-| Mistake played (551 in all) | Played | Refused | Published | Published with label checks off |
+| Mistake played (770 in all) | Played | Refused | Published | Published with label checks off |
 |---|---|---|---|---|
-| Another figure taken for the amount | 71 | 71 | 0 | 24 |
+| Another figure taken for the amount | 71 | 71 | 0 | 23 |
 | The amount's direction reversed | 29 | 29 | 0 | 0 |
 | A figure that is not in the document | 29 | 29 | 0 | 0 |
+| The direction reversed and the contract sums swapped to match | 5 | 5 | 0 | 2 |
+| A change reported as no change | 49 | 49 | 0 | 1 |
+| No change read from a line about something else | 11 | 11 | 0 | 9 |
 | Another date taken for the change order's | 43 | 43 | 0 | 39 |
 | The schedule's direction reversed | 20 | 20 | 0 | 0 |
 | Another duration taken for the schedule impact | 3 | 3 | 0 | 3 |
+| The day of a date taken for a number of days | 58 | 58 | 0 | 0 |
 | Another status claimed on the same quotes | 120 | 120 | 0 | 0 |
 | Approval read from wording about approval | 22 | 22 | 0 | 0 |
 | The contract number taken for the change order number | 32 | 32 | 0 | 9 |
+| A year out of a date taken for the change order number | 34 | 34 | 0 | 8 |
 | The requester taken for the project name | 33 | 32 | 1 | 32 |
+| A name the model rewrote | 62 | 62 | 0 | 0 |
 
 A stated value reported as absent was played 149 times: 148 sent the document to review for
 that field, and 1 passed unnoticed (a `0` in the days column of a pasted table row).
@@ -331,6 +372,39 @@ that field, and 1 passed unnoticed (a `0` in the days column of a pasted table r
 The one published mistake is "Owner", taken from "At the Owner's request, delete ..." as the
 project name. The value is in running text with no label beside it, so there is nothing to
 check it against. The document was flagged for other reasons.
+
+### What a second reader found
+
+The stress test above was written by the pipeline's author, and the first version of the checks
+passed it with 1 wrong value in 551. An independent reviewer was then given the code and asked
+to get a wrong value published. It did, in ten areas, each with a document and a model reply
+that went out at 0.90 or 0.97 without review:
+
+| Area | What got through |
+|---|---|
+| Zero | "No change" taken on the model's word: a `$0.00` quoted against the line that said $12,450.00; "no time extension is requested at this time"; the zero of "previous change orders" |
+| Reading a figure | "$1.2 million" read as 1.2; "950.250" read as 950,250 with nothing to say so |
+| Dates | A cost code "26-05-19" read as a date, which then settled the day/month order of the real one |
+| Contract sums | The sums used in whatever roles the model gave them, so swapping them reversed a sign at 0.97 |
+| Sign | Parentheses that restate an amount in words read as a minus; "(credit to Owner)", a "Deduct" column heading and a "DEDUCTIVE CHANGE ORDER" title not read |
+| Approval | Tick boxes placed after their options read backwards; "Approved by Owner:" with nothing after it; one party's signature over another's empty line |
+| Schedule | A range, an estimate, the revised contract time, a payment term and the day of a date, each taken for the schedule impact |
+| Which figure | A ceiling said after the figure; a proposed price where another was agreed; two figures on one unlabelled line |
+| Published text | A name assembled from two pieces of a line and published in the model's wording |
+| Labels | "Invoice Date" and "Start Date" taken for the document's date; a year taken out of a date as the change order number |
+
+It also found two patterns that took from twelve seconds to over a minute on a rule of twenty
+thousand hyphens or a run of colons, and five inputs that ended in a traceback.
+
+Every case was reproduced, fixed in the deterministic stages and pinned as a test
+(`tests/test_false_accepts.py`, `tests/test_hostile_input.py`), next to the neighbouring case
+that must still be accepted. The stress test now plays these mistakes too, which is why it
+grew from 551 to 770. The prompt did not change, and the 34 recorded outputs rebuild byte for
+byte under the new checks, so the fixes cost nothing on the labelled documents.
+
+What this says about the numbers in this document: a stress test written by the author
+measures the mistakes the author thought of. "1 in 551" was true and said little, and the same
+has to be assumed of "1 in 770".
 
 ### How to read this
 
@@ -356,6 +430,7 @@ check it against. The document was flagged for other reasons.
 | Failure | Handling |
 |---|---|
 | File missing, empty, an image, an Office file, binary | `DocumentError`, exit 3, nothing on stdout |
+| File that cannot be opened (locked, no permission) | `DocumentError` (`not_readable`), exit 3 |
 | PDF encrypted or damaged | `DocumentError` (`encrypted`, `malformed`) |
 | Scanned PDF: no text layer | `DocumentError` (`no_text`), with the pages named. Never an empty success |
 | A scanned page among text pages | Read what can be read; `unread_pages` finding; every confidence one band lower; review |
@@ -375,6 +450,11 @@ check it against. The document was flagged for other reasons.
 | The model reports a stated value absent | Absence checks: review |
 | Text addressed to the model | Fenced and found: review, lower bands, and values read from it refused |
 | The result would break the schema | `ContractError`, exit 5: a bug, never printed |
+| An error nothing expected | Logged with its traceback, exit 5, nothing on stdout |
+| A reply nested thousands of brackets deep | A reply of the wrong shape: one correction, then an error |
+| Text built to be slow: long runs of punctuation, thousands of dates or figures on a line | Every pattern is bounded and line ends are found once per document. The slowest shape tested takes under two seconds at the size limit, on the development machine |
+| A `--diagnostics` path that cannot be written | Exit 2, before the document is read or a model is called |
+| A recording made with another prompt, given to `--replay` | Exit 4: replies to another prompt are not replayed |
 
 No error message carries the key, the request or the provider's text: a provider can echo the
 document in an error body.
@@ -396,9 +476,10 @@ document in an error body.
 - **One synchronous call, no cache, no batch.** `make eval` uses four threads and nothing more.
 - **A small, synthetic evaluation set**, used for development.
 - **Diagnostics are a file**, not a store: no audit trail beyond what the caller keeps.
-- **Not handled, and refused where they occur:** amounts in words; three-decimal currencies;
-  tables with no header row; working days converted to calendar days; schedule impact given
-  only as a new completion date; currency reported with the amount.
+- **Not handled, and refused where they occur:** amounts in words or scaled by a word;
+  three-decimal currencies; a range of days; tables with no header row; working days converted
+  to calendar days; schedule impact given only as a new completion date; currency reported
+  with the amount.
 
 ## 10. What a production deployment would change
 
@@ -428,14 +509,18 @@ document in an error body.
 
 Three cores were copied unchanged with their tests (quote matching, the decimal rule, the
 injection sanitizer) and six modules follow a Toolkit design without copying it.
-`src/changeorder/vendor/README.md` lists each, what was kept and what was dropped. The project
-installs and runs without access to the Toolkit.
+`src/changeorder/vendor/README.md` lists each, what was kept and what was dropped. The Toolkit
+is a private repository; the project installs and runs without access to it.
 
 ## Known unresolved issues
 
 - Four unnecessary reviews in the edge cases, from lexicon gaps (section 7).
 - A name in running text is not checked against a label, because there is none.
 - A zero in a table column is not noticed when the model reports the field absent.
+- The label rules refuse some layouts a person reads without trouble: two fields on one line
+  separated by single spaces ("Project: Gym Date: 15 January 2026"), a date under a label
+  outside the short list ("Bid Date"), "Item 3 - 14 days" read as a range. Each ends in null
+  and a review, not in a wrong value.
 - The edge cases were run on a cheaper model than the samples, for budget reasons. They have
   not been run on the samples' model.
 - Nothing has been measured on a real change order.

@@ -22,16 +22,24 @@ make extract FILE=samples/inputs/co-03-deductive-credit.pdf
 Any OpenAI-compatible chat-completions endpoint works. Nothing about a provider or a model is
 in the code.
 
-No key at hand? Every committed run keeps the model's raw replies, and the pipeline can answer
-from them instead of calling a model:
+### Without a key
+
+Every committed run keeps the model's raw replies, and the pipeline can answer from them
+instead of calling a model. Nothing here needs a key or the network:
 
 ```bash
-uv run python -m changeorder samples/inputs/co-03-deductive-credit.pdf \
-    --replay samples/diagnostics/co-03-deductive-credit.json
+make setup
+make test           # the test suite
+make eval-replay    # rebuild all 34 committed outputs from their recorded replies and compare
+uv run python -m changeorder samples/inputs/co-03-deductive-credit.pdf --replay samples/diagnostics/co-03-deductive-credit.json
 ```
 
-Either way, stdout carries exactly one JSON object and nothing else (shown here with each
-field on one line and the description cut short):
+Without make, each target is one `uv run` command; they are listed in the [Makefile](Makefile).
+
+### What comes out
+
+stdout carries exactly one JSON object and nothing else (shown here with each field on one
+line and the description cut short):
 
 ```json
 {
@@ -53,12 +61,12 @@ Logs go to stderr. The exit status separates a processed document from a failure
 | Status | Meaning | stdout |
 |---|---|---|
 | 0 | The document was processed. `needs_review` may be true. | one JSON object |
-| 2 | Usage error (no `FILE`) | empty |
-| 3 | The document could not be read: not found, not a PDF or text, encrypted, damaged, scanned with no text layer, garbled, or over a limit | empty |
+| 2 | Usage error: no `FILE`, or a `--diagnostics` path that cannot be written | empty |
+| 3 | The document could not be read: not found, cannot be opened, not a PDF or text, encrypted, damaged, scanned with no text layer, garbled, or over a limit | empty |
 | 4 | The model is not configured, could not be reached, timed out, or gave no usable answer after one correction | empty |
-| 5 | The result would break the published schema (a bug) | empty |
+| 5 | A bug: the result would break the published schema, or an error nothing expected | empty |
 
-A caught error is never turned into a result.
+An error is never turned into a result.
 
 To see why each value was accepted or refused, `make explain FILE=<path>` also writes
 `out/diagnostics.json`: for every field the quotes, where they were found, the caveats and the
@@ -73,14 +81,16 @@ that file.
 - All nine fields are always present, each with exactly `value` and `confidence`.
 - A value the document does not state is `null` with confidence `0.0`. It is never `0` and
   never `""`. `0` means the document says so: "no change to the Contract Time" is `0`; a
-  document that never mentions schedule is `null`.
+  document that never mentions schedule is `null`; "no time extension is requested at this
+  time" is `null` and goes to review.
 - `amount` is the signed change to the contract value: negative for a credit. It is never the
   original or the revised contract total. `schedule_impact_days` is signed the same way.
 - `date` is `YYYY-MM-DD`. A date such as `03/04/2026` is `null` unless another date in the
   same document proves which number is the day.
 - `approval_status` is one of `approved`, `rejected`, `pending`, `draft`, `void`, or `null`
-  when the document does not establish a state. An approval section, empty signature lines and
-  "not valid until signed" are not an approval.
+  when the document does not establish a state. An approval section, an unticked box, a label
+  with nothing after it, empty signature lines and "not valid until signed" are not an
+  approval.
 
 ## How it works
 
@@ -98,8 +108,9 @@ file ──▶ document.py   read the text layer (layout mode) or the text file;
 ```
 
 A value is published only when the model says the document states it, a quote for it is found
-in the document, the value is found inside the quoted lines and read from them by a fixed rule,
-and nothing contradicts it. Otherwise the field is `null` and the reason is recorded.
+in the document, the value is found inside the quoted lines in one piece and read from them by
+a fixed rule, and nothing contradicts it. Otherwise the field is `null` and the reason is
+recorded.
 
 ## Confidence and review
 
@@ -109,7 +120,7 @@ Confidence is a band, not a probability, and the model is never asked for it.
 |---|---|---|
 | 0.97 | corroborated | Verbatim evidence, read by rule, and an independent check agrees: the contract sums before and after differ by exactly this amount, or a duration is written in words and in figures that match |
 | 0.90 | supported | Verbatim evidence, read by rule, a label that fits, nothing competing or contradicting |
-| 0.75 | qualified | One caveat: the quote was found only approximately, the day/month order came from the document's other dates, weeks were converted to days, approval rests on a signature alone, or part of the document could not be read |
+| 0.75 | qualified | One caveat: the quote was found only approximately, the day/month order came from the document's other dates, weeks were converted to days, approval rests on signatures alone, or part of the document could not be read |
 | 0.50 | weak | Two or more caveats |
 | 0.00 | no value | `null` |
 
@@ -138,24 +149,39 @@ short, on documents written for this project:
 | Documents flagged for review | 3 of 6, all warranted | 12 of 28: 8 warranted, 4 not |
 | Documents that needed review and were passed | 0 | 0 |
 
-No model made a mistake that reached an output, so a stress test makes them deliberately: 551
+No model made a mistake that reached an output, so a stress test makes them deliberately: 770
 single-field mistakes injected into the recorded replies. One is published (a bare "Owner"
 taken from running text as the project name, in a document already flagged). With the label
-checks switched off, 107 are.
+checks switched off, 126 are.
 
 These numbers describe synthetic documents written by the pipeline's author and used to
 develop it. They are not a held-out test, and the confidence values are not calibrated. The
 write-up says what they do and do not show.
+
+## How it was tested
+
+[`docs/TESTING.md`](docs/TESTING.md) has the detail, including where each case the brief asks
+for is tested and what was not tested. In short:
+
+| Layer | What it answers |
+|---|---|
+| Unit and behaviour tests (`make test`) | Does each rule do what it says, and what does the pipeline publish for a given document and a given model reply? The model is scripted, so a test can make it wrong on purpose. No network, no key |
+| Replay (`make eval-replay`) | Are the 34 committed outputs exactly what the current code produces from the recorded model replies? An output edited by hand fails the build |
+| Scoring against hand labels | The table above |
+| Stress test | What the checks do when the model is wrong: the 770 mistakes above |
+| Independent review | A second reader attacked the checks with documents and replies of its own. The first round got wrong values published; each case was fixed and is pinned in [`tests/test_false_accepts.py`](tests/test_false_accepts.py) and [`tests/test_hostile_input.py`](tests/test_hostile_input.py) |
+| Live runs | The six samples and the 28 edge cases against a real model through `make`, recorded in `samples/diagnostics/` and `eval/diagnostics/` |
 
 ## Repository
 
 ```text
 src/changeorder/     the pipeline (start with pipeline.py, then fields.py)
   vendor/            three cores lifted from the Toolkit, with a README
-tests/               480 tests of this code, 255 that travel with the lifted cores
+tests/               the test suite; tests/vendor/ travels with the lifted cores
 samples/             six documents, their labels, the delivered outputs, the recorded runs
 eval/                28 labelled edge cases, their outputs, REPORT.md
 docs/WRITEUP.md      design, decisions, limits, what production would change
+docs/TESTING.md      how it was tested, and how to repeat it
 ```
 
 | Command | Does |
@@ -174,10 +200,11 @@ docs/WRITEUP.md      design, decisions, limits, what production would change
   every confidence one band and forces review; what is on it is not read.
 - **English only.** The label and approval lexicons are English, and deliberately narrow: an
   unfamiliar phrasing is refused, not guessed. That costs recall (see the abstentions above).
-- **Amounts written only in words, three-decimal currencies and tables without a header row**
-  are refused.
+- **Refused, not read:** amounts written only in words or scaled by a word ("$1.2 million"),
+  three-decimal currencies, a range of days ("10-14 days"), and tables without a header row.
 - **One record per document.** A file holding several change orders is not split.
-- **Evaluated on synthetic documents only.**
+- **Evaluated on synthetic documents only.** The checks were tightened against the cases two
+  rounds of testing found; they have not met a real change order.
 
 [`docs/WRITEUP.md`](docs/WRITEUP.md) covers the design decisions, the confidence method and its
 limits, the evaluation, the failure modes and what a production deployment would change.
