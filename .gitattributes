@@ -1,0 +1,4 @@
+# One line ending everywhere, so committed outputs are byte-identical on Windows and Linux.
+* text=auto eol=lf
+*.pdf binary
+*.png binary
