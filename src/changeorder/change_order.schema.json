@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:changeorder:schema:change-order:1",
+  "title": "Change order extraction result",
+  "description": "One change order extracted from one document. Every field is an object with exactly `value` and `confidence`. A value the document does not state, or that could not be established, is null with confidence 0. Confidence is a band label (0.5, 0.75, 0.9, 0.97), not a calibrated probability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_name",
+    "contract_number",
+    "change_order_number",
+    "date",
+    "requested_by",
+    "description",
+    "amount",
+    "schedule_impact_days",
+    "approval_status",
+    "needs_review"
+  ],
+  "properties": {
+    "project_name": {
+      "description": "Name of the construction project, as written in the document.",
+      "$ref": "#/$defs/textField"
+    },
+    "contract_number": {
+      "description": "Identifier of the original contract that the change order modifies.",
+      "$ref": "#/$defs/textField"
+    },
+    "change_order_number": {
+      "description": "Identifier of this change order.",
+      "$ref": "#/$defs/textField"
+    },
+    "date": {
+      "description": "Date of the change order itself, as YYYY-MM-DD. Null when the document gives none or when day and month cannot be told apart.",
+      "$ref": "#/$defs/dateField"
+    },
+    "requested_by": {
+      "description": "Person or organisation that requested the change.",
+      "$ref": "#/$defs/textField"
+    },
+    "description": {
+      "description": "The document's own wording of the change in the work.",
+      "$ref": "#/$defs/textField"
+    },
+    "amount": {
+      "description": "Signed change to the contract value in the document's own currency: positive for an increase, negative for a decrease or credit, 0 when the document states the price does not change. Never the original or revised contract total.",
+      "$ref": "#/$defs/amountField"
+    },
+    "schedule_impact_days": {
+      "description": "Signed change to the contract time in days: positive for an extension, negative for a reduction, 0 when the document states the schedule does not change, null when it does not say.",
+      "$ref": "#/$defs/daysField"
+    },
+    "approval_status": {
+      "description": "Normalised approval state. Null when the document does not establish one.",
+      "$ref": "#/$defs/statusField"
+    },
+    "needs_review": {
+      "description": "True when a person should check this result before it is used.",
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "nullHasNoConfidence": {
+      "if": {
+        "properties": { "value": { "type": "null" } }
+      },
+      "then": {
+        "properties": { "confidence": { "const": 0 } }
+      }
+    },
+    "textField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence"],
+      "properties": {
+        "value": { "type": ["string", "null"], "minLength": 1, "pattern": "\\S" },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      },
+      "allOf": [{ "$ref": "#/$defs/nullHasNoConfidence" }]
+    },
+    "dateField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence"],
+      "properties": {
+        "value": {
+          "type": ["string", "null"],
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      },
+      "allOf": [{ "$ref": "#/$defs/nullHasNoConfidence" }]
+    },
+    "amountField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      },
+      "allOf": [{ "$ref": "#/$defs/nullHasNoConfidence" }]
+    },
+    "daysField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence"],
+      "properties": {
+        "value": { "type": ["integer", "null"] },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      },
+      "allOf": [{ "$ref": "#/$defs/nullHasNoConfidence" }]
+    },
+    "statusField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence"],
+      "properties": {
+        "value": {
+          "description": "approved: the approving party approved or executed it. rejected: it was rejected, denied or declined. pending: it awaits a decision, review or signature. draft: it is marked as a draft or not for execution. void: it was voided, cancelled, withdrawn or superseded.",
+          "enum": ["approved", "rejected", "pending", "draft", "void", null]
+        },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      },
+      "allOf": [{ "$ref": "#/$defs/nullHasNoConfidence" }]
+    }
+  }
+}

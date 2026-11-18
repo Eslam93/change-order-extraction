@@ -118,8 +118,12 @@ def standard_form() -> None:
     page.down(16)
 
     rows = [
-        ("PROJECT:", "Harborview Elementary School – Classroom Wing Addition",
-         "CHANGE ORDER NO.:", "004"),
+        (
+            "PROJECT:",
+            "Harborview Elementary School \u2013 Classroom Wing Addition",
+            "CHANGE ORDER NO.:",
+            "004",
+        ),
         ("", "1420 Marina Way, Port Alder", "DATE:", "March 18, 2026"),
         ("OWNER:", "Port Alder Unified School District", "CONTRACT NO.:", "PAUSD-2025-0117"),
         ("CONTRACTOR:", "Castellan Builders, Inc.", "CONTRACT DATE:", "June 2, 2025"),
@@ -140,7 +144,7 @@ def standard_form() -> None:
     page.text(LEFT, "The Contract is changed as follows:", font="Helvetica-Bold")
     page.down(16)
     for item in (
-        "1. Furnish and install twelve (12) additional data drops in Classrooms 201–206 per "
+        "1. Furnish and install twelve (12) additional data drops in Classrooms 201\u2013206 per "
         "Owner Bulletin No. 3.",
         "2. Upgrade corridor flooring from VCT to luxury vinyl tile (approx. 2,400 sq. ft.) per "
         "ASI-07.",
@@ -185,7 +189,7 @@ def standard_form() -> None:
         page.down(13)
         page.text(x, f"Date: {signed}", size=9)
     page.down(24)
-    page.text(LEFT, "STATUS: APPROVED – fully executed by all parties.", font="Helvetica-Bold")
+    page.text(LEFT, "STATUS: APPROVED \u2013 fully executed by all parties.", font="Helvetica-Bold")
     page.save()
 
 
@@ -217,7 +221,7 @@ def deductive_credit() -> None:
     page.down(18)
 
     for label, value in (
-        ("Project:", "Riverbend Logistics Center – Building C"),
+        ("Project:", "Riverbend Logistics Center \u2013 Building C"),
         ("Owner:", "Calloway Industrial Properties"),
         ("Contract / Agreement No.:", "CIP-RLC-0932"),
         ("Initiated by:", "Calloway Industrial Properties (Owner)"),
@@ -262,7 +266,7 @@ def deductive_credit() -> None:
         page.down(14)
     page.rule()
     page.down(15)
-    page.text(LEFT + 8, "NET CHANGE – DEDUCT", font=bold, size=11)
+    page.text(LEFT + 8, "NET CHANGE \u2013 DEDUCT", font=bold, size=11)
     page.right(RIGHT - 8, "($110,983.75)", font=bold, size=11)
     page.down(24)
 
@@ -310,7 +314,9 @@ def subcontractor_multi_amount() -> None:
     page.text(LEFT, "DELMAR ELECTRIC CO.", font=bold, size=12)
     page.right(RIGHT, "CHANGE ORDER PROPOSAL / AUTHORIZATION", font=bold, size=10)
     page.down(16)
-    page.text(LEFT, "Job: 2214  Eastgate Transit Plaza – Parking Structure P2", font=mono, size=9)
+    page.text(
+        LEFT, "Job: 2214  Eastgate Transit Plaza \u2013 Parking Structure P2", font=mono, size=9
+    )
     page.right(RIGHT, "CO # 9", font=bold, size=10)
     page.down(13)
     page.text(LEFT, "GC Subcontract No. ETP-SC-0457", font=mono, size=9)
@@ -323,7 +329,7 @@ def subcontractor_multi_amount() -> None:
 
     page.paragraph(
         LEFT,
-        "Requested by: Hallmark General Contractors – J. Ortega (Project Engineer), "
+        "Requested by: Hallmark General Contractors \u2013 J. Ortega (Project Engineer), "
         "RFI-112 response",
         width=RIGHT - LEFT,
         font=mono,
@@ -421,7 +427,9 @@ def subcontractor_multi_amount() -> None:
     page.save()
 
 
-def _handwriting(draw: ImageDraw.ImageDraw, rng: random.Random, x: int, y: int, length: int) -> None:
+def _handwriting(
+    draw: ImageDraw.ImageDraw, rng: random.Random, x: int, y: int, length: int
+) -> None:
     """A scribble that reads as a signature: a wandering stroke with loops."""
     points = []
     for step in range(length):
@@ -457,7 +465,12 @@ def _signature_scan() -> Image.Image:
     )
 
     for top, party, name, signed in (
-        (470, "OWNER: Stonebridge Urban Living LP", "A. Mercier, Development Director", "11 May 2026"),
+        (
+            470,
+            "OWNER: Stonebridge Urban Living LP",
+            "A. Mercier, Development Director",
+            "11 May 2026",
+        ),
         (790, "CONTRACTOR: Kestrel & Vance Construction Ltd.", "P. Vance, Principal", "8 May 2026"),
     ):
         draw.text((110, top), party, font=body, fill=35)
@@ -491,7 +504,7 @@ def scanned_signature_page() -> None:
     page.right(RIGHT, "Page 1 of 2", size=9)
     page.down(22)
     rows = [
-        ("Stonebridge Residences – Tower B", "Change Order: CO-023"),
+        ("Stonebridge Residences \u2013 Tower B", "Change Order: CO-023"),
         ("Owner: Stonebridge Urban Living LP", "Issued: 7 May 2026"),
         ("Contractor: Kestrel & Vance Construction Ltd.", "Contract: SUL-TB-GC-001"),
     ]
@@ -503,7 +516,7 @@ def scanned_signature_page() -> None:
     page.rule()
     page.down(18)
 
-    page.text(LEFT, "Change requested by: Stonebridge Urban Living LP – Design Bulletin DB-19")
+    page.text(LEFT, "Change requested by: Stonebridge Urban Living LP \u2013 Design Bulletin DB-19")
     page.down(22)
     page.text(LEFT, "Scope:", font="Helvetica-Bold")
     page.down(15)
@@ -519,7 +532,7 @@ def scanned_signature_page() -> None:
     page.text(LEFT, "Summary of cost:", font="Helvetica-Bold")
     page.down(16)
     for label, amount in (
-        ("Pavers and pedestals – material and installation", "41,870.00"),
+        ("Pavers and pedestals \u2013 material and installation", "41,870.00"),
         ("Gas fire tables and piping", "17,340.00"),
         ("In-slab conduit", "4,125.00"),
         ("Credit for specified concrete pavers", "(12,600.00)"),
@@ -567,7 +580,12 @@ def scanned_signature_page() -> None:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    for build in (standard_form, deductive_credit, subcontractor_multi_amount, scanned_signature_page):
+    for build in (
+        standard_form,
+        deductive_credit,
+        subcontractor_multi_amount,
+        scanned_signature_page,
+    ):
         build()
     for path in sorted(OUT.glob("*.pdf")):
         print(f"{path.name}: {path.stat().st_size} bytes")
