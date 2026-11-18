@@ -1,5 +1,7 @@
 # Change order extraction
 
+[![CI](https://github.com/Eslam93/change-order-extraction/actions/workflows/ci.yml/badge.svg)](https://github.com/Eslam93/change-order-extraction/actions/workflows/ci.yml)
+
 Turns one construction change order (a PDF with a text layer, or pasted text) into one
 validated JSON object: nine fields, each with a value and a confidence, plus `needs_review`.
 
@@ -203,8 +205,8 @@ docs/TESTING.md      how it was tested, and how to repeat it
 - **Refused, not read:** amounts written only in words or scaled by a word ("$1.2 million"),
   three-decimal currencies, a range of days ("10-14 days"), and tables without a header row.
 - **One record per document.** A file holding several change orders is not split.
-- **Evaluated on synthetic documents only.** The checks were tightened against the cases two
-  rounds of testing found; they have not met a real change order.
+- **Evaluated on synthetic documents only.** The checks were tightened against the cases the
+  author's stress test and an independent review found; they have not met a real change order.
 
 [`docs/WRITEUP.md`](docs/WRITEUP.md) covers the design decisions, the confidence method and its
 limits, the evaluation, the failure modes and what a production deployment would change.
