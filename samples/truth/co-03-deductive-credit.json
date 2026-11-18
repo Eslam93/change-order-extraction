@@ -1,0 +1,23 @@
+{
+  "document": "co-03-deductive-credit.pdf",
+  "fields": {
+    "project_name": "Riverbend Logistics Center – Building C",
+    "contract_number": "CIP-RLC-0932",
+    "change_order_number": "CO-011",
+    "date": "2026-01-12",
+    "requested_by": "Calloway Industrial Properties (Owner)",
+    "description": "Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing, gypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in. Owner will complete this work under a separate tenant-improvement contract.",
+    "amount": -110983.75,
+    "schedule_impact_days": -10,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "change_order_number": ["011", "11"],
+    "requested_by": ["Calloway Industrial Properties"],
+    "description": [
+      "Delete the mezzanine office build-out (Rooms M-101 through M-108) from the Contract, including metal stud framing, gypsum board, acoustical ceilings, doors and hardware, and associated electrical rough-in."
+    ]
+  },
+  "review_expected": false,
+  "why": "A credit. The net change is written in parentheses and labelled DEDUCT, and the Contract Sum falls from 12,744,310.00 to 12,633,326.25, so the amount is negative. It is the net change, not the subtotal of credits (116,825.00) and not the retained OH&P. The Contract Time is decreased by ten days, so -10. Both parties signed under 'Accepted'."
+}

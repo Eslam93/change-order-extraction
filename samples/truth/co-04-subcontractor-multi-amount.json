@@ -1,0 +1,25 @@
+{
+  "document": "co-04-subcontractor-multi-amount.pdf",
+  "fields": {
+    "project_name": "Eastgate Transit Plaza – Parking Structure P2",
+    "contract_number": "ETP-SC-0457",
+    "change_order_number": "9",
+    "date": null,
+    "requested_by": "Hallmark General Contractors – J. Ortega (Project Engineer)",
+    "description": "Provide and install EV charging infrastructure at Level 1: (8) dual-port Level 2 chargers, 400A distribution panel EV1, feeders from switchboard MSB, underground conduit and trenching (approx. 310 LF), and bollards per sketch SK-E-14.",
+    "amount": 81640.55,
+    "schedule_impact_days": 4,
+    "approval_status": "approved"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Hallmark General Contractors – J. Ortega (Project Engineer), RFI-112 response",
+      "Hallmark General Contractors – J. Ortega",
+      "Hallmark General Contractors",
+      "J. Ortega (Project Engineer)",
+      "J. Ortega"
+    ]
+  },
+  "review_expected": true,
+  "why": "The date is written 03/04/2026 and the only other date, 03/09/2026, reads two ways as well, so nothing in the document says whether it is 4 March or 3 April: null, and a person should look. The proposal asks for 85,087.00 but the general contractor approved 81,640.55, and the subcontract value rises by exactly that, so the approved figure is the change. Six days were requested and four granted: 4. '2214' is a job number, not part of the project name."
+}

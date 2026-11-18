@@ -1,0 +1,26 @@
+{
+  "document": "co-02-contractor-request.txt",
+  "fields": {
+    "project_name": "Lakeshore Medical Office Building",
+    "contract_number": null,
+    "change_order_number": "17",
+    "date": "2026-02-10",
+    "requested_by": "Tom Abernathy, Lakeshore Development (Owner's Representative)",
+    "description": "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain. Electrical disconnect relocation by others.",
+    "amount": 21318.13,
+    "schedule_impact_days": 0,
+    "approval_status": "pending"
+  },
+  "also_accept": {
+    "requested_by": [
+      "Tom Abernathy, Lakeshore Development",
+      "Tom Abernathy (Lakeshore Development)",
+      "Tom Abernathy"
+    ],
+    "description": [
+      "Relocate rooftop unit RTU-3 approximately 18 feet east to clear the new elevator overrun. Includes new roof curb, extension of supply and return ductwork, relocation of gas piping and condensate drain."
+    ]
+  },
+  "review_expected": false,
+  "why": "Pasted email. No contract number is given ('SUBCONTRACT: Mechanical (HVAC)' names a trade, not an identifier), so it is null; the project name still ties the request to a contract. The amount is TOTAL THIS CHANGE, not a line item or the subtotal. The schedule is explicitly unchanged, so 0 and not null; '15 days' is the offer's validity. '2/3' is the date of an earlier email. The status is stated: pending."
+}
