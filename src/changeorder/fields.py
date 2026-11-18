@@ -42,6 +42,7 @@ from .normalize import (
     after_on_line,
     amount_cues,
     amount_label,
+    amounts_are_scaled,
     before_on_line,
     date_convention,
     date_label,
@@ -131,6 +132,7 @@ class _Context:
         self.dates = find_dates(self.text)
         self.date_convention = date_convention(self.dates)
         self.title_cues = title_cues(self.text)
+        self.amounts_scaled = amounts_are_scaled(self.text)
         self._kinds: dict[tuple[int, int], str | None] = {}
         self._money_starts = [item.start for item in self.money]
         self._days_starts = [item.start for item in self.days]
@@ -621,6 +623,9 @@ def _amount(context: _Context, extraction: Extraction) -> Decision:
         return _no_change(context, decision, candidate, windows, money=True)
     if candidate.direction == "unclear":
         return _unresolved(decision, "direction_not_established")
+    if context.amounts_scaled:
+        # "(All amounts in thousands of dollars)": no figure here is what it is written as.
+        return _unresolved(decision, "amounts_are_stated_in_thousands_or_millions")
 
     wanted = find_money(candidate.value, context.decimal_mark)
     sizes = {money.value for money in wanted if money.value is not None}

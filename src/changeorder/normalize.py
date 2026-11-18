@@ -29,6 +29,7 @@ __all__ = [
     "after_on_line",
     "amount_cues",
     "amount_label",
+    "amounts_are_scaled",
     "before_on_line",
     "date_convention",
     "date_label",
@@ -182,10 +183,28 @@ _MONEY = re.compile(
     """,
     re.VERBOSE,
 )
-# "$1.2 million", "350 thousand", "2.75 MM", "40 k": the figure is not the amount. A single
-# letter counts only as a word of its own, not as the initial of "K. Alvarez" or the M of "M&E".
+# "$1.2 million", "$1.2 mil", "350 thou.", "2.75 MM", "40 k": the figure is not the amount. The
+# word may follow a gap, or open the next line when the sentence wraps. A single letter counts
+# only right beside the figure and as a word of its own: not the M of "M&E", not an initial
+# across a column gap or on the next line. "$350 K. Alvarez" is refused too: the price of not
+# reading "$350 K." as three hundred and fifty.
+_SCALE_WORD = (
+    r"(?:millions?|billions?|trillions?|thousands?|hundreds?|mil|mill|mio|thou|lakhs?|crores?"
+    r"|mm|bn|mn)"
+)
 _SCALE_AFTER = re.compile(
-    r"[ \t]?(?:(?:million|billion|thousand|mm|bn|mn)\b|[km]\b(?![.&/'-]))", re.IGNORECASE
+    rf"[ \t]{{0,3}}(?:\n[ \t]{{0,3}})?{_SCALE_WORD}\b|[ \t]?[km]\b(?![&/'-])", re.IGNORECASE
+)
+# A note that scales every figure in the document: "(All amounts in thousands of dollars)",
+# "Figures in $000", "USD '000".
+_SCALED_DOCUMENT = re.compile(
+    r"\b(?:amounts?|figures?|values?|prices?|costs?|dollars|sums?|totals?)\s+(?:are\s+|is\s+)?"
+    r"(?:shown\s+|stated\s+|expressed\s+|given\s+|presented\s+|reported\s+)?in\s+"
+    r"(?:(?:thousands|millions|hundreds)\b|\$?\s?'?0{3}s?\b(?![.,]\d)|\$?k\b)"
+    r"|\(\s?in\s+(?:thousands|millions)\b[^)\n]{0,30}\)"
+    r"|\(\s?(?:in\s+)?(?:\$|USD)?\s?'?0{3}s?\s?\)"
+    r"|(?:\$|USD)\s?'?0{3}s?\b(?![.,]\d)",
+    re.IGNORECASE,
 )
 # "Twelve Thousand Four Hundred Fifty Dollars ($12,450.00)": the parentheses restate the words.
 _IN_WORDS_BEFORE = re.compile(
@@ -245,6 +264,12 @@ def find_money(text: str, decimal_mark: str | None = None) -> list[Money]:
                     end = max(end, match.end(group))
         found.append(Money(value, text[start:end], start, end, negative, problem))
     return found
+
+
+def amounts_are_scaled(text: str) -> bool:
+    """Whether the document says its figures stand for thousands or millions. A figure read
+    from such a document as it is written would be wrong by that factor."""
+    return bool(_SCALED_DOCUMENT.search(text))
 
 
 def decimal_mark_of(text: str) -> str | None:
